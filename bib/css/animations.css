@@ -1,0 +1,75 @@
+.logo {
+	
+	
+	overflow:hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0,0,0);
+}
+
+.logo {
+  display:inline-block;
+  overflow:hidden;
+  white-space:nowrap;
+}
+
+.logo:first-of-type {    /* For increasing performance 
+                       ID/Class should've been used. 
+                       For a small demo 
+                       it's okaish for now */
+  animation: showup 7s infinite;
+}
+
+.logo:last-of-type {
+  width:0px;
+  animation: reveal 7s infinite;
+}
+
+.logo:last-of-type span {
+  margin-left:-355px;
+  animation: slidein 7s infinite;
+}
+
+@keyframes showup {
+    0% {opacity:0;}
+    20% {opacity:1;}
+    80% {opacity:1;}
+    100% {opacity:0;}
+}
+
+@keyframes slidein {
+    0% { margin-left:-800px; }
+    20% { margin-left:-800px; }
+    35% { margin-left:0px; }
+    100% { margin-left:0px; }
+}
+
+@keyframes reveal {
+    0% {opacity:0;width:0px;}
+    20% {opacity:1;width:0px;}
+    30% {width:40%;}
+    80% {opacity:1;}
+    100% {opacity:0;width:40%;}
+}
+
+@media(max-width:568px){
+	.bi {
+                display: none;
+		margin-left: 0%!important;
+	}
+	.gi {
+            font-size: 25px!important;
+                text-align: right;
+		width: 100%;
+	}
+	.ti {
+		display: none;
+	}
+	@keyframes reveal{
+	0% {opacity:0;width:0px;}
+    20% {opacity:1;width:0px;}
+    30% {width:60%;}
+    80% {opacity:1;}
+    100% {opacity:0;width:60%;}
+	}
+}

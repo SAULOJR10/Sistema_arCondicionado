@@ -1,0 +1,49 @@
+.button {
+    height: 85%;
+    margin-top: 1%;
+    background-color: rgb(194,228,255);
+    border-left: solid lightgray 2px;
+    font-family: calibri;
+}
+
+.mais {
+    background-color: white;
+    padding: 0.5%;
+    text-align: center;
+}
+
+.mais:hover{
+    background-color: rgb(194,228,255);
+    color: white;
+}
+
+.gerenciar {
+    float: right;
+    margin-right: 0.5%;
+    margin-top: 1%;
+    background-color: rgb(242,249,255);
+    padding: 2%;
+}
+
+.numeracao{
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    margin-top: 3px;
+    border-radius: 50px;
+    background-color: rgb(50, 164, 250);
+    color: white;
+    text-align: center;
+    padding-top: 1%;
+    float: left;
+  }
+
+  p {
+    margin-bottom: 0.5%;
+    color: #444444;
+    font-size: 12px;
+}
+
+input[type="text"]{
+    width: 70%;
+}
