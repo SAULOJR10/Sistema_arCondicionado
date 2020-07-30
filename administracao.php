@@ -291,8 +291,8 @@ if (isset($_SESSION['numLogin'])) {
                             <h5 style="margin-top: 3.5%;"><b>Gerenciar <span class="dadoAr"></span></b></h5>
                             <div class="col-sm-12" style="margin-top:20px;">
                                 <p><b>Inserir:</b></p>
-                                <input type="text" style="width:38%;" />
-                                <i class="fas fa-check" style="color: green; font-size:2rem; margin-left:5%;"></i>
+                                <input type="text" style="width:38%;" id="nome"/>
+                                <i class="fas fa-check" id="inserirOnclick" style="color: green; font-size:2rem; margin-left:5%;"></i>
                             </div>
                             <div class="col-sm-12" style="margin-top:20px;">
                                 <p><b>Editar:</b></p>

@@ -10,6 +10,18 @@ switch ($acao) {
     case 'ADDAR':
         ADDAR();
         break;
+    case 'InserirLocal':
+        InserirDadosAr('localizacao');
+        break;
+    case 'InserirMarca':
+        InserirDadosAr('marca');
+        break;
+    case 'InserirModelo':
+        InserirDadosAr('modelo');
+        break;
+    case 'InserirPotencia':
+        InserirDadosAr('potencia');
+        break;
 }
 
 function ADDProp()
@@ -39,18 +51,19 @@ function ADDProp()
     echo json_encode($resultado);
 }
 
-function ADDAR(){
+function ADDAR()
+{
     $resultado = "Ar Condicionado(s) inseridos com sucesso !!!";
     $quant = $_POST['quant'];
     $UH = $_POST['UH'];
-    $localizacao = explode(';',$_POST['localizacao']);
-    $marca = explode(';',$_POST['marca']);
-    $modelo = explode(';',$_POST['modelo']);
-    $potencia = explode(';',$_POST['potencia']);
-    $observacao = explode(';',$_POST['observacao']);
-    $tempo_uso = explode(';',$_POST['tempo_uso']);
+    $localizacao = explode(';', $_POST['localizacao']);
+    $marca = explode(';', $_POST['marca']);
+    $modelo = explode(';', $_POST['modelo']);
+    $potencia = explode(';', $_POST['potencia']);
+    $observacao = explode(';', $_POST['observacao']);
+    $tempo_uso = explode(';', $_POST['tempo_uso']);
 
-    for($i = 0; $i <= $quant; $i++){
+    for ($i = 0; $i < $quant; $i++) {
         $loc = $localizacao[$i];
         $marc = $marca[$i];
         $mod = $modelo[$i];
@@ -60,7 +73,17 @@ function ADDAR(){
 
         $sql = "INSERT INTO public.equipamento(localizacao, marca, modelo, potencia, tempo_de_uso, uh, tipo_equipamento, data_cadastro, data_alteracao, observacao)
                 VALUES ('$loc', '$marc', '$mod', '$pot', '$TU', '$UH', '1', now(), now(), '$obs');";
-        pg_query($GLOBALS['con'], $sql)or die($resultado = "Não foi possivvel adicionar Ar Condicionado, por favor, recarregue a pagina e tente novamente");
+        pg_query($GLOBALS['con'], $sql) or die($resultado = "Não foi possivvel adicionar Ar Condicionado, por favor, recarregue a pagina e tente novamente");
     }
+    echo json_encode($resultado);
+}
+
+function InserirDadosAr($tabela){
+    $resultado = "$tabela inserida com sucesso !!!";
+    $nome = $_POST['nome'];
+
+    $sql = "INSERT INTO public.$tabela (nome) values ('$nome')";
+    pg_query($GLOBALS['con'], $sql)or die($resultado = "Não foi possivel inserir $tabela, recarregue a pagina e tente novamente");
+
     echo json_encode($resultado);
 }

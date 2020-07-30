@@ -45,7 +45,9 @@ function ADDAR(){
                         contentype: false,
                 },
                 success: function (data) {
-                        
+                        document.getElementById('quantAr').value = '';
+                        $('#arCond').empty();
+                        $('#CadProp2').modal('hide');
                 },
                 error: function (msg) {
                         alert(msg.responseText);
@@ -256,31 +258,65 @@ function SoUm(id) {
         $('#documento').append(html);
 }
 
+function CadDadosAr(id){
+        var nome = document.getElementById('nome').value;
+        $.ajax({
+                method: 'post',
+                dataType: 'json',
+                url: 'bib/ajax/CadastrarAdm.json.php',
+                data: {
+                        acao: id,
+                        nome: nome,
+                        processoData: false,
+                        contentype: false
+                },
+                success: function (data) {
+                        document.getElementById('nome').value = '';
+                        $('#Edit').modal('hide');
+                },
+                error: function (msg) {
+                        alert(msg);
+                }
+        }); 
+}
+
 function AbrirModal(abrir, fechar, idUH) {
         switch (fechar) {
                 case 'Loc':
                         $('.dadoAr').empty();
                         $('.dadoAr').append('Localização');
+                        var options = document.getElementById('localizacao1').innerHTML;
                         $('#EditDadosAr').empty();
-                        $('#EditDadosAr').append('<div class="col-sm-6"><div class="form-group"><select class="form-control" style="color: #444444; width:80%;"><option value="Sala">Sala</option><option value="Cozinha">Cozinha</option><option value="Quarto">Quarto</option><option>Sala de Jantar</option></select><i class="fas fa-pencil-alt" onclick="Edit()"></i></div></div><div class="col-sm-3" id="novonome"></div>');
+                        $('#EditDadosAr').append('<div class="col-sm-6"><div class="form-group"><select class="form-control" id="dadosArEdit" style="color: #444444; width:80%;">'+options+'</select><i class="fas fa-pencil-alt" style="margin-top:3px;" id="removeEditar" onclick="Edit(\'Localizacao\')"></i><i class="fas fa-times" id="removeExcluir" style="color:red; font-size:2rem;" onclick="ExcluirDadosAR(\'Localizacao\')"></i></div></div><div class="col-sm-3" id="novonome"></div>');
+                        $('#inserirOnclick').removeAttr('onclick');
+                        $('#inserirOnclick').attr('onclick', 'CadDadosAr("InserirLocal")');
                         break;
                 case 'Marca':
                         $('.dadoAr').empty();
                         $('.dadoAr').append('Marca');
+                        var options = document.getElementById('marca1').innerHTML;
                         $('#EditDadosAr').empty();
-                        $('#EditDadosAr').append('<div class="col-sm-6"><div class="form-group"><select class="form-control" style="color: #444444; width:80%;"><option>Consul</option><option>Samsung</option><option>Philips</option><option>LG</option></select><i class="fas fa-pencil-alt" onclick="Edit()"></i></div></div><div class="col-sm-3" id="novonome"></div>');
+                        $('#EditDadosAr').append('<div class="col-sm-6"><div class="form-group"><select class="form-control" id="dadosArEdit" style="color: #444444; width:80%;">'+options+'</select><i class="fas fa-pencil-alt" style="margin-top:3px;" id="removeEditar" onclick="Edit(\'Marca\')"></i><i class="fas fa-times" id="removeExcluir" style="color:red; font-size:2rem;" onclick="ExcluirDadosAR(\'Marca\')"></i></div></div><div class="col-sm-3" id="novonome"></div>');
+                        $('#inserirOnclick').removeAttr('onclick');
+                        $('#inserirOnclick').attr('onclick', 'CadDadosAr("InserirMarca")');
                         break;
                 case 'Mod':
                         $('.dadoAr').empty();
                         $('.dadoAr').append('Modelo');
+                        var options = document.getElementById('modelo1').innerHTML;
                         $('#EditDadosAr').empty();
-                        $('#EditDadosAr').append('<div class="col-sm-6"><div class="form-group"><select class="form-control" style="color: #444444; width:80%;"><option>BP900X-S</option><option>CQ1000X-T</option><option>DR1100X-U</option><option>ES1200X-V</option></select><i class="fas fa-pencil-alt" onclick="Edit()"></i></div></div><div class="col-sm-3" id="novonome"></div>');
+                        $('#EditDadosAr').append('<div class="col-sm-6"><div class="form-group"><select class="form-control" id="dadosArEdit" style="color: #444444; width:80%;">'+options+'</select><i class="fas fa-pencil-alt" style="margin-top:3px;" id="removeEditar" onclick="Edit(\'Modelo\')"></i><i class="fas fa-times" id="removeExcluir" style="color:red; font-size:2rem;" onclick="ExcluirDadosAR(\'Modelo\')"></i></div></div><div class="col-sm-3" id="novonome"></div>');
+                        $('#inserirOnclick').removeAttr('onclick');
+                        $('#inserirOnclick').attr('onclick', 'CadDadosAr("InserirModelo")');
                         break;
                 case 'Pot':
                         $('.dadoAr').empty();
                         $('.dadoAr').append('Potência');
+                        var options = document.getElementById('potencia1').innerHTML;
                         $('#EditDadosAr').empty();
-                        $('#EditDadosAr').append('<div class="col-sm-6"><div class="form-group"><select class="form-control" style="color: #444444; width:80%;"><option>9.000 BTUs</option><option>10.000 BTUs</option><option>11.000 BTUs</option><option>12.000 BTUs</option></select><i class="fas fa-pencil-alt" onclick="Edit()"></i></div></div><div class="col-sm-3" id="novonome"></div>');
+                        $('#EditDadosAr').append('<div class="col-sm-6"><div class="form-group"><select class="form-control" id="dadosArEdit" style="color: #444444; width:80%;">'+options+'</select><i class="fas fa-pencil-alt" style="margin-top:3px;" id="removeEditar" onclick="Edit(\'Potencia\')"></i><i class="fas fa-times" id="removeExcluir" style="color:red; font-size:2rem;" onclick="ExcluirDadosAR(\'Potencia\')"></i></div></div><div class="col-sm-3" id="novonome"></div>');
+                        $('#inserirOnclick').removeAttr('onclick');
+                        $('#inserirOnclick').attr('onclick', 'CadDadosAr("InserirPotencia")');
                         break;
         }
         if (fechar == 'Loc' || fechar == 'Marca' || fechar == 'Mod' || fechar == 'Pot') {
@@ -304,9 +340,59 @@ function AbrirModal(abrir, fechar, idUH) {
         $('#' + abrir).modal('show');
 }
 
-function Edit() {
+function Edit(id) {
+        $('#removeExcluir').remove();
+        $('#removeEditar').remove();
         $('#novonome').empty();
-        $('#novonome').append('<div class="form-group"><input type="text"/><i class="fas fa-check" style="color:green; font-size:2rem;"></i></div>');
+        $('#novonome').append('<div class="form-group"><input type="text" style="width:150px;" id="NovoNomeDadosAr"/>&nbsp;&nbsp;&nbsp;<i class="fas fa-check" id="removeCheck" onclick="EditDadosAr(\''+id+'\')" style="color:green; font-size:2rem;"></i></div>');
+}
+
+function EditDadosAr(tabela){
+        nomeAntigo = document.getElementById('dadosArEdit').value;
+        novoNome = document.getElementById('NovoNomeDadosAr').value;
+        $.ajax({
+                method: 'post',
+                dataType: 'json',
+                url: 'bib/ajax/AtualizarAdm.json.php',
+                data: {
+                        acao: 'atualizarDadosAr',
+                        tabela: tabela,
+                        nomeAntigo: nomeAntigo,
+                        novoNome: novoNome,
+                        processoData: false,
+                        contentype: false
+                },
+                success: function (data) {
+                        $('#Edit').modal('hide');
+                        $('#CadProp2').modal('show');
+                },
+                error: function (msg) {
+                        alert(msg.responseText);
+                }
+        });
+}
+
+function ExcluirDadosAR(tabela){
+        nomeAntigo = document.getElementById('dadosArEdit').value;
+        $.ajax({
+                method: 'post',
+                dataType: 'json',
+                url: 'bib/ajax/AtualizarAdm.json.php',
+                data: {
+                        acao: 'ExcluirDadosAr',
+                        tabela: tabela,
+                        nomeAntigo: nomeAntigo,
+                        processoData: false,
+                        contentype: false
+                },
+                success: function (data) {
+                        $('#Edit').modal('hide');
+                        quantAr();
+                },
+                error: function (msg) {
+                        alert(msg.responseText);
+                }
+        });
 }
 
 function aparecer(classe, acao, id) {
@@ -329,7 +415,7 @@ function aparecer(classe, acao, id) {
 function Gerenciadas(){
         var quant = document.getElementsByName('allUHS').length;
         var gerenciadas = ';';
-        var naoGerenciadas = '';
+        var naoGerenciadas = ';';
         for(i = 1; i <= quant; i++){
                 if($('#ch_UH'+i).is(':checked')){
                         gerenciadas = gerenciadas + document.getElementById('gerenciada'+i).value + ';';
@@ -337,7 +423,6 @@ function Gerenciadas(){
                         naoGerenciadas = naoGerenciadas + document.getElementById('gerenciada'+i).value + ';';
                 }
         }
-        alert (gerenciadas);
         $.ajax({
                 method: 'post',
                 dataType: 'json',
@@ -450,33 +535,37 @@ function quantAr() {
                         contentype: false
                 },
                 success: function (data) {
-                        
+                        var options1 = data.split(';')[1];
+                        var options2 = data.split(';')[2];
+                        var options3 = data.split(';')[3];
+                        var options4 = data.split(';')[4];
+                        for (i = 1; i <= quant; i++) {
+                                html = html + '<div class="col-sm-12">'
+                                        + '<h5 style = "margin-top: 3.5%; float:left;">'
+                                        + '<b><i class="far fa-check-square" style="floa:left; font-size:2rem;"></i>Ar Condicionado 0' + i + '</b>'
+                                        + '</h5></div><div class="col-sm-3">'
+                                        + '<p>Localização: <i onclick="AbrirModal(\'Edit\', \'Loc\')" class="fas fa-pencil-alt" style="float: right;"></i></p><div class="form-group">'
+                                        + '<select class="form-control" style="color: #444444;" id="localizacao' + i + '">'+options1+'</select></div></div>'
+                                        + '<div class="col-sm-3">'
+                                        + '<p>Marca: <i onclick="AbrirModal(\'Edit\', \'Marca\')" class="fas fa-pencil-alt" style="float: right;"></i></p><div class="form-group">'
+                                        + '<select class="form-control" id="marca'+i+'" style="color: #444444;">'+options2+'</select></div></div>'
+                                        + '<div class="col-sm-3">'
+                                        + '<p>Modelo: <i onclick="AbrirModal(\'Edit\', \'Mod\')" class="fas fa-pencil-alt" style="float: right;"></i></p><div class="form-group">'
+                                        + '<select class="form-control" id="modelo'+i+'" style="color: #444444;">'+options3+'</select></div></div>'
+                                        + '<div class="col-sm-3">'
+                                        + '<p>Potência: <i onclick="AbrirModal(\'Edit\', \'Pot\')" class="fas fa-pencil-alt" style="float: right;"></i></p><div class="form-group">'
+                                        + '<select class="form-control" id="potencia'+i+'" style="color: #444444;">'+options4+'</select></div></div>'
+                                        + '<div class="col-sm-12"><p style="float: left; margin-top:1%;">Ar Condicionado usado ?</p><div class="col-xs-1 " style="padding-right: 0px; padding-left:0px; margin:0.5% 2% 0% 2%;">'
+                                        + '<input id="ch_usado' + i + '" class="switch switch--shadow" type="checkbox"><label style="float:right; min-width: 40px;" for="ch_usado' + i + '"></label></div><div class="form-group">'
+                                        + '<select class="form-control" id="tempo_uso'+i+'" style="color: #444444;"><option>Tempo de uso</option><option>6 meses</option><option>1 ano</option><option>1 ano e 6 meses</option></select></div></div>'
+                                        + '<div class="col-sm-12"style="border-bottom:solid green 1px">'
+                                        + '<p>Observações</p><input type="text" id="observacao'+i+'" style="width: 100%; margin-bottom:20px;" /></div>';
+                        }
+                        $('#ArCond').empty();
+                        $('#ArCond').append(html);
                 },
                 error: function (msg) {
                         alert(msg.responseText);
                 }
         });
-        for (i = 1; i <= quant; i++) {
-                html = html + '<div class="col-sm-12">'
-                        + '<h5 style = "margin-top: 3.5%; float:left;">'
-                        + '<b><i class="far fa-check-square" style="floa:left; font-size:2rem;"></i>Ar Condicionado 0' + i + '</b>'
-                        + '</h5></div><div class="col-sm-3">'
-                        + '<p>Localização: <i onclick="AbrirModal(\'Edit\', \'Loc\')" class="fas fa-pencil-alt" style="float: right;"></i></p><div class="form-group">'
-                        + '<select class="form-control" style="color: #444444;" id="localizacao' + i + '"><option value="">Selecione</option><option value="Sala">Sala</option><option value="Cozinha">Cozinha</option><option value="Quarto">Quarto</option><option>Sala de Jantar</option></select></div></div>'
-                        + '<div class="col-sm-3">'
-                        + '<p>Marca: <i onclick="AbrirModal(\'Edit\', \'Marca\')" class="fas fa-pencil-alt" style="float: right;"></i></p><div class="form-group">'
-                        + '<select class="form-control" id="marca'+i+'" style="color: #444444;"><option value="">Selecione</option><option>Consul</option><option>Samsung</option><option>Philips</option><option>LG</option></select></div></div>'
-                        + '<div class="col-sm-3">'
-                        + '<p>Modelo: <i onclick="AbrirModal(\'Edit\', \'Mod\')" class="fas fa-pencil-alt" style="float: right;"></i></p><div class="form-group">'
-                        + '<select class="form-control" id="modelo'+i+'" style="color: #444444;"><option value="">Selecione</option><option>BP900X-S</option><option>CQ1000X-T</option><option>DR1100X-U</option><option>ES1200X-V</option></select></div></div>'
-                        + '<div class="col-sm-3">'
-                        + '<p>Potência: <i onclick="AbrirModal(\'Edit\', \'Pot\')" class="fas fa-pencil-alt" style="float: right;"></i></p><div class="form-group">'
-                        + '<select class="form-control" id="potencia'+i+'" style="color: #444444;"><option value="">Selecione</option><option>9.000 BTUs</option><option>10.000 BTUs</option><option>11.000 BTUs</option><option>12.000 BTUs</option></select></div></div>'
-                        + '<div class="col-sm-12"><p style="float: left; margin-top:1%;">Ar Condicionado usado ?</p><div class="col-xs-1 " style="padding-right: 0px; padding-left:0px; margin:0.5% 2% 0% 2%;">'
-                        + '<input id="ch_usado' + i + '" class="switch switch--shadow" type="checkbox"><label style="float:right; min-width: 40px;" for="ch_usado' + i + '"></label></div><div class="form-group">'
-                        + '<select class="form-control" id="tempo_uso'+i+'" style="color: #444444;"><option>Tempo de uso</option><option>6 meses</option><option>1 ano</option><option>1 ano e 6 meses</option></select></div></div>'
-                        + '<div class="col-sm-12"style="border-bottom:solid green 1px">'
-                        + '<p>Observações</p><input type="text" id="observacao'+i+'" style="width: 100%; margin-bottom:20px;" /></div>';
-        }
-        $('#ArCond').append(html);
 }
