@@ -26,7 +26,7 @@ if (isset($_SESSION['numLogin'])) {
 
 <head>
     <?php include_once 'bib/comum/bibi.php'; ?>
-    <link rel="stylesheet" type="text/css" href="bib/css/administracao.css">
+    <link rel="stylesheet" type="text/css" href="bib/css/checkList.css">
     <link rel="stylesheet" type="text/css" href="bib/css/tabelas.css">
 </head>
 
@@ -44,30 +44,29 @@ if (isset($_SESSION['numLogin'])) {
 
                         <div class="col-sm-12" style="background-color: white; margin-bottom:2%; height:100px; padding:0%;">
 
-                            <div class="col-sm-4 button" id="Ordem" style="background-color: white ; height:80%;border: none;" align="center">
-                                <i class="fas fa-map-marker-alt" style="font-size: 3rem; float:left; margin-left:10%; margin-top:1%;"></i>
-                                <h3 style="font-size: 4rem; margin-top: 0%; margin-right:35%;">Gerência</h3>
-                                <h3 style="font-size: 4rem; float:right; margin-right:15%; margin-top:-15px;">Predial</h3>
+                            <div class="col-sm-12 button" id="Ordem" style="background-color: white ; height:80%;border: none;" align="center">
+                                <i class="fas fa-map-marker-alt" style="font-size: 3rem; float:left; margin-left:20%; margin-top:1%;"></i>
+                                <h3 style="font-size: 3rem; margin-top: 1%; margin-right:35%;">Check-List Ar Condicionado</h3>
                             </div>
 
-                            <div style="padding-top:1%;" class="col-sm-2 button " id="Ordem" align="center">
-                                <h1 style="margin-top: 0%;"><b id="UHGer">0</b></h1>
-                                <h3 style="margin-top: 5px; font-size: 1.6rem;" align="center"> UHs gerenciadas</h3>
+                            <div style="padding-top:1%;" class="col-sm-3 button " id="Ordem" align="center">
+                                <img src="bib/img/15.png" style="width: 80%; height: 120px;">
+                                <h3 style="margin-top: 5px; font-size: 1.6rem;" align="center"> Check-List quinzenal | UH 101 </h3>
                             </div>
 
-                            <div style="padding-top:1%;" class="col-sm-2 button" align="center">
-                                <h1 style="margin-top: 0%;"><b id="ARGer">0</b></h1>
-                                <h3 style="margin-top: 5px; font-size: 1.6rem;" align="center"> Ar cond. gerenciados</h3>
+                            <div style="padding-top:1%;" class="col-sm-3 button" align="center">
+                            <img src="bib/img/30.png" style="width: 80%; height: 120px;">
+                                <h3 style="margin-top: 5px; font-size: 1.6rem;" align="center"> Check-List quinzenal | UH 101 </h3>
                             </div>
 
-                            <div style="padding-top:1%;" class="col-sm-2 button" align="center">
-                                <h1 style="margin-top: 0%;"><b id="SalaGer">0</b></h1>
-                                <h3 style="margin-top: 5px; font-size: 1.6rem;" align="center"> Salas gerenciadas</h3>
+                            <div style="padding-top:1%;" class="col-sm-3 button" align="center">
+                            <img src="bib/img/90.png" style="width: 80%; height: 120px;">
+                                <h3 style="margin-top: 5px; font-size: 1.6rem;" align="center"> Check-List quinzenal | UH 101 </h3>
                             </div>
 
-                            <div onclick="SelectBlocosGer()" class="col-sm-2 button mais" style="border:none;">
-                                <i class="fas fa-cogs" style="font-size: 3rem; float:left; margin:5% 40% 10% 40%;"></i>
-                                <h3 style="font-size: 1.6rem;margin-top:0%;">Gerenciar</h3>
+                            <div style="padding-top:1%;" class="col-sm-3 button" align="center">
+                            <img src="bib/img/365.png" style="width: 80%; height: 120px;">
+                                <h3 style="margin-top: 5px; font-size: 1.6rem;" align="center"> Check-List quinzenal | UH 101 </h3>
                             </div>
 
                             <div class="ger" style="display: none; background-color: white; width:100%;">

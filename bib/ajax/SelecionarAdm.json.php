@@ -271,9 +271,9 @@ function MontarGerUH()
     $explodeSalaGer = explode(';', $salaGerenciada);
     $antes = $i;
     for ($i = $antes; $i < $quant2 + $antes; $i++) {
-        if($i != 1){
+        if ($i != 1) {
             $o = $i - $antes;
-        }else{
+        } else {
             $o = $i;
         }
         $sala = $explodeSala[$o];
@@ -283,7 +283,7 @@ function MontarGerUH()
             $selected = "checked";
         } else {
             $selected = "";
-        }   
+        }
         $htmlSala .= "<div class='col-sm-3' style='padding:0%;'>
                     <h5 style='float: left;'>Sala $sala</h5>
                     <div class='col-xs-3 ' style='padding-right: 0px; padding-left:0px; margin:3% 0% 0% 3%;'>
@@ -351,34 +351,35 @@ function selectAndar()
     echo json_encode($html);
 }
 
-function Selects(){
+function Selects()
+{
     $sql1 = "SELECT * FROM localizacao";
     $exe1 = pg_query($GLOBALS['con'], $sql1);
     $option = ';<option value="">Selecione</option>';
-    while($result1 = pg_fetch_assoc($exe1)){
+    while ($result1 = pg_fetch_assoc($exe1)) {
         $loc = $result1['nome'];
-        $option .= "<option value='$loc'>$loc</option>" ;
+        $option .= "<option value='$loc'>$loc</option>";
     }
     $sql2 = "SELECT * FROM marca";
     $exe2 = pg_query($GLOBALS['con'], $sql2);
     $option .= ';<option value="">Selecione</option>';
-    while($result2 = pg_fetch_assoc($exe2)){
+    while ($result2 = pg_fetch_assoc($exe2)) {
         $marc = $result2['nome'];
-        $option .= "<option value='$marc'>$marc</option>" ;
+        $option .= "<option value='$marc'>$marc</option>";
     }
     $sql3 = "SELECT * FROM modelo";
     $exe3 = pg_query($GLOBALS['con'], $sql3);
     $option .= ';<option value="">Selecione</option>';
-    while($result3 = pg_fetch_assoc($exe3)){
+    while ($result3 = pg_fetch_assoc($exe3)) {
         $mod = $result3['nome'];
-        $option .= "<option value='$mod'>$mod</option>" ;
+        $option .= "<option value='$mod'>$mod</option>";
     }
     $sql4 = "SELECT * FROM potencia";
     $exe4 = pg_query($GLOBALS['con'], $sql4);
     $option .= ';<option value="">Selecione</option>';
-    while($result4 = pg_fetch_assoc($exe4)){
+    while ($result4 = pg_fetch_assoc($exe4)) {
         $pot = $result4['nome'];
-        $option .= "<option value='$pot'>$pot</option>" ;
+        $option .= "<option value='$pot'>$pot</option>";
     }
     echo json_encode($option);
 }

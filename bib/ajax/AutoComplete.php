@@ -1,14 +1,21 @@
 <?php
-include_once "../comum/conexao.php";
-
-$nome = filter_input(INPUT_GET, 'term', FILTER_SANITIZE_STRING);
-    
-$sql = "SELECT * FROM proprietarios WHERE nome LIKE '$nome' ORDER BY nome ASC LIMIT 7";
+$source = pg_escape_string($_GET['term']);
+$sql = "SELECT * FROM proprietarios WHERE nome LIKE '%$source%' ORDER BY nome";
 $exe = pg_query($GLOBALS['con'], $sql);
 
-while ($result = pg_fetch_assoc($exe)){
-    $data[] = $result['nome'];
+$resultado = '[';
+$teste = true;
+
+while ($result = pg_fetch_assoc($exe)) {
+    if (!$teste) {
+        $resultado .= ', ';
+    } else {
+        $teste = false;
+    }
+    $resultado .= json_encode($result['nome']);
 }
 
-echo json_encode($data);
+$resultado .= ']';
+
+echo $resultado;
 ?>

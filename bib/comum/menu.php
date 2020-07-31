@@ -26,7 +26,7 @@ if (session_id() == '') {
                 </a>
             </li>
             <!------------------------------------------------------------------------------------------------------------->
-            <li><a href="SistemaArCondicionado.php?num1=<?php echo $n1?>">
+            <li><a onclick="ContinuarEntidade(<?php echo $n1?>, 'SistemaArCondicionado.php')">
                     <div class="row" style="width: 100%">
                         <div class="col-xs-2 p-l-0 p-r-0"><i class="fas fa-map-marker-alt" style="font-size: 1.8rem; float:left; margin-left:10%; margin-top:1%;"></i></div>
                         <div class="col-xs-10 p-l-0 p-r-0"> <b>Cadastro Predial</b></div>
@@ -34,8 +34,7 @@ if (session_id() == '') {
                 </a>
             </li>
             <!------------------------------------------------------------------------------------------------------------->
-            <!------------------------------------------------------------------------------------------------------------->
-            <li><a href="administracao.php?num1=<?php echo $n1?>">
+            <li><a onclick="ContinuarEntidade(<?php echo $n1?>, 'administracao.php')">
                     <div class="row" style="width: 100%">
                         <div class="col-xs-2 p-l-0 p-r-0"><i class="fas fa-users-cog" style="font-size: 1.8rem; float:left; margin-left:10%; margin-top:1%;"></i></div>
                         <div class="col-xs-10 p-l-0 p-r-0"> <b>Administracao</b></div>
@@ -43,7 +42,15 @@ if (session_id() == '') {
                 </a>
             </li>
             <!------------------------------------------------------------------------------------------------------------->
-            <li><a href="Dashbord.php">
+            <li><a onclick="ContinuarEntidade(<?php echo $n1?>, 'Check-List.php')">
+                    <div class="row" style="width: 100%">
+                        <div class="col-xs-2 p-l-0 p-r-0"><i class="fas fa-list-ol" style="font-size: 1.8rem; float:left; margin-left:10%; margin-top:1%;"></i></div>
+                        <div class="col-xs-10 p-l-0 p-r-0"> <b>Check-List</b></div>
+                    </div>
+                </a>
+            </li>
+            <!------------------------------------------------------------------------------------------------------------->
+            <li><a onclick="ContinuarEntidade(<?php echo $n1?>, 'Dashbord.php')">
                     <div class="row" style="width: 100%">
                         <div class="col-xs-2 p-l-0 p-r-0"><i class="fas fa-chart-bar" style="font-size: 1.8rem; float:left; margin-left:10%; margin-top:1%;"></i></div>
                         <div class="col-xs-10 p-l-0 p-r-0"> <b>Graficos</b></div>

@@ -4,6 +4,12 @@ include_once "bib/comum/conexao.php";
 session_start();
 $idLogin = $_SESSION['idUsuario'];
 
+if(isset($_GET['Ent'])){
+    $Entidade = $_GET['Ent'];
+}else{
+    $Entidade = 'Selecione';
+}
+
 if (isset($_SESSION['numLogin'])) {
     $n1 = $_GET["num1"];
     $n2 = $_SESSION["numLogin"];

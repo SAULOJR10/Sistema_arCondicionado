@@ -3,6 +3,9 @@ $(document).ready(function () {
     $(".telefone").mask("(99) 99999-9999");
     $(".cep").mask("99999-999");
     $(".cpf").mask("999.999.999-99");
+    if (document.getElementById('idEnt') != undefined) {
+        Tabela();
+    }
     var idLogin = document.getElementById('idLogin').value;
     $.ajax({
         method: 'post',
@@ -815,7 +818,7 @@ function UpdateSala(acao, id) {
             contentype: false
         },
         success: function (data) {
-            if(acao == 'ExcluirSala'){
+            if (acao == 'ExcluirSala') {
                 MontarUpdateSala(antigoBloco, antigoAndar);
             }
             Tabela();

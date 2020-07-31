@@ -28,3 +28,12 @@ dropdownArray.forEach(function(el){
 Element.prototype.hasClass = function(className) {
     return this.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(this.className);
 };
+
+function ContinuarEntidade(num, local){
+	if(document.getElementById('idEnt') != undefined){
+		var Entidade = document.getElementById('nome_cliente').innerHTML;
+		window.location=""+local+"?num1="+num+"&Ent="+Entidade+"";
+	}else{
+		window.location=""+local+"?num1="+num+"";
+	}
+}
