@@ -4327,3 +4327,16 @@ readers do not read off random characters that represent icons */
 .fas {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900; }
+
+  .numeracao {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    margin-top: 3px;
+    border-radius: 50px;
+    background-color: rgb(50, 164, 250);
+    color: white;
+    text-align: center;
+    padding-top: 1%;
+    float: left;
+}

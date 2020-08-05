@@ -180,7 +180,7 @@ if (isset($_SESSION['numLogin'])) {
                             <div class="col-sm-4">
                                 <p>Telefone</p>
                                 <div class="form-group">
-                                    <input type="text" id="telefoneProp" placeholder="(77) 77777-7777" class="form-control" style="width: 98%; height:30px;">
+                                    <input type="text" id="telefoneProp" placeholder="(77) 77777-7777" class="form-control telefone" style="width: 98%; height:30px;">
                                 </div>
                             </div>
                             <div class="col-sm-5">
@@ -192,7 +192,7 @@ if (isset($_SESSION['numLogin'])) {
                             <div class="col-sm-3">
                                 <p>Cep</p>
                                 <div class="form-group">
-                                    <input type="text" id="CEPProp" placeholder="77777-777" class="form-control" style="width: 98%; height:30px;">
+                                    <input type="text" id="CEPProp" placeholder="77777-777" class="form-control cep" style="width: 98%; height:30px;">
                                 </div>
                             </div>
                             <div class="col-sm-4">

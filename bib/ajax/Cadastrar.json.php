@@ -97,9 +97,9 @@ function cadBloco()
                 $zero = '';
             }
             if ($o == $quantApart[$andar] && $i == $quantAndar) {
-                $Values .= "('$i$zero$o', $i, $idBloco, 1, 'apartamento', true, '$idApart', false, 'Sem Proprietário')";
+                $Values .= "('$i$zero$o', $i, $idBloco, 1, 'UH', true, '$idApart', false, 'Sem Proprietário')";
             } else {
-                $Values .= "('$i$zero$o', $i, $idBloco, 1, 'apartamento', true, '$idApart', false, 'Sem Proprietário'),";
+                $Values .= "('$i$zero$o', $i, $idBloco, 1, 'UH', true, '$idApart', false, 'Sem Proprietário'),";
             }
         }
     }
@@ -159,9 +159,9 @@ function AddUH()
     $idBloco = $_POST['idbloco'];
     $andar = $_POST['andar'];
 
-    $sql1 = "SELECT * FROM uhs WHERE fk_bloco = $idBloco and andar = $andar and tipo_local = 'apartamento' and status = true";
+    $sql1 = "SELECT * FROM uhs WHERE fk_bloco = $idBloco and andar = $andar and tipo_local = 'UH' and status = true";
     $exe1 = pg_query($GLOBALS['con'], $sql1);
-    $sql2 = "SELECT * FROM uhs WHERE fk_bloco = $idBloco and tipo_local = 'apartamento' and status = true";
+    $sql2 = "SELECT * FROM uhs WHERE fk_bloco = $idBloco and tipo_local = 'UH' and status = true";
     $exe2 = pg_query($GLOBALS['con'], $sql2);
     $quantExiste = pg_numrows($exe1);
     $prefixo = pg_fetch_assoc($exe2)['prefixo'];
@@ -173,9 +173,9 @@ function AddUH()
             $zero = '';
         }
         if ($i == $teste) {
-            $values .= "('$andar$zero$i', $andar, $idBloco, 1, 'apartamento', true, '$prefixo', false, 'Sem Proprietário')";
+            $values .= "('$andar$zero$i', $andar, $idBloco, 1, 'UH', true, '$prefixo', false, 'Sem Proprietário')";
         } else {
-            $values .= "('$andar$zero$i', $andar, $idBloco, 1, 'apartamento', true, '$prefixo', false, 'Sem Proprietário'),";
+            $values .= "('$andar$zero$i', $andar, $idBloco, 1, 'UH', true, '$prefixo', false, 'Sem Proprietário'),";
         }
     }
 

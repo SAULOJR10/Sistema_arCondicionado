@@ -4,6 +4,8 @@ $(document).ready(function () {
     $(".cep").mask("99999-999");
     $(".cpf").mask("999.999.999-99");
     if (document.getElementById('idEnt') != undefined) {
+        $('#BotaoCadBlocos').attr('onclick', 'aparecer(\'cad\')');
+        $('#BotaoCadSalas').attr('onclick', 'aparecer(\'cadSala\')');
         Tabela();
     }
     var idLogin = document.getElementById('idLogin').value;

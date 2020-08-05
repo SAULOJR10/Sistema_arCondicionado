@@ -90,7 +90,7 @@ function selectQuant()
     }
     $sql3 = "SELECT COUNT(uhs.nome) AS uhs FROM uhs
             INNER JOIN bloco ON fk_bloco = bloco.id
-            WHERE fk_entidade = '$idEnt' and tipo_local = 'apartamento' and status = true";
+            WHERE fk_entidade = '$idEnt' and tipo_local = 'UH' and status = true";
     $exe3 = pg_query($sql3);
     $result3 = pg_fetch_assoc($exe3);
     $sql4 = "SELECT COUNT(uhs) AS salas FROM uhs
@@ -260,7 +260,7 @@ function tabela()
         }
         if (isset($vetaux[$key]["quant"])) {
             for ($index = -$vetaux[$key]["quant_subsolo"]; $index < $vetaux[$key]["quant"]; $index++) {
-                if (isset($value[$index]['Sala']) && !isset($value[$index]['apartamento'])) {
+                if (isset($value[$index]['Sala']) && !isset($value[$index]['UH'])) {
                     $sala = $value[$index]['Sala'];
                     if ($index < 0) {
                         $HTMLbloco .= $auxb . "<td>Sub-Solo ($index)</td> <td></td> <td><i class='fas fa-pen' onclick='MontarUpdateSala($key, $index)' style='font-size: 1.2rem;'></i>&nbsp;&nbsp;$sala</td>";
@@ -269,8 +269,8 @@ function tabela()
                     } else {
                         $HTMLbloco .= $auxb . "<td>Andar $index</td> <td></td> <td><i class='fas fa-pen' onclick='MontarUpdateSala($key, $index)' style='font-size: 1.2rem;'></i>&nbsp;&nbsp;$sala</td>";
                     }
-                } else if (isset($value[$index]['apartamento']) && !isset($value[$index]['Sala'])) {
-                    $uh = $value[$index]['apartamento'];
+                } else if (isset($value[$index]['UH']) && !isset($value[$index]['Sala'])) {
+                    $uh = $value[$index]['UH'];
                     if ($index < 0) {
                         $HTMLbloco .= $auxb . "<td>Sub-Solo ($index)</td> <td>$uh</td> <td></td>";
                     } else if ($index == 0) {
@@ -278,7 +278,7 @@ function tabela()
                     } else {
                         $HTMLbloco .= $auxb . "<td>Andar $index</td> <td>$uh</td> <td></td>";
                     }
-                } else if (!isset($value[$index]['apartamento']) &&  !isset($value[$index]['Sala'])) {
+                } else if (!isset($value[$index]['UH']) &&  !isset($value[$index]['Sala'])) {
                     if ($index < 0) {
                         $HTMLbloco .= $auxb . "<td>Sub-Solo ($index)</td> <td></td> <td></td>";
                     } else if ($index == 0) {
@@ -286,8 +286,8 @@ function tabela()
                     } else {
                         $HTMLbloco .= $auxb . "<td>Andar $index</td> <td></td> <td></td>";
                     }
-                } else if (isset($value[$index]['apartamento']) &&  isset($value[$index]['apartamento'])) {
-                    $uh = $value[$index]['apartamento'];
+                } else if (isset($value[$index]['UH']) &&  isset($value[$index]['UH'])) {
+                    $uh = $value[$index]['UH'];
                     $sala = $value[$index]['Sala'];
                     if ($index < 0) {
                         $HTMLbloco .= $auxb . "<td>Sub-Solo ($index)</td> <td>$uh</td> <td><i class='fas fa-pen' onclick='MontarUpdateSala($key, $index)' style='font-size: 1.2rem;'></i>&nbsp;&nbsp;$sala</td>";
@@ -526,7 +526,7 @@ function MontarEditUH()
 
     $sql1 = "SELECT uhs.id FROM uhs
             INNER JOIN bloco ON fk_bloco = bloco.id
-            WHERE fk_entidade = $idEnt and fk_bloco = $idBloco and andar = $Andar and tipo_local = 'apartamento'
+            WHERE fk_entidade = $idEnt and fk_bloco = $idBloco and andar = $Andar and tipo_local = 'UH'
             ORDER BY uhs.id";
     $exe1 = pg_query($GLOBALS['con'], $sql1);
     $quantApart = pg_numrows($exe1);
@@ -554,7 +554,7 @@ function MontarEditUH()
         if ($tipo_local == 'Sala') {
             $Sala = 'selected';
         }
-        if ($tipo_local == 'apartamento') {
+        if ($tipo_local == 'UH') {
             $apart = 'selected';
         }
         if ($status == 'f') {

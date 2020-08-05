@@ -93,7 +93,7 @@ function tabela()
         }
         if (isset($vetaux[$key]["quant"])) {
             for ($index = -$vetaux[$key]["quant_subsolo"]; $index < $vetaux[$key]["quant"]; $index++) {
-                if (isset($value[$index]['Sala']) && !isset($value[$index]['apartamento'])) {
+                if (isset($value[$index]['Sala']) && !isset($value[$index]['UH'])) {
                     $sala = $value[$index]['Sala'];
                     if ($index < 0) {
                         $HTMLbloco .= $auxb . "<td>Sub-Solo ($index)</td> <td></td> <td>$sala</td>";
@@ -102,8 +102,8 @@ function tabela()
                     } else {
                         $HTMLbloco .= $auxb . "<td>Andar $index</td> <td></td> <td>$sala</td>";
                     }
-                } else if (isset($value[$index]['apartamento']) && !isset($value[$index]['Sala'])) {
-                    $uh = $value[$index]['apartamento'];
+                } else if (isset($value[$index]['UH']) && !isset($value[$index]['Sala'])) {
+                    $uh = $value[$index]['UH'];
                     if ($index < 0) {
                         $HTMLbloco .= $auxb . "<td>Sub-Solo ($index)</td> <td>$uh</td> <td></td>";
                     } else if ($index == 0) {
@@ -111,7 +111,7 @@ function tabela()
                     } else {
                         $HTMLbloco .= $auxb . "<td>Andar $index</td> <td>$uh</td> <td></td>";
                     }
-                } else if (!isset($value[$index]['apartamento']) &&  !isset($value[$index]['Sala'])) {
+                } else if (!isset($value[$index]['UH']) &&  !isset($value[$index]['Sala'])) {
                     if ($index < 0) {
                         $HTMLbloco .= $auxb . "<td>Sub-Solo ($index)</td> <td></td> <td></td>";
                     } else if ($index == 0) {
@@ -119,8 +119,8 @@ function tabela()
                     } else {
                         $HTMLbloco .= $auxb . "<td>Andar $index</td> <td></td> <td></td>";
                     }
-                } else if (isset($value[$index]['apartamento']) &&  isset($value[$index]['apartamento'])) {
-                    $uh = $value[$index]['apartamento'];
+                } else if (isset($value[$index]['UH']) &&  isset($value[$index]['UH'])) {
+                    $uh = $value[$index]['UH'];
                     $sala = $value[$index]['Sala'];
                     if ($index < 0) {
                         $HTMLbloco .= $auxb . "<td>Sub-Solo ($index)</td> <td>$uh</td> <td>$sala</td>";
@@ -183,7 +183,7 @@ function selectQuant()
     $idEnt = $_POST['idEnt'];
     $sql1 = "SELECT COUNT(uhs.nome) AS uhs FROM uhs
             INNER JOIN bloco ON fk_bloco = bloco.id
-            WHERE fk_entidade = '$idEnt' and tipo_local = 'apartamento' and status = true and gerenciada = true";
+            WHERE fk_entidade = '$idEnt' and tipo_local = 'UH' and status = true and gerenciada = true";
     $exe1 = pg_query($sql1);
     $result1 = pg_fetch_assoc($exe1);
     $sql2 = "SELECT COUNT(uhs) AS salas FROM uhs
@@ -208,7 +208,7 @@ function MontarGerUH()
     $teste = 0;
     $bloco = $_POST['bloco'];
     $andar = $_POST['andar'];
-    $sql = "SELECT * FROM uhs WHERE fk_bloco = $bloco and andar = $andar and status = true and tipo_local = 'apartamento' ORDER BY nome";
+    $sql = "SELECT * FROM uhs WHERE fk_bloco = $bloco and andar = $andar and status = true and tipo_local = 'UH' ORDER BY nome";
     $exe = pg_query($GLOBALS['con'], $sql);
     $quant = pg_numrows($exe);
 
