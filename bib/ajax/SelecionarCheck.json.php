@@ -10,6 +10,18 @@ switch ($acao) {
     case 'selectBloco':
         Selects('Bloco');
         break;
+    case 'Quinzenal':
+        MontarGraficos('Quinzenal');
+        break;
+    case 'Mensal':
+        MontarGraficos('Mensal');
+        break;
+    case 'Trimestral':
+        MontarGraficos('Trimestral');
+        break;
+    case 'Anual':
+        MontarGraficos('Anual');
+        break;
     case 'Andar':
         Selects('Andar');
         break;
@@ -137,6 +149,7 @@ function MontarCheckList($Periodo)
 {
     $idUH = $_POST['uh'];
     $idLogin = $_POST['idLogin'];
+    $idAr = $_POST['idAr'];
 
     $sqlUH = "SELECT * FROM uhs WHERE id = $idUH";
     $exeUH = pg_query($GLOBALS['con'], $sqlUH);
@@ -164,6 +177,36 @@ function MontarCheckList($Periodo)
         $titulo = $result['titulo'];
         $descricao = $result['descricao'];
         $idItem = $result['id'];
+        $hj = date('Y/m/d');
+        $sql2 = "SELECT item_check.data, item_check.status, observacao, funcionario FROM item_check
+                 INNER JOIN check_list ON fk_check_list = check_list.id
+                 WHERE fk_item = $idItem and fk_equipamento = $idAr and vencimento >= '$hj'";
+        $exe2 = pg_query($GLOBALS['con'], $sql2);
+        $result2 = pg_fetch_assoc($exe2);
+        $data =  $result2['data'] . ' -';
+        if ($data == ' -') {
+            $data = "<span style='color: red;'>Não Validado<span>";
+        }
+        if ($result2['status'] == 't') {
+            $checked =  "checked";
+        } else {
+            $checked = '';
+        }
+        if ($result2['observacao'] != '') {
+            $obs =  '<span style="color: red;"><b>' . $result2['observacao'] . '</b></span>';
+            $valueOBS = $result2['observacao'];
+        } else {
+            $obs = '<span style="color: red;">Nenhuma observação</span>';
+            $valueOBS = '';
+        }
+        $idFun = $result2['funcionario'];
+        if ($idFun != '') {
+            $sql3 = "SELECT * FROM login WHERE id = $idFun";
+            $exe3 = pg_query($GLOBALS['con'], $sql3);
+            $NomeFuncionario = pg_fetch_assoc($exe3)['usuario'];
+        }else{
+            $NomeFuncionario = '';
+        }
         if ($tituloAntigo != $titulo || $tituloAntigo == '') {
             $htmlTitulo .= "$fim<div style='border-bottom: solid black 3px;'><div class='numeracao'>$num1</div><h5 style='padding-top: 10px;'><b>$titulo</b></h5>";
             $num1++;
@@ -172,11 +215,12 @@ function MontarCheckList($Periodo)
         $htmlTitulo .= "<div style='padding:0px 40px 0px 40px;'>
                             <h5 style='margin-top: 30px;'><b>$descricao</b></h5>
                             <div class='col-xs-3 ' style='float: right; padding-right: 0px; padding-left:0px;'>
-                                <input id='ch_item$num2' value='$idItem' name='allitem' class='switch switch--shadow' type='checkbox'>
+                                <img src='bib/img/agendaEdit.png' onclick='ColocarOBS($num2)' style='width: 25px; margin-top: -10px; height: 25px;'>
+                                <input id='ch_item$num2' value='$idItem' name='allitem' class='switch switch--shadow' type='checkbox' $checked>
                                 <label style='float:right; min-width: 40px;' for='ch_item$num2'></label>
                             </div>
-                            <h5>Validado: <span style='color: lightblue;'>21/12/2019 - Antonio Galdinho da Silva &nbsp;&nbsp;&nbsp;</span><img src='bib/img/agendaEdit.png' style='width: 25px; margin-top: -10px; height: 25px;'></h5>
-                            <h4 style='text-align:center; background-color: white; margin-bottom: 10px;'>Bandeja trocada por uma usada</h4>
+                            <h5>Validado: <span style='color: lightblue;'>$data $NomeFuncionario &nbsp;&nbsp;&nbsp;</span></h5>
+                            <h5 style='text-align:center; background-color: white; margin-bottom: 10px;'><input type='text' value='$valueOBS' name='allobs' id='obs$num2' style='display:none;'><span id='tirar$num2'>observacao: $obs<span></h5>
                         </div>";
 
         $tituloAntigo = $titulo;
@@ -210,7 +254,7 @@ function MontarCheckList($Periodo)
                 <div onclick='MarcarTodos()' style='text-align:center; margin-left:40px; margin-top:60px; padding-top: 0.8%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
                     <i class='fas fa-check' style='font-size: 2.5rem; color:white;'></i>
                 </div>
-                <div onclick='Avisar()' style='text-align:center; margin-left:40px; margin-top:120px; padding-top: 0.8%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
+                <div onclick='abrirModal(\"agendar\")' style='text-align:center; margin-left:40px; margin-top:120px; padding-top: 0.8%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
                     <i class='far fa-clock' style='font-size: 2.5rem; color:white;'></i>
                 </div>
                 <div onclick='OutroAr()' style='text-align:center; margin-left:40px; margin-top:180px; padding-top: 0.8%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
@@ -222,4 +266,42 @@ function MontarCheckList($Periodo)
             </div>";
 
     echo json_encode($html);
+}
+
+
+function MontarGraficos($periodo)
+{
+    $idUH = $_POST['uh'];
+    $idAr = $_POST['idAr'];
+    $sqlTotal = "SELECT COUNT(item.id) AS total FROM item WHERE item.periodo = '$periodo' and tipo_equipamento = 1";
+    $exe1 = pg_query($GLOBALS['con'], $sqlTotal);
+    $quantTotal = pg_fetch_assoc($exe1)['total'];
+    $hj = date('Y/m/d');
+    $sqlFinalizados = "SELECT COUNT(check_list.id) AS finalizados FROM check_list
+                       INNER JOIN item_check ON fk_check_list = check_list.id
+                       WHERE fk_uh = $idUH and periodo = '$periodo' and vencimento >= '$hj' and item_check.status = true and fk_equipamento = $idAr";
+    $exe2 = pg_query($GLOBALS['con'], $sqlFinalizados);
+    $quantFinalizados = pg_fetch_assoc($exe2)['finalizados'];
+    $hj = date('Y/m/d');
+    $sqlNaoFinalizados = "SELECT COUNT(check_list.id) AS naofinalizados FROM check_list
+                       INNER JOIN item_check ON fk_check_list = check_list.id
+                       WHERE fk_uh = $idUH and periodo = '$periodo' and vencimento >= '$hj' and item_check.status = false and fk_equipamento = $idAr";
+    $exe3 = pg_query($GLOBALS['con'], $sqlNaoFinalizados);
+    $quantNaoFinalizados = pg_fetch_assoc($exe3)['naofinalizados'];
+    $hj = date('Y/m/d');
+    $sql = "SELECT data_check, check_list.status FROM check_list
+            INNER JOIN item_check ON fk_check_list = check_list.id
+            WHERE fk_uh = $idUH and periodo = '$periodo' and fk_equipamento = $idAr and vencimento >= '$hj'";
+    $exe4 = pg_query($GLOBALS['con'], $sql);
+    $result = pg_fetch_assoc($exe4);
+    $data = $result['data_check'];
+    $status = $result['status'];
+    if ($status == 'f' || $status == '') {
+        $status = 'Incompleto';
+    } else {
+        $status = 'Completo';
+    }
+
+    $resultado = $quantTotal . ';' . $quantFinalizados . ';' . $quantNaoFinalizados . ';' . $data . ';' . $status;
+    echo json_encode($resultado);
 }

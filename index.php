@@ -17,6 +17,11 @@ if (isset($_POST['login']) && isset($_POST['senha'])) {
             $_SESSION['usuario'] = $res['usuario'];
             $_SESSION['arquivo'] = $res['arquivo'];
             header("Location:SistemaArCondicionado.php?num1=$num");
+        }else if ($res['tipo_usuario'] == "manutencionista" && $res['status'] == true) {
+            $_SESSION['idUsuario'] = $res['id'];
+            $_SESSION['usuario'] = $res['usuario'];
+            $_SESSION['arquivo'] = $res['arquivo'];
+            header("Location:teste.php?num1=$num");
         }
     }
 }

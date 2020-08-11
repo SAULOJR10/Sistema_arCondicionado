@@ -55,10 +55,11 @@ if (isset($_SESSION['numLogin'])) {
                                     <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
                                     <span id="IDUH"></span>
                                     <div class="col-sm-12" style="border: solid white 5px; margin-bottom: 5px;">
-                                        <h5>Iniciado em <b style="color:red;">14-06-20</b></h5>
-                                        <h5>Status: <b style="color: red;">atrasado</b></h5>
+                                        <h5>Iniciado em <b style="color:red;" id="dataQuinzenal"></b></h5>
+                                        <h5>Status: <b style="color: red;" id="statusQuinzenal"></b></h5>
                                     </div>
                                     <div class="col-sm-12" style="padding:0%; border: solid white 5px; margin-bottom: 5px;">
+                                        <span id="tituloQuinzenal"></span>
                                         <div id="donutchart1" style="width:100%; height:200px; background-color: rgb(243,246,251);"></div>
                                     </div>
                                 </div>
@@ -68,10 +69,11 @@ if (isset($_SESSION['numLogin'])) {
                                     <p style="color: black;"><b class="Blocos">Bloco A </b></p>
                                     <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
                                     <div class="col-sm-12" style="border: solid white 5px; margin-bottom: 5px;">
-                                        <h5>Iniciado em <b style="color:red;">14-06-20</b></h5>
-                                        <h5>Status: <b style="color: red;">atrasado</b></h5>
+                                        <h5>Iniciado em <b style="color:red;" id="dataMensal"></b></h5>
+                                        <h5>Status: <b style="color: red;" id="statusMensal"></b></h5>
                                     </div>
                                     <div class="col-sm-12" style="padding:0%; border: solid white 5px; margin-bottom: 5px;">
+                                        <span id="tituloMensal"></span>
                                         <div id="donutchart2" style="width:100%; height:200px; background-color: rgb(243,246,251);"></div>
                                     </div>
                                 </div>
@@ -82,10 +84,11 @@ if (isset($_SESSION['numLogin'])) {
                                     <p style="color: black;"><b class="Blocos">Bloco A </b></p>
                                     <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
                                     <div class="col-sm-12" style="border: solid white 5px; margin-bottom: 5px;">
-                                        <h5>Iniciado em <b style="color:red;">14-06-20</b></h5>
-                                        <h5>Status: <b style="color: red;">atrasado</b></h5>
+                                        <h5>Iniciado em <b style="color:red;" id="dataTrimestral"></b></h5>
+                                        <h5>Status: <b style="color: red;" id="statusTrimestral"></b></h5>
                                     </div>
                                     <div class="col-sm-12" style="padding:0%; border: solid white 5px; margin-bottom: 5px;">
+                                        <span id="tituloTrimestral"></span>
                                         <div id="donutchart3" style="width:100%; height:200px; background-color: rgb(243,246,251);"></div>
                                     </div>
                                 </div>
@@ -96,10 +99,11 @@ if (isset($_SESSION['numLogin'])) {
                                     <p style="color: black;"><b class="Blocos">Bloco A </b></p>
                                     <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
                                     <div class="col-sm-12" style="border: solid white 5px; margin-bottom: 5px;">
-                                        <h5>Iniciado em <b style="color:red;">14-06-20</b></h5>
-                                        <h5>Status: <b style="color: red;">atrasado</b></h5>
+                                        <h5>Iniciado em <b style="color:red;" id="dataAnual"></b></h5>
+                                        <h5>Status: <b style="color: red;" id="statusAnual"></b></h5>
                                     </div>
                                     <div class="col-sm-12" style="padding:0%; border: solid white 5px; margin-bottom: 5px;">
+                                        <span id="tituloAnual"></span>
                                         <div id="donutchart4" style="width:100%; height:200px; background-color: rgb(243,246,251);"></div>
                                     </div>
                                 </div>
@@ -134,6 +138,31 @@ if (isset($_SESSION['numLogin'])) {
                     </div>
                     <div class="footer">
                         <div id="dv_relat"><input readonly="readonly" id="btao_relat" value="Prosseguir" class="fourth " style="width: 40%; float:right;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="agendar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" overflow:auto;">
+        <div class="modal-dialog" role="document" style="width: 40%;">
+            <div class="modal-content" style="border-radius: 15px;">
+                <div class="modal-header header">
+                    <h3 class="modal-title" id="exampleModalLabel" style="float: left; margin-left:45%;">Aviso</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <h4>Agendar aviso para o dia:</h4>
+                            <input type="date" id="dataAgend" style="width: 100%;">
+                            <h4>Observação:</h4>
+                            <input type="text" id="observacao" style="width: 100%;">
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                    <div class="footer">
+                        <div id="dv_relat"><input readonly="readonly" onclick="Avisar()" id="btao_relat" value="Prosseguir" class="fourth " style="width: 40%; float:right;"></div>
                     </div>
                 </div>
             </div>
