@@ -21,7 +21,7 @@ if (isset($_POST['login']) && isset($_POST['senha'])) {
             $_SESSION['idUsuario'] = $res['id'];
             $_SESSION['usuario'] = $res['usuario'];
             $_SESSION['arquivo'] = $res['arquivo'];
-            header("Location:teste.php?num1=$num");
+            header("Location:TelaManutencionista.php?num1=$num");
         }
     }
 }

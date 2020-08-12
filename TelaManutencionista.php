@@ -45,7 +45,7 @@ if (isset($_SESSION['numLogin'])) {
 </head>
 
 <body class="mybody" style="background-color: white;">
-    <?php include_once 'bib/comum/menu_bar.php'; ?>
+    <?php include_once 'bib/comum/menu_barManutecao.php'; ?>
     <input type="hidden" id="idLogin" value="<?php echo $idLogin ?>">
     <div class="row" style="margin-top:50px;">
         <div id="TodosCheck">
@@ -54,7 +54,7 @@ if (isset($_SESSION['numLogin'])) {
             </div>
 
             <div style="background-color: rgb(243,246,251); padding-top:1%; margin-bottom:30px;" class="col-sm-3 button " id="Ordem" align="center">
-                <img onclick="CheckList('Quinzenal')" src="bib/img/Quinzenal.png" style="width: 40%; height: 60px;">
+                <img onclick="CheckList('Quinzenal')" src="bib/img/Quinzenal.png" style="width: 30%; height: 60px;">
                 <p style="margin-bottom:2px; margin-top: 5px; font-size: 1.6rem;" align="center"> Check-List quinzenal</p>
                 <p style="color: black;"><b class="Blocos">Bloco A </b></p>
                 <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
@@ -71,7 +71,7 @@ if (isset($_SESSION['numLogin'])) {
             </div>
 
             <div style="background-color: rgb(243,246,251); padding-top:1%; margin-bottom:30px;" class="col-sm-3 button" align="center">
-                <img onclick="CheckList('Mensal')" src="bib/img/Mensal.png" style="width: 40%; height: 60px;">
+                <img onclick="CheckList('Mensal')" src="bib/img/Mensal.png" style="width: 30%; height: 60px;">
                 <p style="margin-bottom:2px; margin-top: 5px; font-size: 1.6rem;" align="center"> Check-List mesal</p>
                 <p style="color: black;"><b class="Blocos">Bloco A </b></p>
                 <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
@@ -87,7 +87,7 @@ if (isset($_SESSION['numLogin'])) {
             </div>
 
             <div style="background-color: rgb(243,246,251); padding-top:1%; margin-bottom:30px;" class="col-sm-3 button" align="center">
-                <img onclick="CheckList('Trimestral')" src="bib/img/Trimestral.png" style="width: 40%; height: 60px;">
+                <img onclick="CheckList('Trimestral')" src="bib/img/Trimestral.png" style="width: 30%; height: 60px;">
                 <p style="margin-bottom:2px; margin-top: 5px; font-size: 1.6rem;" align="center"> Check-List trimestral</p>
                 <p style="color: black;"><b class="Blocos">Bloco A </b></p>
                 <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
@@ -103,7 +103,7 @@ if (isset($_SESSION['numLogin'])) {
             </div>
 
             <div style="background-color: rgb(243,246,251); padding-top:1%; margin-bottom:30px;" class="col-sm-3 button" align="center">
-                <img onclick="CheckList('Anual')" src="bib/img/Anual.png" style="width: 40%; height: 60px;">
+                <img onclick="CheckList('Anual')" src="bib/img/Anual.png" style="width: 30%; height: 60px;">
                 <p style="margin-bottom:2px; margin-top: 5px; font-size: 1.6rem;" align="center"> Check-List anual</p>
                 <p style="color: black;"><b class="Blocos">Bloco A </b></p>
                 <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
@@ -177,7 +177,7 @@ if (isset($_SESSION['numLogin'])) {
     <!----------------------------------------------------------------------------------------------------------------------------------------------->
     <script src="bib/js/menu.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="bib/js/Check-List.js"></script>
+    <script src="bib/js/Check-ListManutencao.js"></script>
 </body>
 
 </html>

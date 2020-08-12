@@ -43,9 +43,8 @@ if (isset($_SESSION['numLogin'])) {
                     <div class="row">
                         <div class="col-sm-12" style="background-color: white; margin-bottom:2%; height:100px; padding:0%;">
                             <div id="TodosCheck">
-                                <div class="col-sm-12 button" id="Ordem" style="background-color: white ; height:80%;border: none;" align="center">
-                                    <i class="fas fa-map-marker-alt" style="font-size: 3rem; float:left; margin-left:20%; margin-top:1%;"></i>
-                                    <h3 style="font-size: 3rem; margin-top: 1%; margin-right:35%;">Check-List Ar Condicionado</h3>
+                                <div class="col-sm-12 button" id="Ordem" style="background-color: white ; height:80px;border: none; text-align:center;" align="center">
+                                    <h3 style="font-size: 3rem; margin-top: 1%;"><i class="fas fa-map-marker-alt" style="font-size: 3rem; margin-top:1%;"></i> &nbsp;&nbsp;&nbsp;Check-List Ar Condicionado</h3>
                                 </div>
 
                                 <div style="background-color: rgb(243,246,251); padding-top:1%; border-right: solid white 10px;" class="col-sm-3 button " id="Ordem" align="center">
@@ -118,7 +117,7 @@ if (isset($_SESSION['numLogin'])) {
         </div>
     </div>
     <!----------------------------------------------------------------Modal-------------------------------------------------------------------------->
-    <div class="modal fade" id="CheckList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" overflow:auto;">
+    <div class="modal fade" id="CheckList" data-backdrop='static' tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" overflow:auto;">
         <div class="modal-dialog" role="document" style="width: 40%;">
             <div class="modal-content" style="border-radius: 15px;">
                 <div class="modal-header header">
