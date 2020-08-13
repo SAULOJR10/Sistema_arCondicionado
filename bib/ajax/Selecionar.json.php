@@ -1,5 +1,5 @@
 <?php
-include_once "../comum/conexao.php";
+include_once "../comum/conf.ini.php";
 
 // error_reporting(0);
 
@@ -61,48 +61,76 @@ switch ($acao) {
 function CadSala()
 {
     $idEnt = $_POST['idEnt'];
+    $conexao = new ConexaoCard();
     $sql = "SELECT COUNT(*) AS quantbloco FROM bloco
             WHERE fk_entidade = $idEnt";
-    $exe = pg_query($GLOBALS['con'], $sql);
-    $quant = pg_fetch_assoc($exe)['quantbloco'];
-    // $quant = intval($quant);
-
-    $proximo = $quant + 1;
-
+    $result = $conexao->execQuerry($sql);
+    $conexao->fecharConexao();
+    if (is_array($result)) {
+        $quant = $result[0]['quantbloco'];
+        $proximo = $quant + 1;
+    }
     echo json_encode($proximo);
 }
 
 function selectQuant()
 {
     $idEnt = $_POST['idEnt'];
+    $conexao = new ConexaoCard();
     $sql1 = "SELECT COUNT(bloco) AS bloco FROM bloco
-    WHERE fk_entidade = '$idEnt'";
-    $exe1 = pg_query($sql1);
-    $result1 = pg_fetch_assoc($exe1);
+             WHERE fk_entidade = '$idEnt'";
+    $result1 = $conexao->execQuerry($sql1);
+
+    if ($result1 == null) {
+        $bloco = 0;
+    } else {
+        $bloco = $result1[0]['bloco'];
+    }
+
     $sql2 = "SELECT SUM(quant_andar) AS andar FROM bloco
-    WHERE fk_entidade = '$idEnt'";
-    $exe2 = pg_query($sql2);
-    $result2 = pg_fetch_assoc($exe2);
-    if ($result2['andar'] == null) {
+         WHERE fk_entidade = '$idEnt'";
+    $result2 = $conexao->execQuerry($sql2);
+
+    if ($result2 == null) {
         $andar = 0;
     } else {
-        $andar = $result2['andar'];
+        $andar = $result2[0]['andar'];
     }
+
     $sql3 = "SELECT COUNT(uhs.nome) AS uhs FROM uhs
             INNER JOIN bloco ON fk_bloco = bloco.id
             WHERE fk_entidade = '$idEnt' and tipo_local = 'UH' and status = true";
-    $exe3 = pg_query($sql3);
-    $result3 = pg_fetch_assoc($exe3);
+    $result3 = $conexao->execQuerry($sql3);
+
+    if ($result3 == null) {
+        $uhs = 0;
+    } else {
+        $uhs = $result3[0]['uhs'];
+    }
+
     $sql4 = "SELECT COUNT(uhs) AS salas FROM uhs
              INNER JOIN bloco ON fk_bloco = bloco.id
              WHERE fk_entidade = '$idEnt' and tipo_local = 'Sala' and status = true";
-    $exe4 = pg_query($sql4);
-    $result4 = pg_fetch_assoc($exe4);
+    $result4 = $conexao->execQuerry($sql4);
+
+    if ($result4 == null) {
+        $salas = 0;
+    } else {
+        $salas = $result4[0]['salas'];
+    }
+
     $sql5 = "SELECT COUNT(id) AS eng FROM dados_engenheiro
              WHERE fk_entidade = '$idEnt'";
-    $exe5 = pg_query($sql5);
-    $result5 = pg_fetch_assoc($exe5);
-    $echo = $result1['bloco'] . ";" . $andar . ";" . $result3['uhs'] . ";" . $result4['salas'] . ";" . $result5['eng'];
+    $result5 = $conexao->execQuerry($sql5);
+    $conexao->fecharConexao();
+
+    if ($result5 == null) {
+        $eng = 0;
+    } else {
+        $eng = $result5[0]['eng'];
+    }
+
+    $echo = $bloco . ";" . $andar . ";" . $uhs . ";" . $salas . ";" . $eng;
     echo json_encode($echo);
 }
 
@@ -110,41 +138,46 @@ function SelectEnt($acao)
 {
     if ($acao == 'selectEnt') {
         $idLogin = $_POST['idUsuario'];
-
-        $sql2 = "SELECT dados_entidade.id AS ident, nome_fantasia FROM dados_entidade
+        $conexao = new ConexaoCard();
+        $sql = "SELECT dados_entidade.id AS ident, nome_fantasia FROM dados_entidade
                  INNER JOIN entidade_login on fk_entidade = dados_entidade.id
                  Where fk_login = $idLogin and nome_fantasia != ''";
-        $exe2 = pg_query($GLOBALS['con'], $sql2);
+        $result = $conexao->execQuerry($sql);
+        $conexao->fecharConexao();
 
+        $quant = count($result) - 1;
         $option = '<option value="">Selecione</option>";';
-        while ($result2 = pg_fetch_assoc($exe2)) {
-            $valor = $result2['nome_fantasia'];
-            $id = $result2['ident'];
+        for ($i = 0; $i <= $quant; $i++) {
+            $valor = $result[$i]['nome_fantasia'];
+            $id = $result[$i]['ident'];
             $option .= "<option value='$id' id='optionEnt$id'>$valor</option>";
         }
         $select = "<div class='form-group'><select id='EntidadeGer' style='border-radius:10px;' class='form-control' onchange='EntSelected(\"normal\")'>$option</select></div>";
         echo json_encode($select);
     } else if ($acao == 'ultimaEnt') {
+        $conexao = new ConexaoCard();
         $sql = "SELECT * FROM dados_entidade ORDER BY id DESC limit 1";
-        $exe = pg_query($GLOBALS['con'], $sql);
-        $result = pg_fetch_assoc($exe);
-        $idEnt = $result['id'];
-        $nomeEnt = $result['nome_fantasia'];
+        $result = $conexao->execQuerry($sql);
+        $conexao->fecharConexao();
+
+        $idEnt = $result[0]['id'];
+        $nomeEnt = $result[0]['nome_fantasia'];
+
         $html = "<input type='hidden' id='idEnt' value='$idEnt'>$nomeEnt";
         echo json_encode($html);
     } else if ($acao == 'SoUma') {
         $idLogin = $_POST['idUsuario'];
+        $conexao = new ConexaoCard();
         $sql = "SELECT dados_entidade.id, dados_entidade.nome_fantasia FROM dados_entidade
                  INNER JOIN entidade_login ON fk_entidade = dados_entidade.id
                  WHERE fk_login = $idLogin";
-        $exe = pg_query($GLOBALS['con'], $sql);
-        $result = pg_fetch_assoc($exe);
+        $result = $conexao->execQuerry($sql);
+        $conexao->fecharConexao();
 
-        $nome = $result['nome_fantasia'];
-        $id = $result['id'];
+        $nome = $result[0]['nome_fantasia'];
+        $id = $result[0]['id'];
 
         $html = "<input type='hidden' id='idEnt' value='$id'/>$nome";
-
         echo json_encode($html);
     }
 }
@@ -152,12 +185,16 @@ function SelectEnt($acao)
 function selectBlocos()
 {
     $idEnt = $_POST['idEnt'];
+    $conexao = new ConexaoCard();
     $sql = "SELECT * FROM bloco WHERE fk_entidade = $idEnt";
-    $exe = pg_query($GLOBALS['con'], $sql);
+    $result = $conexao->execQuerry($sql);
+    $conexao->fecharConexao();
+
+    $quant = count($result) -1;
     $option = '<option value="">Selecione</option>';
-    while ($result = pg_fetch_assoc($exe)) {
-        $Bloco = $result['nome'];
-        $id = $result['id'];
+    for ($i = 0; $i <= $quant; $i++) {
+        $Bloco = $result[$i]['nome'];
+        $id = $result[$i]['id'];
         $option .= "<option value='$id'> $Bloco </option>";
     }
     $html = "<h5>Selecione o bloco:</h5><select id='blocoSala' onchange='limpar()' style='width:80%;'>$option</select>";
@@ -170,14 +207,15 @@ function selectAndar()
     $idEnt = $_POST['idEnt'];
     $bloco = $_POST['bloco'];
     $option = '<option value="">Selecione</option>';
-    $sql2 = "SELECT * FROM bloco
+    $conexao = new ConexaoCard();
+    $sql = "SELECT * FROM bloco
              INNER JOIN dados_entidade ON fk_entidade = dados_entidade.id
              WHERE bloco.id = $bloco and fk_entidade = $idEnt";
-    $exe2 = pg_query($GLOBALS['con'], $sql2) or die("DEU RUIM !!!");
-    $result2 = pg_fetch_assoc($exe2);
+    $result = $conexao->execQuerry($sql);
+    $conexao->fecharConexao();
 
-    $quantAndar = $result2['quant_andar'];
-    $quantSubSolo = $result2['quant_subsolo'];
+    $quantAndar = $result[0]['quant_andar'];
+    $quantSubSolo = $result[0]['quant_subsolo'];
     if ($quantSubSolo != 0) {
         for ($i = 1; $i <= $quantSubSolo; $i++) {
             $SubSolo = '-' . $i;
@@ -197,52 +235,54 @@ function selectAndar()
 function tabela()
 {
     $idEnt = $_POST['idEnt'];
-
+    $conexao = new ConexaoCard();
     $sql = "SELECT bloco.id AS id_bloco, uhs.nome AS nome, prefixo, uhs.andar, tipo_local, bloco.nome AS bloconome, quant_andar, quant_subsolo FROM uhs 
-    INNER JOIN bloco ON fk_bloco = bloco.id
-    WHERE fk_entidade = '$idEnt' and status = true
-    ORDER BY bloconome, nome";
-    $exe = pg_query($GLOBALS['con'], $sql);
+            INNER JOIN bloco ON fk_bloco = bloco.id
+            WHERE fk_entidade = '$idEnt' and status = true
+            ORDER BY bloconome, nome";
+    $result = $conexao->execQuerry($sql);
 
     $sql2 = "SELECT * FROM bloco WHERE fk_entidade = $idEnt ORDER BY nome";
-    $exe2 = pg_query($GLOBALS['con'], $sql2);
+    $result2 = $conexao->execQuerry($sql2);
+    $conexao->fecharConexao();
 
     $bloco = array();
     $HTMLbloco = '';
     $espaco = '';
     $vetaux = array();
-
-    while ($result2 = pg_fetch_assoc($exe2)) {
-        $vetaux[$result2['id']]['quant'] = $result2['quant_andar'] + 1;
-        $vetaux[$result2['id']]['nome'] =  $result2['nome'];
-        $vetaux[$result2['id']]['quant_subsolo'] =  $result2['quant_subsolo'];
-        if (!isset($bloco[$result2['id']])) {
-            $bloco[$result2['id']] = array();
+    $quant = count($result2) - 1;
+    for ($i = 0; $i <= $quant; $i++) {
+        $vetaux[$result2[$i]['id']]['quant'] = $result2[$i]['quant_andar'] + 1;
+        $vetaux[$result2[$i]['id']]['nome'] =  $result2[$i]['nome'];
+        $vetaux[$result2[$i]['id']]['quant_subsolo'] =  $result2[$i]['quant_subsolo'];
+        if (!isset($bloco[$result2[$i]['id']])) {
+            $bloco[$result2[$i]['id']] = array();
         }
-        if (!isset($bloco[$result2['id']][''])) {
-            $bloco[$result2['id']][''] = array();
+        if (!isset($bloco[$result2[$i]['id']][''])) {
+            $bloco[$result2[$i]['id']][''] = array();
         }
-        if (!isset($bloco[$result2['id']][''][''])) {
-            $bloco[$result2['id']][''][''] = "";
+        if (!isset($bloco[$result2[$i]['id']][''][''])) {
+            $bloco[$result2[$i]['id']][''][''] = "";
         }
     }
 
-    while ($result = pg_fetch_assoc($exe)) {
-        $andar = $result['andar'];
-        $tipo_local = trim($result['tipo_local']);
-        if (!isset($bloco[$result['id_bloco']])) {
-            $bloco[$result['id_bloco']] = array();
+    $quant2 = count($result) - 1;
+    for ($o = 0; $o <= $quant2; $o++) {
+        $andar = $result[$o]['andar'];
+        $tipo_local = trim($result[$o]['tipo_local']);
+        if (!isset($bloco[$result[$o]['id_bloco']])) {
+            $bloco[$result[$o]['id_bloco']] = array();
         }
-        if (!isset($bloco[$result['id_bloco']][$andar])) {
-            $bloco[$result['id_bloco']][$andar] = array();
+        if (!isset($bloco[$result[$o]['id_bloco']][$andar])) {
+            $bloco[$result[$o]['id_bloco']][$andar] = array();
         }
-        if (!isset($bloco[$result['id_bloco']][$andar][$tipo_local])) {
-            $bloco[$result['id_bloco']][$andar][$tipo_local] = "";
+        if (!isset($bloco[$result[$o]['id_bloco']][$andar][$tipo_local])) {
+            $bloco[$result[$o]['id_bloco']][$andar][$tipo_local] = "";
         }
-        if ($result['prefixo'] != '' && $result['prefixo'] != null) {
-            $bloco[$result['id_bloco']][$andar][$tipo_local] .= " " . $result['prefixo'] . "-" . $result['nome'];
+        if ($result[$o]['prefixo'] != '' && $result[$o]['prefixo'] != null) {
+            $bloco[$result[$o]['id_bloco']][$andar][$tipo_local] .= " " . $result[$o]['prefixo'] . "-" . $result[$o]['nome'];
         } else {
-            $bloco[$result['id_bloco']][$andar][$tipo_local] .= " " . $result['nome'];
+            $bloco[$result[$o]['id_bloco']][$andar][$tipo_local] .= " " . $result[$o]['nome'];
         }
     }
 
@@ -251,7 +291,6 @@ function tabela()
         $i = $i + 1;
         $num1 = intval($vetaux[$key]["quant"]);
         $num2 = intval($vetaux[$key]["quant_subsolo"]);
-        $teste = count($bloco);
         if ($num2 != 0 && $num2 != null) {
             $num3 =  $num1 + $num2;
             $auxb = "$espaco<tr> <td rowspan='" . $num3 . "'><i class='fas fa-pen' onclick='Edit($key,$i)' style='font-size: 1.2rem;'>&nbsp;&nbsp;</i>" . $vetaux[$key]["nome"] . "</td>";
@@ -332,44 +371,46 @@ function Tutorial($parte)
     switch ($parte) {
         case 'Parte1':
             $idLogin = $_POST['idLogin'];
+            $conexao = new ConexaoCard();
             $sql = "SELECT * FROM entidade_login WHERE fk_login = $idLogin";
-            $exe = pg_query($GLOBALS['con'], $sql);
-            $result = pg_fetch_assoc($exe);
-            if ($result['id'] == '') {
+            $result = $conexao->execQuerry($sql);
+            $conexao->fecharConexao();
+
+            if ($result == null) {
                 $html = "<div style='margin-left:38%'>
                             <h3 style='margin-top: 5%;'>Seja bem vindo!</h3>
                             <h3 style='float: left; margin-top:0%;'>Comece por aqui</h3>
                             <img src='bib/img/setaVermelha.png' style='height:100px; margin-top: -70px; margin-left:2%;'>
                         </div>";
                 echo json_encode($html);
-            }else{
+            } else {
                 $html = "0";
                 echo json_encode($html);
             }
             break;
         case 'Parte2':
             $idLogin = $_POST['idLogin'];
+            $conexao = new ConexaoCard();
             $sql = "SELECT * FROM dados_engenheiro
-            INNER JOIN dados_entidade ON dados_engenheiro.fk_entidade = dados_entidade.id
-            INNER JOIN entidade_login ON entidade_login.fk_entidade = dados_entidade.id
-            WHERE fk_login = $idLogin";
-            $exe = pg_query($GLOBALS['con'], $sql);
-            $result = pg_fetch_assoc($exe);
+                    INNER JOIN dados_entidade ON dados_engenheiro.fk_entidade = dados_entidade.id
+                    INNER JOIN entidade_login ON entidade_login.fk_entidade = dados_entidade.id
+                    WHERE fk_login = $idLogin";
+            $result = $conexao->execQuerry($sql);
+
 
             $sql2 = "SELECT COUNT(id) AS quant FROM entidade_login WHERE fk_login = $idLogin";
-            $exe2 = pg_query($GLOBALS['con'], $sql2);
-            $result2 = pg_fetch_assoc($exe2)['quant'];
+            $result2 = $conexao->execQuerry($sql2)[0]['quant'];
 
             $sql3 = "SELECT COUNT(dados_engenheiro.id) AS quant FROM dados_engenheiro
-            INNER JOIN dados_entidade ON dados_engenheiro.fk_entidade = dados_entidade.id
-            INNER JOIN entidade_login ON entidade_login.fk_entidade = dados_entidade.id
-            WHERE fk_login = $idLogin";
-            $exe3 = pg_query($GLOBALS['con'], $sql3);
-            $result3 = pg_fetch_assoc($exe3)['quant'];
+                    INNER JOIN dados_entidade ON dados_engenheiro.fk_entidade = dados_entidade.id
+                    INNER JOIN entidade_login ON entidade_login.fk_entidade = dados_entidade.id
+                    WHERE fk_login = $idLogin";
+            $result3 = $conexao->execQuerry($sql3)[0]['quant'];
+            $conexao->fecharConexao();
 
             $html = 0;
 
-            if ($result['id'] == '' && $result2 == 1 && $result3 == 0) {
+            if ($result == null && $result2 == 1 && $result3 == 0) {
                 $html = "<div style='margin-left:34%'>
                             <h3 style='margin-top: 5%;'>Entidade cadastrada!</h3>
                             <h3 style='margin-top: 0%;'>Vamos Continuar ???</h3>
@@ -383,11 +424,13 @@ function Tutorial($parte)
             break;
         case 'Parte3':
             $idEnt = $_POST['idEnt'];
+            $conexao = new ConexaoCard();
             $sql = "SELECT * FROM bloco WHERE fk_entidade = $idEnt";
-            $exe = pg_query($GLOBALS['con'], $sql);
-            $result = pg_fetch_assoc($exe);
+            $result = $conexao->execQuerry($sql);
+            $conexao->fecharConexao();
+
             $html = 0;
-            if ($result['id'] == '') {
+            if ($result == null) {
                 $html = "<div style='margin-left:46%;'>
                                 <h3 style='margin-top: 10%;'>Agora só falta as estruturas...</h3>
                                 <h3 style='margin: 0%;float:left;'>escolha por onde continuar</h3>
@@ -405,22 +448,20 @@ function Edit()
 {
     $idEnt = $_POST['idEnt'];
     $idBloco = $_POST['idBloco'];
-
+    $conexao = new ConexaoCard();
     $sql = "SELECT * FROM bloco WHERE fk_entidade = $idEnt and bloco.id = $idBloco";
-    $exe = pg_query($GLOBALS['con'], $sql);
-    $result = pg_fetch_assoc($exe);
+    $result = $conexao->execQuerry($sql);
 
     $sql2 = "SELECT * FROM uhs WHERE fk_bloco = $idBloco";
-    $exe2 = pg_query($GLOBALS['con'], $sql2);
-    $result2 = pg_fetch_assoc($exe2);
-    $idApart = $result2['prefixo'];
+    $result2 = $conexao->execQuerry($sql2);
+    $conexao->fecharConexao();
 
-    $quant_andar = $result['quant_andar'];
-    $quantSub = $result['quant_subsolo'];
+    $idApart = $result2[0]['prefixo'];
+    $quant_andar = $result[0]['quant_andar'];
+    $quantSub = $result[0]['quant_subsolo'];
     $HTMLandar = '';
-    $nome = $result['nome'];
+    $nome = $result[0]['nome'];
     for ($i = -$quantSub; $i <= $quant_andar; $i++) {
-
         if ($i == 0) {
             $HTMLandar .= "<div class='col-sm-3' style='margin-bottom: 1%;'>"
                 . "<h5 style='margin:0%;'>Térreo: &nbsp</h5>"
@@ -523,30 +564,31 @@ function MontarEditUH()
     $idEnt = $_POST['idEnt'];
     $idBloco = $_POST['idBloco'];
     $Andar = $_POST['Andar'];
-
+    $conexao = new ConexaoCard();
     $sql1 = "SELECT uhs.id FROM uhs
             INNER JOIN bloco ON fk_bloco = bloco.id
             WHERE fk_entidade = $idEnt and fk_bloco = $idBloco and andar = $Andar and tipo_local = 'UH'
             ORDER BY uhs.id";
-    $exe1 = pg_query($GLOBALS['con'], $sql1);
-    $quantApart = pg_numrows($exe1);
+    $result = $conexao->execQuerry($sql1);
+
+    $quantApart = count($result) - 1;
 
     $UH = '';
     $HTMLuh = '';
-    while ($result1 = pg_fetch_assoc($exe1)) {
-        $UH .= ',' . $result1['id'];
+    for ($i = 0; $i <= $quantApart; $i++) {
+        $UH .= ',' . $result[$i]['id'];
     }
 
     $nome = '';
-    for ($i = 1; $i <= $quantApart; $i++) {
-        $explode = explode(',', $UH)[$i];
+    for ($i = 0; $i <= $quantApart; $i++) {
+        $e = $i +1;
+        $explode = explode(',', $UH)[$e];
         $sql2 = "SELECT * FROM uhs WHERE id = $explode";
-        $exe2 = pg_query($GLOBALS['con'], $sql2);
-        $result2 = pg_fetch_assoc($exe2);
-        $nome = $result2['nome'];
-        $tipo_local = trim($result2['tipo_local']);
-        $id = $result2['id'];
-        $status = $result2['status'];
+        $result2 = $conexao->execQuerry($sql2);
+        $nome = $result2[0]['nome'];
+        $tipo_local = trim($result2[0]['tipo_local']);
+        $id = $result2[0]['id'];
+        $status = $result2[0]['status'];
 
         $Sala = '';
         $apart = '';
@@ -557,11 +599,11 @@ function MontarEditUH()
         if ($tipo_local == 'UH') {
             $apart = 'selected';
         }
-        if ($status == 'f') {
+        if ($status == 0) {
             $opaco = 'style="opacity:0.5;"';
             $mudarStatus = "<div class='col-sm-3' style='padding:0%; text-align:center;'><label onclick='updateUH(\"recuperarUH\", $id)'>Recuperar <i class='fas fa-check-circle' style='color:green; margin-top:20px;'></i></label></div>";
         }
-        if ($status == 't') {
+        if ($status == 1) {
             $mudarStatus = "<div class='col-sm-3' style='padding:0%; text-align:center;'><label onclick='updateUH(\"excluirUH\", $id)'>Excluir <i class='fas fa-times-circle' style='color:red; margin-top:20px;'></i></label></div>";
         }
 
@@ -583,10 +625,10 @@ function MontarEditUH()
     }
 
     $sql3 = "SELECT nome, id FROM bloco WHERE id = $idBloco and fk_entidade = $idEnt";
-    $exe3 = pg_query($GLOBALS['con'], $sql3);
-    $result = pg_fetch_assoc($exe3);
-    $nomeBloco = $result['nome'];
-    $idBloco = $result['id'];
+    $result3 = $conexao->execQuerry($sql3);
+    $conexao->fecharConexao();
+    $nomeBloco = $result3[0]['nome'];
+    $idBloco = $result3[0]['id'];
 
     $HTML = 'Sem';
     if ($nome != '') {
@@ -610,12 +652,12 @@ function ADDUHS()
     $idEnt = $_POST['idEnt'];
     $idBloco = $_POST['idBloco'];
     $Andar = $_POST['Andar'];
-
+    $conexao = new ConexaoCard();
     $sql = "SELECT nome, id FROM bloco WHERE id = $idBloco and fk_entidade = $idEnt";
-    $exe = pg_query($GLOBALS['con'], $sql);
-    $result = pg_fetch_assoc($exe);
-    $nomeBloco = $result['nome'];
-    $id = $result['id'];
+    $result = $conexao->execQuerry($sql);
+    $conexao->fecharConexao();
+    $nomeBloco = $result[0]['nome'];
+    $id = $result[0]['id'];
 
     $HTML = "<h4 style='text-align: center;'><b>Editando &nbsp;&nbsp; $nomeBloco &nbsp;&nbsp; Andar $Andar</b></h4>
             <input type='hidden' value='$id' id='blocoADDuh'>
@@ -644,33 +686,34 @@ function montarEditSala()
     $idEnt = $_POST['idEnt'];
     $idBloco = $_POST['idBloco'];
     $andar = $_POST['andar'];
-
+    $conexao = new ConexaoCard();
     $sql = "SELECT uhs.nome AS nomeuh, bloco.nome AS nomebloco, andar, uhs.id AS iduh FROM uhs
             INNER JOIN bloco ON fk_bloco = bloco.id
             WHERE bloco.id = $idBloco and fk_bloco = $idBloco and status = true and andar = $andar and tipo_local = 'Sala'";
-    $exe = pg_query($GLOBALS['con'], $sql);
-    $quantSalas = pg_numrows($exe);
+    $result = $conexao->execQuerry($sql);
+    $quantSalas = count($result) - 1;
 
     $explodeNome = '';
     $explodeAndar = '';
     $explodeIdUH = '';
-    while ($result = pg_fetch_assoc($exe)) {
-        $explodeNome .= ',' . $result['nomeuh'];
-        $explodeAndar .= ',' . $result['andar'];
-        $explodeIdUH .= ',' . $result['iduh'];
+    for ($i = 0; $i <= $quantSalas; $i++) {
+        $explodeNome .= ',' . $result[$i]['nomeuh'];
+        $explodeAndar .= ',' . $result[$i]['andar'];
+        $explodeIdUH .= ',' . $result[$i]['iduh'];
     }
 
     $HTMLsala = '';
     $nome = explode(',', $explodeNome);
     $Andar = explode(',', $explodeAndar);
     $idUH = explode(',', $explodeIdUH);
-    for ($i = 1; $i <= $quantSalas; $i++) {
+    for ($i = 0; $i <= $quantSalas; $i++) {
         $sql2 = "SELECT nome, quant_andar, quant_subsolo FROM bloco WHERE id = $idBloco";
-        $exe2 = pg_query($GLOBALS['con'], $sql2);
-        $result2 = pg_fetch_assoc($exe2);
-        $quant_andar = $result2['quant_andar'];
-        $quant_subsolo = $result2['quant_subsolo'];
-        $nomeBloco = $result2['nome'];
+        $result2 = $conexao->execQuerry($sql2);
+        if (is_array($result2)) {
+            $quant_andar = $result2[0]['quant_andar'];
+            $quant_subsolo = $result2[0]['quant_subsolo'];
+            $nomeBloco = $result2[0]['nome'];
+        }
         $optionAndar = '';
         $selecionada = '';
         for ($o = -$quant_subsolo; $o <= $quant_andar; $o++) {
@@ -690,12 +733,13 @@ function montarEditSala()
         }
 
         $sql3 = "SELECT id, nome FROM bloco WHERE fk_entidade = $idEnt ORDER BY nome";
-        $exe3 = pg_query($GLOBALS['con'], $sql3);
+        $result3 = $conexao->execQuerry($sql3);
 
+        $quant = count($result3) -1;
         $optionBloco = '';
-        while ($result3 = pg_fetch_assoc($exe3)) {
-            $idblocoSelect = $result3['id'];
-            $nomeblocoSelect = $result3['nome'];
+        for ($o = 0; $o <= $quant; $o++) {
+            $idblocoSelect = $result3[$o]['id'];
+            $nomeblocoSelect = $result3[$o]['nome'];
             $selectBloco = '';
             if ($idblocoSelect == $idBloco) {
                 $selectBloco = 'selected';
@@ -727,7 +771,8 @@ function montarEditSala()
                         </div>
                     </div>";
     }
-    if ($quantSalas != 0) {
+    $conexao->fecharConexao();
+    if ($quantSalas >= 0) {
         $HTML = "<div class='row'>
                 <div class='col-sm-12 cadastro' style='padding:0%; padding-left:2%;'>
                     <h4><b>Editar Sala</b></h4>

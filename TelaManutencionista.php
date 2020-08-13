@@ -60,7 +60,7 @@ if (isset($_SESSION['numLogin'])) {
                 <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
                 <span id="IDUH"></span>
                 <div class="col-sm-12" style="border: solid white 5px; margin-bottom: 5px;">
-                    <h5>Iniciado em <b style="color:red;" id="dataQuinzenal"></b></h5>
+                    <h5>Iniciado: <b style="color:red;" id="dataQuinzenal"></b></h5>
                     <h5>Status: <b style="color: red;" id="statusQuinzenal"></b></h5>
                 </div>
                 <div class="col-sm-12" style="padding:0%; border: solid white 5px; margin-bottom: 5px;">
@@ -76,7 +76,7 @@ if (isset($_SESSION['numLogin'])) {
                 <p style="color: black;"><b class="Blocos">Bloco A </b></p>
                 <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
                 <div class="col-sm-12" style="border: solid white 5px; margin-bottom: 5px;">
-                    <h5>Iniciado em <b style="color:red;" id="dataMensal"></b></h5>
+                    <h5>Iniciado: <b style="color:red;" id="dataMensal"></b></h5>
                     <h5>Status: <b style="color: red;" id="statusMensal"></b></h5>
                 </div>
                 <div class="col-sm-12" style="padding:0%; border: solid white 5px; margin-bottom: 5px;">
@@ -92,7 +92,7 @@ if (isset($_SESSION['numLogin'])) {
                 <p style="color: black;"><b class="Blocos">Bloco A </b></p>
                 <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
                 <div class="col-sm-12" style="border: solid white 5px; margin-bottom: 5px;">
-                    <h5>Iniciado em <b style="color:red;" id="dataTrimestral"></b></h5>
+                    <h5>Iniciado: <b style="color:red;" id="dataTrimestral"></b></h5>
                     <h5>Status: <b style="color: red;" id="statusTrimestral"></b></h5>
                 </div>
                 <div class="col-sm-12" style="padding:0%; border: solid white 5px; margin-bottom: 5px;">
@@ -108,7 +108,7 @@ if (isset($_SESSION['numLogin'])) {
                 <p style="color: black;"><b class="Blocos">Bloco A </b></p>
                 <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
                 <div class="col-sm-12" style="border: solid white 5px; margin-bottom: 5px;">
-                    <h5>Iniciado em <b style="color:red;" id="dataAnual"></b></h5>
+                    <h5>Iniciado: <b style="color:red;" id="dataAnual"></b></h5>
                     <h5>Status: <b style="color: red;" id="statusAnual"></b></h5>
                 </div>
                 <div class="col-sm-12" style="padding:0%; border: solid white 5px; margin-bottom: 5px;">

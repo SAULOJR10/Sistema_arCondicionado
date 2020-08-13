@@ -1,5 +1,6 @@
 <?php
 include_once "../comum/conexao.php";
+include_once "../comum/conf.ini.php";
 $acao = $_POST['acao'];
 
 switch ($acao) {
@@ -42,17 +43,19 @@ switch ($acao) {
 function SelectEnt()
 {
     $idLogin = $_POST['idUsuario'];
-
-    $sql2 = "SELECT dados_entidade.id AS ident, nome_fantasia FROM dados_entidade
+    $conexao = new ConexaoCard();
+    $sql = "SELECT dados_entidade.id AS ident, nome_fantasia FROM dados_entidade
              INNER JOIN entidade_login on fk_entidade = dados_entidade.id
              Where fk_login = $idLogin and nome_fantasia != ''
              ORDER BY nome_fantasia";
-    $exe2 = pg_query($GLOBALS['con'], $sql2);
+    $result = $conexao->execQuerry($sql);
+    $conexao->fecharConexao();
 
+    $quant = count($result) - 1;
     $option = '<option value="">Selecione</option>";';
-    while ($result2 = pg_fetch_assoc($exe2)) {
-        $valor = $result2['nome_fantasia'];
-        $id = $result2['ident'];
+    for ($i = 0; $i <= $quant; $i++) {
+        $valor = $result[$i]['nome_fantasia'];
+        $id = $result[$i]['ident'];
         $option .= "<option value='$id' id='optionEnt$id'>$valor</option>";
     }
     $select = "<div class='form-group'><select id='EntidadeGer' style='border-radius:10px;' class='form-control' onchange='EntSelected(\"normal\")'>$option</select></div>";
@@ -63,12 +66,16 @@ function Selects($acao)
 {
     $idEnt = $_POST['idEnt'];
     if ($acao == 'Bloco') {
+        $conexao = new ConexaoCard();
         $sql = "SELECT * FROM bloco WHERE fk_entidade = $idEnt ORDER BY nome";
-        $exe = pg_query($GLOBALS['con'], $sql);
+        $result = $conexao->execQuerry($sql);
+        $conexao->fecharConexao();
+
+        $quant = count($result) - 1;
         $option = '<option value="">Selecione</option>';
-        while ($result = pg_fetch_assoc($exe)) {
-            $Bloco = $result['nome'];
-            $id = $result['id'];
+        for ($i = 0; $i <= $quant; $i++) {
+            $Bloco = $result[$i]['nome'];
+            $id = $result[$i]['id'];
             $option .= "<option value='$id'> $Bloco </option>";
         }
         $html = "<h4 style='text-align:center;'>Selecione o Bloco:</h4><select style='border-radius:10px;' id='Bloco' class='form-control' onchange=\"MontarQualUH('Andar')\">$option</select>";
@@ -77,12 +84,13 @@ function Selects($acao)
     if ($acao == 'Andar') {
         $bloco = $_POST['idBloco'];
         $option = '<option value="">Selecione</option>';
+        $conexao = new ConexaoCard();
         $sql = "SELECT * FROM bloco WHERE bloco.id = $bloco and fk_entidade = $idEnt";
-        $exe = pg_query($GLOBALS['con'], $sql) or die("DEU RUIM !!!");
-        $result = pg_fetch_assoc($exe);
+        $result = $conexao->execQuerry($sql);
+        $conexao->fecharConexao();
 
-        $quantAndar = $result['quant_andar'];
-        $quantSubSolo = $result['quant_subsolo'];
+        $quantAndar = $result[0]['quant_andar'];
+        $quantSubSolo = $result[0]['quant_subsolo'];
         if ($quantSubSolo != 0) {
             for ($i = 1; $i <= $quantSubSolo; $i++) {
                 $SubSolo = '-' . $i;
@@ -102,12 +110,16 @@ function Selects($acao)
     if ($acao == 'UH') {
         $bloco = $_POST['idBloco'];
         $andar = $_POST['andar'];
+        $conexao = new ConexaoCard();
         $sql = "SELECT * FROM uhs WHERE fk_bloco = $bloco and andar = $andar and status = true ORDER BY nome";
-        $exe = pg_query($GLOBALS['con'], $sql);
+        $result = $conexao->execQuerry($sql);
+        $conexao->fecharConexao();
+
+        $quant = count($result) - 1;
         $option = '<option value="">Selecione</option>';
-        while ($result = pg_fetch_assoc($exe)) {
-            $UH = $result['nome'];
-            $id = $result['id'];
+        for ($i = 0; $i <= $quant; $i++) {
+            $UH = $result[$i]['nome'];
+            $id = $result[$i]['id'];
             $option .= "<option value='$id'> $UH </option>";
         }
         $html = "<h4 style='text-align:center;'>Selecione local:</h4><select class='form-control' id='UHGer' onchange=\"MontarQualUH('Ar')\" style='border-radius:10px;'> $option </select>";
@@ -115,13 +127,17 @@ function Selects($acao)
     }
     if ($acao == 'Ar') {
         $idUH = $_POST['idUH'];
+        $conexao = new ConexaoCard();
         $sql = "SELECT * FROM equipamento WHERE uh = $idUH ORDER BY Marca";
-        $exe = pg_query($GLOBALS['con'], $sql);
+        $result = $conexao->execQuerry($sql);
+        $conexao->fecharConexao();
+
+        $quant = count($result) - 1;
         $option = '<option value="">Selecione</option>';
-        while ($result = pg_fetch_assoc($exe)) {
-            $Marca = $result['marca'];
-            $Local = $result['localizacao'];
-            $id = $result['id'];
+        for ($i = 0; $i <= $quant; $i++) {
+            $Marca = $result[$i]['marca'];
+            $Local = $result[$i]['localizacao'];
+            $id = $result[$i]['id'];
             $option .= "<option value='$id'> $Marca, $Local </option>";
         }
         $html = "<h4 style='text-align:center;'>Seleciona Ar Condicionado:</h4><select class='form-control' id='Ar' onchange=\"MontarQualUH('colocarButton')\" style='border-radius:10px;'> $option </select>";
@@ -132,16 +148,25 @@ function Selects($acao)
 function MontarTela()
 {
     $uh = $_POST['uh'];
-
+    $conexao = new ConexaoCard();
     $sql1 = "SELECT * FROM uhs WHERE id = $uh";
-    $exe1 = pg_query($GLOBALS['con'], $sql1);
-    $result1 = pg_fetch_assoc($exe1);
-    $idBloco = $result1['fk_bloco'];
-    $sql2 = "SELECT * FROM bloco WHERE id = $idBloco";
-    $exe2 = pg_query($GLOBALS['con'], $sql2);
-    $result2 = pg_fetch_assoc($exe2);
+    $result1 = $conexao->execQuerry($sql1);
 
-    $final  = ';' . $result1['tipo_local'] . ': ' . $result1['nome'] . ';' . $result2['nome'];
+    if (is_array($result1) && $result1 != null) {
+        $tipo_local = $result1[0]['tipo_local'];
+        $nomeUH = $result1[0]['nome'];
+    }
+
+    $idBloco = $result1[0]['fk_bloco'];
+    $sql2 = "SELECT * FROM bloco WHERE id = $idBloco";
+    $result2 = $conexao->execQuerry($sql2);
+    $conexao->fecharConexao();
+
+    if (is_array($result2) && $result2 != null) {
+        $nomeBloco = $result2[0]['nome'];
+    }
+
+    $final  = ';' . $tipo_local . ': ' . $nomeUH . ';' . $nomeBloco;
     echo json_encode($final);
 }
 
@@ -150,61 +175,66 @@ function MontarCheckList($Periodo)
     $idUH = $_POST['uh'];
     $idLogin = $_POST['idLogin'];
     $idAr = $_POST['idAr'];
-
+    $conexao = new ConexaoCard();
     $sqlUH = "SELECT * FROM uhs WHERE id = $idUH";
-    $exeUH = pg_query($GLOBALS['con'], $sqlUH);
-    $resultUH = pg_fetch_assoc($exeUH);
-    $UH = $resultUH['nome'];
-    $idBloco = $resultUH['fk_bloco'];
+    $resultUH = $conexao->execQuerry($sqlUH);
+    $UH = $resultUH[0]['nome'];
+    $idBloco = $resultUH[0]['fk_bloco'];
+
     $sqlBloco = "SELECT * FROM bloco WHERE id = $idBloco";
-    $exeBloco = pg_query($GLOBALS['con'], $sqlBloco);
-    $Bloco = pg_fetch_assoc($exeBloco)['nome'];
+    $resultBloco = $conexao->execQuerry($sqlBloco);
+    $Bloco = $resultBloco[0]['nome'];
 
     $sqlUsu = "SELECT * FROM login WHERE id = $idLogin";
-    $exeUsu = pg_query($GLOBALS['con'], $sqlUsu);
-    $Usuario = pg_fetch_assoc($exeUsu)['usuario'];
+    $resultUsu = $conexao->execQuerry($sqlUsu);
+    $Usuario = $resultUsu[0]['usuario'];
 
     $sql = "SELECT * FROM item WHERE tipo_equipamento = 1 and periodo = '$Periodo' ORDER BY periodo, titulo";
-    $exe = pg_query($GLOBALS['con'], $sql);
+    $result = $conexao->execQuerry($sql);
 
     $htmlTitulo = '';
     $tituloAntigo = '';
     $num1 = 1;
     $num2 = 1;
     $fim = '';
-    while ($result = pg_fetch_assoc($exe)) {
-        $Periodo = $result['periodo'];
-        $titulo = $result['titulo'];
-        $descricao = $result['descricao'];
-        $idItem = $result['id'];
+    $quant = count($result) - 1;
+    for ($i = 0; $i <= $quant; $i++) {
+        $Periodo = $result[$i]['periodo'];
+        $titulo = $result[$i]['titulo'];
+        $descricao = $result[$i]['descricao'];
+        $idItem = $result[$i]['id'];
         $hj = date('Y/m/d');
         $sql2 = "SELECT item_check.data, item_check.status, observacao, funcionario FROM item_check
                  INNER JOIN check_list ON fk_check_list = check_list.id
                  WHERE fk_item = $idItem and fk_equipamento = $idAr and vencimento >= '$hj'";
-        $exe2 = pg_query($GLOBALS['con'], $sql2);
-        $result2 = pg_fetch_assoc($exe2);
-        $data =  $result2['data'] . ' -';
-        if ($data == ' -') {
-            $data = "<span style='color: red;'>Não Validado<span>";
-        }
-        if ($result2['status'] == 't') {
-            $checked =  "checked";
+        $result2 = $conexao->execQuerry($sql2);
+        if (is_array($result2) && $result2    != null) {
+            $data =  $result2[0]['data'] . ' -';
+            if($result2[0]['observacao'] == ''){
+                $obs = "<span style='color: red;'>Nenhuma observação</span>";    
+            }else{
+                $obs =  '<span style="color: red;"><b>' . $result2[0]['observacao'] . '</b></span>';
+            }
+            $valueOBS = $result2[0]['observacao'];
+            $idFun = $result2[0]['funcionario'];
+            if ($result2[0]['status'] == 1) {
+                $checked =  "checked";
+            } else {
+                $checked = '';
+            }
         } else {
             $checked = '';
-        }
-        if ($result2['observacao'] != '') {
-            $obs =  '<span style="color: red;"><b>' . $result2['observacao'] . '</b></span>';
-            $valueOBS = $result2['observacao'];
-        } else {
+            $data = "<span style='color: red;'>Não Validado<span>";
             $obs = '<span style="color: red;">Nenhuma observação</span>';
             $valueOBS = '';
+            $idFun = '';
         }
-        $idFun = $result2['funcionario'];
+
         if ($idFun != '') {
             $sql3 = "SELECT * FROM login WHERE id = $idFun";
-            $exe3 = pg_query($GLOBALS['con'], $sql3);
-            $NomeFuncionario = pg_fetch_assoc($exe3)['usuario'];
-        }else{
+            $result3 = $conexao->execQuerry($sql3);
+            $NomeFuncionario = $result3[0]['usuario'];
+        } else {
             $NomeFuncionario = '';
         }
         if ($tituloAntigo != $titulo || $tituloAntigo == '') {
@@ -226,6 +256,7 @@ function MontarCheckList($Periodo)
         $tituloAntigo = $titulo;
         $num2++;
     }
+    $conexao->fecharConexao();
     $html = "<div class='col-sm-1'></div>
                 <div class='col-sm-8' style='padding:0%; background-color: rgb(243,246,251);'>
                     <div class='col-sm-12' style='padding:0%;background-color:#c4ced2; border-bottom: solid black 3px;'>
@@ -273,32 +304,36 @@ function MontarGraficos($periodo)
 {
     $idUH = $_POST['uh'];
     $idAr = $_POST['idAr'];
+    $conexao = new ConexaoCard();
     $sqlTotal = "SELECT COUNT(item.id) AS total FROM item WHERE item.periodo = '$periodo' and tipo_equipamento = 1";
-    $exe1 = pg_query($GLOBALS['con'], $sqlTotal);
-    $quantTotal = pg_fetch_assoc($exe1)['total'];
+    $quantTotal = $conexao->execQuerry($sqlTotal)[0]['total'];
+
     $hj = date('Y/m/d');
     $sqlFinalizados = "SELECT COUNT(check_list.id) AS finalizados FROM check_list
                        INNER JOIN item_check ON fk_check_list = check_list.id
                        WHERE fk_uh = $idUH and periodo = '$periodo' and vencimento >= '$hj' and item_check.status = true and fk_equipamento = $idAr";
-    $exe2 = pg_query($GLOBALS['con'], $sqlFinalizados);
-    $quantFinalizados = pg_fetch_assoc($exe2)['finalizados'];
-    $hj = date('Y/m/d');
+    $quantFinalizados = $conexao->execQuerry($sqlFinalizados)[0]['finalizados'];
+
     $sqlNaoFinalizados = "SELECT COUNT(check_list.id) AS naofinalizados FROM check_list
                        INNER JOIN item_check ON fk_check_list = check_list.id
                        WHERE fk_uh = $idUH and periodo = '$periodo' and vencimento >= '$hj' and item_check.status = false and fk_equipamento = $idAr";
-    $exe3 = pg_query($GLOBALS['con'], $sqlNaoFinalizados);
-    $quantNaoFinalizados = pg_fetch_assoc($exe3)['naofinalizados'];
-    $hj = date('Y/m/d');
+    $quantNaoFinalizados = $conexao->execQuerry($sqlNaoFinalizados)[0]['naofinalizados'];
+
     $sql = "SELECT data_check, check_list.status FROM check_list
             INNER JOIN item_check ON fk_check_list = check_list.id
             WHERE fk_uh = $idUH and periodo = '$periodo' and fk_equipamento = $idAr and vencimento >= '$hj'";
-    $exe4 = pg_query($GLOBALS['con'], $sql);
-    $result = pg_fetch_assoc($exe4);
-    $data = $result['data_check'];
-    $status = $result['status'];
-    if ($status == 'f' || $status == '') {
-        $status = 'Incompleto';
+    $result = $conexao->execQuerry($sql);
+    if (is_array($result) && $result != null) {
+        $data = $result[0]['data_check'];
+        $status = $result[0]['status'];
     } else {
+        $data = 'Não Inicializado';
+        $status = 'Não Inicializados';
+    }
+    if ($status == 0) {
+        $status = 'Incompleto';
+    }
+    if ($status == 1) {
         $status = 'Completo';
     }
 

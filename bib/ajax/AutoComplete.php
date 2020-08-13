@@ -1,4 +1,6 @@
 <?php
+include_once '../bib/conexao.php';
+
 $source = pg_escape_string($_GET['term']);
 $sql = "SELECT * FROM proprietarios WHERE nome LIKE '%$source%' ORDER BY nome";
 $exe = pg_query($GLOBALS['con'], $sql);

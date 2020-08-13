@@ -1,5 +1,5 @@
 <?php
-include_once "../comum/conexao.php";
+include_once "../comum/conf.ini.php";
 
 $acao = $_POST['acao'];
 
@@ -23,12 +23,13 @@ function Gerenciada()
     $quant = count($explode);
     $quant = intval($quant) - 2;
 
+    $conexao = new ConexaoCard();
     for ($i = 1; $i <= $quant; $i++) {
         $id = $explode[$i];
         $sql = "UPDATE public.uhs SET gerenciada = true WHERE id = $id";
-        pg_query($GLOBALS['con'], $sql) or die($resultado = "Algo deu errado ao adicionar UHs ao gerenciamento");
+        $conexao->execQuerry($sql);
     }
-
+    $conexao->fecharConexao();
 
 
     $nao_gerenciadas = $_POST['naoGerenciadas'];
@@ -36,11 +37,13 @@ function Gerenciada()
     $nao_quant = count($nao_explode);
     $nao_quant = intval($nao_quant) - 2;
 
+    $conexao = new ConexaoCard();
     for ($i = 1; $i <= $nao_quant; $i++) {
         $id = $nao_explode[$i];
         $sql = "UPDATE public.uhs SET gerenciada = false WHERE id = $id";
-        pg_query($GLOBALS['con'], $sql) or die($resultado = "Algo deu errado ao adicionar UHs ao gerenciamento");
+        $conexao->execQuerry($sql);
     }
+    $conexao->fecharConexao();
 
     echo json_encode($resultado);
 }
@@ -51,9 +54,10 @@ function atualizarDadosAr()
     $resultado = "Dados de $tabela atualizado com sucesso !!!";
     $nomeAntigo = $_POST['nomeAntigo'];
     $novoNome = $_POST['novoNome'];
-
+    $conexao = new ConexaoCard();
     $sql = "UPDATE $tabela SET nome = '$novoNome' WHERE nome = '$nomeAntigo'";
-    pg_query($GLOBALS['con'], $sql) or die($resultado = "Erro ao atualizar $tabela, recarregue a pagina e tente novamente mais tarde");
+    $conexao->execQuerry($sql);
+    $conexao->fecharConexao();
 
     echo json_encode($resultado);
 }
@@ -62,9 +66,10 @@ function ExcluirDadosAr(){
     $tabela = $_POST['tabela'];
     $nomeAntigo = $_POST['nomeAntigo'];
     $resultado = "$nomeAntigo excluido com sucesso";
-
+    $conexao = new ConexaoCard();
     $sql = "DELETE FROM $tabela WHERE nome = '$nomeAntigo'";
-    pg_query($GLOBALS['con'], $sql) or die($resultado = "Erro ao excluir $nomeAntigo, recarregue a pagina e tente novamente mais tarde");
+    $conexao->execQuerry($sql);
+    $conexao->fecharConexao();
 
     echo json_encode($resultado);
 }

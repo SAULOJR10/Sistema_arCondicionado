@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 
-include_once "../comum/conexao.php";
+include_once "../comum/conf.ini.php";
 $acao = $_POST['acao'];
 
 switch ($acao) {
@@ -30,11 +30,13 @@ function CheckList()
     $quantFinalizados = COUNT($finalizados) - 2;
     $quantNaoFinalizados = COUNT($naoFinalizados) - 2;
     $hj = date('Y/m/d');
+    $conexao = new ConexaoCard();
     $sqlUH = "SELECT * FROM uhs WHERE id = $idUH";
-    $exeUH = pg_query($GLOBALS['con'], $sqlUH);
-    $resultUH = pg_fetch_assoc($exeUH);
-    $andar = $resultUH['andar'];
-    $Bloco = $resultUH['fk_bloco'];
+    $resultUH = $conexao->execQuerry($sqlUH);
+    if(is_array($resultUH)){
+        $andar = $resultUH[0]['andar'];
+        $Bloco = $resultUH[0]['fk_bloco'];
+    }
     switch ($periodo) {
         case 'Quinzenal':
             $vencimento = date('Y-m-d', strtotime('+15 days', strtotime('now')));
@@ -51,14 +53,14 @@ function CheckList()
     }
     $teste = "SELECT * FROM check_list
               WHERE fk_uh = $idUH and periodo = '$periodo' and fk_equipamento = $idAr and vencimento >= '$hj'";
-    $resultadoTeste = pg_query($GLOBALS['con'], $teste);
-    $testeFinal = pg_fetch_assoc($resultadoTeste)['id'];
+    $resultadoTeste = $conexao->execQuerry($teste);
+    $testeFinal = $resultadoTeste[0]['id'];
 
     if ($testeFinal == null) {
         $sql1 = "INSERT INTO public.check_list(data_check, funcionario, fk_uh, fk_andar, fk_bloco, fk_equipamento, fk_engenheiro, data_asssinatura, status, periodo, vencimento)
-        VALUES (now(), '$funcionario', '$idUH', '$andar', '$Bloco', '$idAr', 1, null, $statusCheck, '$periodo', '$vencimento') RETURNING id";
-        $exe1 = pg_query($GLOBALS['con'], $sql1) or die($resultado = "1 Algo deu errado ao salvar check-list, recarregue a pagina e tente novamente !!!");
-        $idCheck = pg_fetch_array($exe1, 0)[0];
+                 VALUES (now(), '$funcionario', '$idUH', '$andar', '$Bloco', '$idAr', 1, null, $statusCheck, '$periodo', '$vencimento') RETURNING id";
+        $result1 = $conexao->execQuerry($sql1);
+        $idCheck = $result1[0]['id'];
     } else {
         $idCheck = $testeFinal;
     }
@@ -70,43 +72,44 @@ function CheckList()
         $status = $statusFinalizados[$i];
         $OBS = $FinalizadosOBS[$i];
         $teste =  "SELECT * FROM item_check
-        INNER JOIN check_list ON fk_check_list = check_list.id
-        WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
-        $resultadoTeste = pg_query($GLOBALS['con'], $teste);
-        $testeFinal = pg_fetch_assoc($resultadoTeste)['id'];
+                   INNER JOIN check_list ON fk_check_list = check_list.id
+                   WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
+        $resultadoTeste = $conexao->execQuerry($teste);
+        $testeFinal = $resultadoTeste[0]['id'];
         if ($testeFinal != null) {
             $up =  "UPDATE public.item_check
-            SET data = now(), observacao='$OBS', status=$status
-            FROM item_check A INNER JOIN check_list B ON A.fk_check_list = B.id
-            WHERE item_check.fk_item = $fk_item and B.fk_equipamento = $idAr";
-            pg_query($GLOBALS['con'], $up) or die($resultado = "2 Algo deu errado ao salvar check-list, recarregue a pagina e tente novamente !!!");
+                    SET data = now(), observacao='$OBS', status=$status
+                    FROM item_check A INNER JOIN check_list B ON A.fk_check_list = B.id
+                    WHERE item_check.fk_item = $fk_item and B.fk_equipamento = $idAr";
+            $conexao->execQuerry($up);
         } else {
             $sql2 = "INSERT INTO public.item_check(fk_item, fk_check_list, data, observacao, status)
                      VALUES ($fk_item, $idCheck, now(), '$OBS', $status);";
-            pg_query($GLOBALS['con'], $sql2) or die($resultado = "3 Algo deu errado ao salvar check-list, recarregue a pagina e tente novamente !!!");
+            $conexao->execQuerry($sql2);
         }
     }
     for ($o = 1; $o <= $quantNaoFinalizados; $o++) {
         $fk_item = $naoFinalizados[$o];
         $status = $statusNaoFinalizados[$o];
-        $OBS = $NaoFinalizadosOBS[$i];
-        $teste =  "SELECT * FROM item_check
-        INNER JOIN check_list ON fk_check_list = check_list.id
-        WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
-        $resultadoTeste = pg_query($GLOBALS['con'], $teste);
-        $teste = pg_fetch_assoc($resultadoTeste)['id'];
+        $OBS = $NaoFinalizadosOBS[$o];
+        $teste =   "SELECT * FROM item_check
+                    INNER JOIN check_list ON fk_check_list = check_list.id
+                    WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
+        $resultadoTeste = $conexao->execQuerry($teste);
+        $teste = $resultadoTeste[0]['id'];
         if ($teste != null) {
             $up =  "UPDATE public.item_check
-            SET data = now(), observacao='$OBS', status=$status
-            FROM item_check A INNER JOIN check_list B ON A.fk_check_list = B.id
-            WHERE item_check.fk_item = $fk_item and B.fk_equipamento = $idAr";
-            pg_query($GLOBALS['con'], $up) or die($resultado = "4 Algo deu errado ao salvar check-list, recarregue a pagina e tente novamente !!!");
+                    SET data = now(), observacao='$OBS', status=$status
+                    FROM item_check A INNER JOIN check_list B ON A.fk_check_list = B.id
+                    WHERE item_check.fk_item = $fk_item and B.fk_equipamento = $idAr";
+            $conexao->execQuerry($up);
         } else {
             $sql2 = "INSERT INTO public.item_check(fk_item, fk_check_list, data, observacao, status)
                      VALUES ($fk_item, $idCheck, now(), '$OBS', $status);";
-            pg_query($GLOBALS['con'], $sql2) or die($resultado = "5 Algo deu errado ao salvar check-list, recarregue a pagina e tente novamente !!!");
+            $resultUH = $conexao->execQuerry($sql2);
         }
     }
+    $conexao->fecharConexao();
     echo json_encode($resultado);
 }
 
@@ -116,10 +119,10 @@ function Avisar()
     $idUH = $_POST['idUH'];
     $data = $_POST['data'];
     $obs = $_POST['obs'];
-
+    $conexao = new ConexaoCard();
     $sql = "INSERT INTO public.agendamentos (data, observacao, fk_uh)
             VALUES  ('$data', '$obs', $idUH)";
-    pg_query($GLOBALS['con'], $sql) or die($resultado =  "Algo deu errado ao cadastrar agendamento, recarregue a pagina e tente novamente");
+    $conexao->execQuerry($sql);
 
     echo json_encode($resultado);
 }

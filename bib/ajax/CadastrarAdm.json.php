@@ -1,5 +1,5 @@
 <?php
-include_once '../comum/conexao.php';
+include_once '../comum/conf.ini.php';
 
 $acao = $_POST['acao'];
 
@@ -39,15 +39,17 @@ function ADDProp()
     $tipoPropriedade = $_POST['tipoPropriedade'];
     $tipoPessoa = $_POST['tipoPessoa'];
     $EnderecoProp = $_POST['enderecoProp'];
-
+    $conexao = new ConexaoCard();
     $sql1 = "INSERT INTO public.proprietarios(nome, documento, email, telefone, estado, cidade, cep, endereco, razao_social, data_cadastro, data_alteracao, tipo_pessoa)
     VALUES ('$nomeProp', '$documentoProp', '$emailProp', '$telefoneProp', '$EstadoProp', '$CidadeProp', '$CEPProp', '$EnderecoProp', '$razaoSocial', now(), now(), '$tipoPessoa') RETURNING id;";
-    $exe1 = pg_query($GLOBALS['con'], $sql1) or die($resultado = "Erro ao cadastrar proprietário, recarregue a pagina e tente novamente");
-    $idProp = pg_fetch_array($exe1, 0)[0];
-
+    $result = $conexao->execQuerry($sql1);
+    if (is_array($result)) {
+        $idProp = $result[0]['id'];
+    }
 
     $sql2 = "UPDATE public.uhs SET proprietario=$idProp, tipo_proprietario='$tipoPropriedade' WHERE id=$UH";
-    pg_query($GLOBALS['con'], $sql2);
+    $conexao->execQuerry($sql2);
+    $conexao->fecharConexao();
     echo json_encode($resultado);
 }
 
@@ -71,9 +73,11 @@ function ADDAR()
         $obs = $observacao[$i];
         $TU = $tempo_uso[$i];
 
+        $conexao = new ConexaoCard();
         $sql = "INSERT INTO public.equipamento(localizacao, marca, modelo, potencia, tempo_de_uso, uh, tipo_equipamento, data_cadastro, data_alteracao, observacao)
                 VALUES ('$loc', '$marc', '$mod', '$pot', '$TU', '$UH', '1', now(), now(), '$obs');";
-        pg_query($GLOBALS['con'], $sql) or die($resultado = "Não foi possivvel adicionar Ar Condicionado, por favor, recarregue a pagina e tente novamente");
+        $conexao->execQuerry($sql);
+        $conexao->fecharConexao();
     }
     echo json_encode($resultado);
 }
@@ -82,8 +86,10 @@ function InserirDadosAr($tabela){
     $resultado = "$tabela inserida com sucesso !!!";
     $nome = $_POST['nome'];
 
+    $conexao = new ConexaoCard();
     $sql = "INSERT INTO public.$tabela (nome) values ('$nome')";
-    pg_query($GLOBALS['con'], $sql)or die($resultado = "Não foi possivel inserir $tabela, recarregue a pagina e tente novamente");
+    $conexao->execQuerry($sql);
+    $conexao->fecharConexao();
 
     echo json_encode($resultado);
 }

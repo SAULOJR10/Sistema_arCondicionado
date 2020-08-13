@@ -77,7 +77,7 @@ function Tutorial(id) {
             }
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -108,7 +108,7 @@ function Title() {
             $('#quantEng').append(quant[4]);
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -136,7 +136,7 @@ function Tabela() {
             Title();
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -191,7 +191,7 @@ function SelectEnt(acao) {
             }
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -256,7 +256,7 @@ function CadastrarBloco(acao) {
             $('#ch_Sub02').prop('checked', false);
         },
         error: function (msg) {
-            alert(msg.responseText)
+            alert(msg.responseText);
         }
     });
 }
@@ -373,7 +373,7 @@ function CadastrarEntidade(id) {
             MostrarSucesso(data);
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -498,7 +498,7 @@ function CadastrarEngenheiro() {
             MostrarSucesso(data);
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -604,7 +604,7 @@ function CadastrarSala(acao) {
             }
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -651,7 +651,7 @@ function MontarUpdateSala(idBloco, andar) {
             $('#top').focus();
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -680,7 +680,7 @@ function Edit(idBloco, idApart) {
             $('#nomeEdit').focus();
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -757,7 +757,7 @@ function updateUH(acao, id) {
             MostrarSucesso(data);
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -792,7 +792,7 @@ function AddUH() {
             Tabela();
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -827,7 +827,7 @@ function UpdateSala(acao, id) {
             MostrarSucesso(data);
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -864,7 +864,7 @@ function aparecer(id) {
                 $('#Bloco').append('<input type="hidden" id="nomePadrao" value="Bloco ' + data + '"/>');
             },
             error: function (msg) {
-                alert(msg);
+                alert(msg.responseText);
             }
         });
     }
@@ -925,7 +925,7 @@ function MontarCadSala(id) {
                 $('#SelectSala' + id).append(data);
             },
             error: function (msg) {
-                alert(msg);
+                alert(msg.responseText);
             }
         });
     } else if (teste == 'SelectBlocos') {
@@ -949,7 +949,7 @@ function MontarCadSala(id) {
                 $('#mudarAcao').attr('onclick', 'CadastrarSala(\'cadSala\')');
             },
             error: function (msg) {
-                alert(msg);
+                alert(msg.responseText);
             }
         });
     }
@@ -986,7 +986,7 @@ function MontarEditUH(idEnt, idBloco, Andar) {
             }
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }
@@ -1012,7 +1012,7 @@ function MontarAddUH(idEnt, idBloco, Andar) {
             $('#modalEditUH').modal('show');
         },
         error: function (msg) {
-            alert(msg);
+            alert(msg.responseText);
         }
     });
 }

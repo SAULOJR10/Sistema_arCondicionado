@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 //arquivo na pasta
-include_once 'conexao.php';
+include_once 'conect.php';
 //arquivo separado
 //include_once '/var/sisInfo/sis/Conexao0001.php';
 

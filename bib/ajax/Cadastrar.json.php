@@ -1,5 +1,5 @@
 <?php
-include_once "../comum/conexao.php";
+include_once "../comum/conf.ini.php";
 
 $acao = $_POST['acao'];
 $idEntidade = '';
@@ -37,16 +37,19 @@ function cadEnt()
     $cidadeEnt = $_POST['cidadeEnt'];
     $cepEnt = $_POST['cepEnt'];
     $enderecoEnt = $_POST['enderecoEnt'];
-
+    $conexao = new ConexaoCard();
     $sql1 = "INSERT INTO public.dados_entidade(razao_social, nome_fantasia, cnpj, telefone, estado, cidade, cep, endereco, data_cadatro, data_alteracao)
              VALUES ('$razaoSocial', '$nomeFantasia', '$CNPJEnt', '$telefoneEnt', '$estadoEnt', '$cidadeEnt', '$cepEnt', '$enderecoEnt', now(), now())  RETURNING id";
-    $exe1 = pg_query($GLOBALS['con'], $sql1)or die($resultado = "Algo deu errado ao cadastrar entidade, recarregue e tente novamente");
-    $idEnt = pg_fetch_array($exe1, 0)[0];
-
+    $query = $conexao->execQuerry($sql1);
+    if (is_array($query)) {
+        $idEnt = $query[0]['id'];
+    }
 
     $sql2 = "INSERT INTO entidade_login (fk_login, fk_entidade)
              VALUES ('$idUsuario', '$idEnt')";
-    pg_query($GLOBALS['con'], $sql2)or die($resultado = "Algo deu errado ao cadastrar entidade, recarregue e tente novamente");
+    $conexao->execQuerry($sql2);
+    $conexao->fecharConexao();
+
     echo json_encode($resultado);
 }
 
@@ -64,10 +67,11 @@ function cadEng()
     $cidadeEng = $_POST['cidadeEng'];
     $enderecoEng = $_POST['enderecoEng'];
     $assinatura = $_POST['assinatura'];
-
+    $conexao = new ConexaoCard();
     $sql1 = "INSERT INTO public.dados_engenheiro(nome, crea, telefone, email, estado, cidade, endereco, assinatura, data_cadatro, data_alteracao, status, fk_entidade, cpf, cep)
              VALUES ('$nomeEng', '$CREA', '$telefoneEng', '$emailEng', '$estadoEng', '$cidadeEng', '$enderecoEng', '$assinatura', now(), now(), true, '$idEnt', '$CPF', '$CEP')";
-    pg_query($GLOBALS['con'], $sql1)or die($resultado = "Algo deu errado ao cadastrar engenheiro, recarregue a pagina e tente novamente");
+    $conexao->execQuerry($sql1);
+    $conexao->fecharConexao();
 
     echo json_encode($resultado);
 }
@@ -83,11 +87,12 @@ function cadBloco()
     $explode = $_POST['quantApart'];
     $quantApart = explode(',', $explode);
     $Values = '';
-
+    $conexao = new ConexaoCard();
     $sql1 = "INSERT INTO bloco (nome, fk_entidade, quant_andar, quant_subsolo)
              VALUES ('$nome', '$idEnt', $quantAndar, '$quantSubSolo') RETURNING id";
-    $exe1 = pg_query($GLOBALS["con"], $sql1) or die($resultado = "Algo deu errado ao cadastrar Bloco");
-    $idBloco = pg_fetch_array($exe1, 0)[0];
+    $result = $conexao->execQuerry($sql1);
+    
+    $idBloco = $result[0]['id'];
 
     for ($i = 0; $i <= $quantAndar; $i++) {
         $zero = 0;
@@ -105,7 +110,8 @@ function cadBloco()
     }
 
     $sql2 = "INSERT INTO uhs (nome, andar, fk_bloco, proprietario, tipo_local, status, prefixo, gerenciada, tipo_proprietario) VALUES $Values";
-    pg_query($GLOBALS["con"], $sql2)or die($resultado = "Algo deu errado ao cadastrar Uhs");
+    $conexao->execQuerry($sql2);
+    $conexao->fecharConexao();
 
     echo json_encode($resultado);
 }
@@ -129,10 +135,11 @@ function cadSala($acao)
                 $values .= "('$nomeSala', '$andar', '$idBloco', '1', 'Sala', true, '', false, 'Sem Proprietário')";
             }
         }
-
+        $conexao = new ConexaoCard();
         $sql = "INSERT INTO public.uhs(nome, andar, fk_bloco, proprietario, tipo_local, status, prefixo, gerenciada, tipo_proprietario)
-	            VALUES $values;";
-        pg_query($GLOBALS['con'], $sql)or die($resultado = "Erro ao cadastrar sala(s), tente recarregar a pagina");
+                VALUES $values;";
+        $conexao->execQuerry($sql);
+        $conexao->fecharConexao();
 
         echo json_encode($resultado);
     }
@@ -142,13 +149,14 @@ function cadSala($acao)
         $nomeBloco = $_POST['idBloco'];
         $quantAndar = $_POST['quantAndar'];
         $quantSubSolo = $_POST['quantSubSolo'];
-
+        $conexao = new ConexaoCard();
         $sql1 = "INSERT INTO public.bloco(nome, fk_entidade, quant_andar, quant_subsolo)
             VALUES ('$nomeBloco', '$idEnt', '$quantAndar', '$quantSubSolo') RETURNING id";
-        $exe1 = pg_query($GLOBALS["con"], $sql1) or die($resultado = "Erro ao adicionar Bloco, recarregue a pagina e tente novamente");
-        $idBloco = pg_fetch_array($exe1, 0)[0];
+        $result = $conexao->execQuerry($sql1);
+        $conexao->fecharConexao();
+        $idBloco = $result[0]['id'];
 
-        echo json_encode($resultado.$idBloco);
+        echo json_encode($resultado . $idBloco);
     }
 }
 
@@ -158,17 +166,19 @@ function AddUH()
     $quant = $_POST['quant'];
     $idBloco = $_POST['idbloco'];
     $andar = $_POST['andar'];
-
+    $conexao = new ConexaoCard();
     $sql1 = "SELECT * FROM uhs WHERE fk_bloco = $idBloco and andar = $andar and tipo_local = 'UH' and status = true";
-    $exe1 = pg_query($GLOBALS['con'], $sql1);
+    $result1 = $conexao->execQuerry($sql1);
     $sql2 = "SELECT * FROM uhs WHERE fk_bloco = $idBloco and tipo_local = 'UH' and status = true";
-    $exe2 = pg_query($GLOBALS['con'], $sql2);
-    $quantExiste = pg_numrows($exe1);
-    $prefixo = pg_fetch_assoc($exe2)['prefixo'];
+    $result2 = $conexao->execQuerry($sql2);
+    $quantExiste = count($result1);
+    if(is_array($result2)){
+        $prefixo = $result2[0]['prefixo'];
+    }
     $values = '';
     $zero = 0;
     $teste = $quant + $quantExiste;
-    for ($i = $quantExiste+1; $i <= $teste; $i++) {
+    for ($i = $quantExiste + 1; $i <= $teste; $i++) {
         if ($i > 9) {
             $zero = '';
         }
@@ -179,9 +189,10 @@ function AddUH()
         }
     }
 
-    $sql2 = "INSERT INTO public.uhs (nome, andar, fk_bloco, proprietario, tipo_local, status, prefixo, gerenciada, tipo_proprietário)
+    $sql3 = "INSERT INTO public.uhs (nome, andar, fk_bloco, proprietario, tipo_local, status, prefixo, gerenciada, tipo_proprietario)
     VALUES $values";
-    pg_query($GLOBALS['con'], $sql2)or die($resultado = "Algo deu errado ao adicionar UH(s), recarregue a pagina e tente novamente");
+    $conexao->execQuerry($sql3);
+    $conexao->fecharConexao();
 
     echo json_encode($resultado);
 }

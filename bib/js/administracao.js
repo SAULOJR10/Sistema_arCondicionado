@@ -222,15 +222,12 @@ function Tabela() {
                 },
                 success: function (data) {
                         $("#Corpo").empty();
-                        $("#tutorial").empty();
-                        $('.cad').attr('style', 'display: none; background-color: white; width:100%;');
-                        $('.cadSala').attr('style', 'display: none; background-color: white; width:100%;');
-                        $('.Edit').attr('style', 'display: none; background-color: white; width:100%;');
+                        $('.ger').attr('style', 'display: none; background-color: white; width:100%;');
                         $("#Corpo").append(data);
                         Title();
                 },
                 error: function (msg) {
-                        alert(msg);
+                        alert(msg.responseText);
                 }
         });
 }
@@ -284,7 +281,7 @@ function CadDadosAr(id) {
                         quantAr();
                 },
                 error: function (msg) {
-                        alert(msg);
+                        alert(msg.responseText);
                 }
         });
 }
