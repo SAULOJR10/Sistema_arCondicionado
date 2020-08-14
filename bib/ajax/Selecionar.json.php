@@ -3,7 +3,7 @@ include_once "../comum/conf.ini.php";
 
 // error_reporting(0);
 
-$acao = $_POST['acao'];
+$acao = filter_input(INPUT_POST, 'acao', FILTER_SANITIZE_STRING);
 
 switch ($acao) {
     case 'tabela':
@@ -60,7 +60,7 @@ switch ($acao) {
 }
 function CadSala()
 {
-    $idEnt = $_POST['idEnt'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql = "SELECT COUNT(*) AS quantbloco FROM bloco
             WHERE fk_entidade = $idEnt";
@@ -75,7 +75,7 @@ function CadSala()
 
 function selectQuant()
 {
-    $idEnt = $_POST['idEnt'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql1 = "SELECT COUNT(bloco) AS bloco FROM bloco
              WHERE fk_entidade = '$idEnt'";
@@ -137,7 +137,7 @@ function selectQuant()
 function SelectEnt($acao)
 {
     if ($acao == 'selectEnt') {
-        $idLogin = $_POST['idUsuario'];
+        $idLogin = filter_input(INPUT_POST, 'idUsuario', FILTER_SANITIZE_STRING);
         $conexao = new ConexaoCard();
         $sql = "SELECT dados_entidade.id AS ident, nome_fantasia FROM dados_entidade
                  INNER JOIN entidade_login on fk_entidade = dados_entidade.id
@@ -166,7 +166,7 @@ function SelectEnt($acao)
         $html = "<input type='hidden' id='idEnt' value='$idEnt'>$nomeEnt";
         echo json_encode($html);
     } else if ($acao == 'SoUma') {
-        $idLogin = $_POST['idUsuario'];
+        $idLogin = filter_input(INPUT_POST, 'idUsuario', FILTER_SANITIZE_STRING);
         $conexao = new ConexaoCard();
         $sql = "SELECT dados_entidade.id, dados_entidade.nome_fantasia FROM dados_entidade
                  INNER JOIN entidade_login ON fk_entidade = dados_entidade.id
@@ -184,7 +184,7 @@ function SelectEnt($acao)
 
 function selectBlocos()
 {
-    $idEnt = $_POST['idEnt'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql = "SELECT * FROM bloco WHERE fk_entidade = $idEnt";
     $result = $conexao->execQuerry($sql);
@@ -204,8 +204,8 @@ function selectBlocos()
 
 function selectAndar()
 {
-    $idEnt = $_POST['idEnt'];
-    $bloco = $_POST['bloco'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
+    $bloco = filter_input(INPUT_POST, 'bloco', FILTER_SANITIZE_STRING);
     $option = '<option value="">Selecione</option>';
     $conexao = new ConexaoCard();
     $sql = "SELECT * FROM bloco
@@ -234,7 +234,7 @@ function selectAndar()
 
 function tabela()
 {
-    $idEnt = $_POST['idEnt'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql = "SELECT bloco.id AS id_bloco, uhs.nome AS nome, prefixo, uhs.andar, tipo_local, bloco.nome AS bloconome, quant_andar, quant_subsolo FROM uhs 
             INNER JOIN bloco ON fk_bloco = bloco.id
@@ -370,7 +370,7 @@ function Tutorial($parte)
     $html = '';
     switch ($parte) {
         case 'Parte1':
-            $idLogin = $_POST['idLogin'];
+            $idLogin = filter_input(INPUT_POST, 'idLogin', FILTER_SANITIZE_STRING);
             $conexao = new ConexaoCard();
             $sql = "SELECT * FROM entidade_login WHERE fk_login = $idLogin";
             $result = $conexao->execQuerry($sql);
@@ -389,7 +389,7 @@ function Tutorial($parte)
             }
             break;
         case 'Parte2':
-            $idLogin = $_POST['idLogin'];
+            $idLogin = filter_input(INPUT_POST, 'idLogin', FILTER_SANITIZE_STRING);
             $conexao = new ConexaoCard();
             $sql = "SELECT * FROM dados_engenheiro
                     INNER JOIN dados_entidade ON dados_engenheiro.fk_entidade = dados_entidade.id
@@ -423,7 +423,7 @@ function Tutorial($parte)
             }
             break;
         case 'Parte3':
-            $idEnt = $_POST['idEnt'];
+            $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
             $conexao = new ConexaoCard();
             $sql = "SELECT * FROM bloco WHERE fk_entidade = $idEnt";
             $result = $conexao->execQuerry($sql);
@@ -446,8 +446,8 @@ function Tutorial($parte)
 
 function Edit()
 {
-    $idEnt = $_POST['idEnt'];
-    $idBloco = $_POST['idBloco'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
+    $idBloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql = "SELECT * FROM bloco WHERE fk_entidade = $idEnt and bloco.id = $idBloco";
     $result = $conexao->execQuerry($sql);
@@ -561,9 +561,9 @@ function Edit()
 
 function MontarEditUH()
 {
-    $idEnt = $_POST['idEnt'];
-    $idBloco = $_POST['idBloco'];
-    $Andar = $_POST['Andar'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
+    $idBloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
+    $Andar = filter_input(INPUT_POST, 'Andar', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql1 = "SELECT uhs.id FROM uhs
             INNER JOIN bloco ON fk_bloco = bloco.id
@@ -649,9 +649,9 @@ function MontarEditUH()
 
 function ADDUHS()
 {
-    $idEnt = $_POST['idEnt'];
-    $idBloco = $_POST['idBloco'];
-    $Andar = $_POST['Andar'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
+    $idBloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
+    $Andar = filter_input(INPUT_POST, 'Andar', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql = "SELECT nome, id FROM bloco WHERE id = $idBloco and fk_entidade = $idEnt";
     $result = $conexao->execQuerry($sql);
@@ -683,9 +683,9 @@ function ADDUHS()
 
 function montarEditSala()
 {
-    $idEnt = $_POST['idEnt'];
-    $idBloco = $_POST['idBloco'];
-    $andar = $_POST['andar'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
+    $idBloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
+    $andar = filter_input(INPUT_POST, 'andar', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql = "SELECT uhs.nome AS nomeuh, bloco.nome AS nomebloco, andar, uhs.id AS iduh FROM uhs
             INNER JOIN bloco ON fk_bloco = bloco.id

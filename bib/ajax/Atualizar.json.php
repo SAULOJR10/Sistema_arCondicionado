@@ -1,7 +1,7 @@
 <?php
 include_once "../comum/conf.ini.php";
 
-$acao = $_POST['acao'];
+$acao = filter_input(INPUT_POST, 'acao', FILTER_SANITIZE_STRING);
 
 switch ($acao) {
     case 'updateBloco':
@@ -27,12 +27,12 @@ switch ($acao) {
 function UpdateBloco()
 {
     $resultado = "Bloco atualiazado com sucesso";
-    $idEnt = $_POST['idEnt'];
-    $nome = $_POST['nomeBloco'];
-    $idBloco = $_POST['idBlocoEdit'];
-    $quantAndar = $_POST['quantAndar'];
-    $quantSubSolo = $_POST['quantSubSolo'];
-    $prefixo = $_POST['idApart'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
+    $nome = filter_input(INPUT_POST, 'nomeBloco', FILTER_SANITIZE_STRING);
+    $idBloco = filter_input(INPUT_POST, 'idBlocoEdit', FILTER_SANITIZE_STRING);
+    $quantAndar = filter_input(INPUT_POST, 'quantAndar', FILTER_SANITIZE_STRING);
+    $quantSubSolo = filter_input(INPUT_POST, 'quantSubSolo', FILTER_SANITIZE_STRING);
+    $prefixo = filter_input(INPUT_POST, 'idApart', FILTER_SANITIZE_STRING);
 
     $conexao = new ConexaoCard();
     $sql1 = "UPDATE public.bloco
@@ -50,7 +50,7 @@ function UpdateBloco()
 
 
 function EditUH($acao){
-    $idApart = $_POST['idApart'];
+    $idApart = filter_input(INPUT_POST, 'idApart', FILTER_SANITIZE_STRING);
     if($acao == 'recuperarUH'){
         $resultado = "UH recuperada com sucesso";
         $conexao = new ConexaoCard();
@@ -77,8 +77,8 @@ function EditUH($acao){
     }
     if($acao == 'editarUH'){
         $resultado = "UH editada com sucesso";
-        $novoLocal = $_POST['novoLocal'];
-        $novoNome = $_POST['novoNome'];
+        $novoLocal = filter_input(INPUT_POST, 'novoLocal', FILTER_SANITIZE_STRING);
+        $novoNome = filter_input(INPUT_POST, 'novoNome', FILTER_SANITIZE_STRING);
         $conexao = new ConexaoCard();
         $sql = "UPDATE public.uhs SET nome='$novoNome', tipo_local='$novoLocal' WHERE id=$idApart";
         $conexao->execQuerry($sql);
@@ -87,10 +87,10 @@ function EditUH($acao){
     }
     if($acao == 'EditSala'){
         $resultado = "Sala editada com sucesso";
-        $novoNome = $_POST['novoNome'];
-        $idBloco = $_POST['idBloco'];
-        $idAndar = $_POST['idAndar'];
-        $idApart = $_POST['idApart'];
+        $novoNome = filter_input(INPUT_POST, 'novoNome', FILTER_SANITIZE_STRING);
+        $idBloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
+        $idAndar = filter_input(INPUT_POST, 'idAndar', FILTER_SANITIZE_STRING);
+        $idApart = filter_input(INPUT_POST, 'idApart', FILTER_SANITIZE_STRING);
         $conexao = new ConexaoCard();
         $sql = "UPDATE public.uhs SET nome='$novoNome', andar=$idAndar, fk_bloco = $idBloco WHERE id=$idApart";
         $conexao->execQuerry($sql);

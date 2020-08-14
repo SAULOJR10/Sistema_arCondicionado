@@ -1,7 +1,7 @@
 <?php
 include_once "../comum/conf.ini.php";
 
-$acao = $_POST['acao'];
+$acao = filter_input(INPUT_POST, 'acao', FILTER_SANITIZE_STRING);
 $idEntidade = '';
 
 switch ($acao) {
@@ -28,21 +28,21 @@ switch ($acao) {
 function cadEnt()
 {
     $resultado = "Entidade cadastrada com sucesso";
-    $idUsuario = $_POST['idUsuario'];
-    $razaoSocial = $_POST['razaoSocial'];
-    $nomeFantasia = $_POST['nomeFantasia'];
-    $CNPJEnt = $_POST['CNPJEnt'];
-    $telefoneEnt = $_POST['telefoneEnt'];
-    $estadoEnt = $_POST['EstadoEnt'];
-    $cidadeEnt = $_POST['cidadeEnt'];
-    $cepEnt = $_POST['cepEnt'];
-    $enderecoEnt = $_POST['enderecoEnt'];
+    $idUsuario = filter_input(INPUT_POST, 'idUsuario', FILTER_SANITIZE_STRING);
+    $razaoSocial = filter_input(INPUT_POST, 'razaoSocial', FILTER_SANITIZE_STRING);
+    $nomeFantasia = filter_input(INPUT_POST, 'nomeFantasia', FILTER_SANITIZE_STRING);
+    $CNPJEnt = filter_input(INPUT_POST, 'CNPJEnt', FILTER_SANITIZE_STRING);
+    $telefoneEnt = filter_input(INPUT_POST, 'telefoneEnt', FILTER_SANITIZE_STRING);
+    $estadoEnt = filter_input(INPUT_POST, 'EstadoEnt', FILTER_SANITIZE_STRING);
+    $cidadeEnt = filter_input(INPUT_POST, 'cidadeEnt', FILTER_SANITIZE_STRING);
+    $cepEnt = filter_input(INPUT_POST, 'cepEnt', FILTER_SANITIZE_STRING);
+    $enderecoEnt = filter_input(INPUT_POST, 'enderecoEnt', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql1 = "INSERT INTO public.dados_entidade(razao_social, nome_fantasia, cnpj, telefone, estado, cidade, cep, endereco, data_cadatro, data_alteracao)
              VALUES ('$razaoSocial', '$nomeFantasia', '$CNPJEnt', '$telefoneEnt', '$estadoEnt', '$cidadeEnt', '$cepEnt', '$enderecoEnt', now(), now())  RETURNING id";
     $query = $conexao->execQuerry($sql1);
     if (is_array($query)) {
-        $idEnt = $query[0]['id'];
+        $idEnt = $query[0]['id'] ;
     }
 
     $sql2 = "INSERT INTO entidade_login (fk_login, fk_entidade)
@@ -55,36 +55,66 @@ function cadEnt()
 
 function cadEng()
 {
-    $resultado = "Engenheiro cadastrado com sucesso";
-    $idEnt = $_POST['idEnt'];
-    $nomeEng = $_POST['nomeEng'];
-    $CREA = $_POST['CREA'];
-    $CPF = $_POST['CPF'];
-    $CEP = $_POST['cepEng'];
-    $telefoneEng = $_POST['telefoneEng'];
-    $emailEng = $_POST['emailEng'];
-    $estadoEng = $_POST['estadoEng'];
-    $cidadeEng = $_POST['cidadeEng'];
-    $enderecoEng = $_POST['enderecoEng'];
-    $assinatura = $_POST['assinatura'];
-    $conexao = new ConexaoCard();
-    $sql1 = "INSERT INTO public.dados_engenheiro(nome, crea, telefone, email, estado, cidade, endereco, assinatura, data_cadatro, data_alteracao, status, fk_entidade, cpf, cep)
-             VALUES ('$nomeEng', '$CREA', '$telefoneEng', '$emailEng', '$estadoEng', '$cidadeEng', '$enderecoEng', '$assinatura', now(), now(), true, '$idEnt', '$CPF', '$CEP')";
-    $conexao->execQuerry($sql1);
-    $conexao->fecharConexao();
+    $filename = $_FILES['campArquivo']['name'];
+    $imageFileType = pathinfo($filename, PATHINFO_EXTENSION);
+
+    /* Verifica extensao do arquivo */
+    if (!in_array(strtolower($imageFileType), array("jpg", "jpeg", "png"))) {
+        $return['erro'] = 'Arquivo não é JPG ou PNG';
+        $uploadOk = 0;
+    }
+    // verifica para carregar arquivo menor que 1 MB
+    if ($_FILES["campArquivo"]["size"] > (1024 * 1025)) {
+        $return['erro'] .= ' Arquivo é muito grande.' . $_FILES["campArquivo"]["size"];
+        $uploadOk = 0;
+    }
+    $location = getNomeArquivo($imageFileType);
+    if(move_uploaded_file($_FILES['campArquivo']['tmp_name'], '../' . $location)){
+        $resultado = "Engenheiro cadastrado com sucesso";
+        $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
+        $nomeEng = filter_input(INPUT_POST, 'nomeEng', FILTER_SANITIZE_STRING);
+        $CREA = filter_input(INPUT_POST, 'CREA', FILTER_SANITIZE_STRING);
+        $CPF = filter_input(INPUT_POST, 'CPF', FILTER_SANITIZE_STRING);
+        $CEP = filter_input(INPUT_POST, 'cepEng', FILTER_SANITIZE_STRING);
+        $telefoneEng = filter_input(INPUT_POST, 'telefoneEng', FILTER_SANITIZE_STRING);
+        $emailEng = filter_input(INPUT_POST, 'emailEng', FILTER_SANITIZE_STRING);
+        $estadoEng = filter_input(INPUT_POST, 'estadoEng', FILTER_SANITIZE_STRING);
+        $cidadeEng = filter_input(INPUT_POST, 'cidadeEng', FILTER_SANITIZE_STRING);
+        $enderecoEng = filter_input(INPUT_POST, 'enderecoEng', FILTER_SANITIZE_STRING);
+        $conexao = new ConexaoCard();
+        $sql1 = "INSERT INTO public.dados_engenheiro(nome, crea, telefone, email, estado, cidade, endereco, assinatura, data_cadatro, data_alteracao, status, fk_entidade, cpf, cep)
+                VALUES ('$nomeEng', '$CREA', '$telefoneEng', '$emailEng', '$estadoEng', '$cidadeEng', '$enderecoEng', 'bib/$location', now(), now(), true, '$idEnt', '$CPF', '$CEP')";
+        $conexao->execQuerry($sql1);
+        $conexao->fecharConexao();
+    }
+    
 
     echo json_encode($resultado);
+}
+
+function getNomeArquivo($extensao) {
+    $valor = random_int(100, 100000);
+    $val = 0;
+    while (file_exists("../img/ass$valor.$extensao")) {
+        $valor = random_int(100, 100000);
+        $val++;
+        if ($val > 1000) {
+            $valor = 'extra';
+            break;
+        }
+    }
+    return "imgProd/prod$valor.$extensao";
 }
 
 function cadBloco()
 {
     $resultado = "Bloco e Uhs cadastraos com sucesso";
-    $idEnt = $_POST['idEnt'];
-    $nome = $_POST['nomeBloco'];
-    $quantAndar = intval($_POST['quantAndar']);
-    $quantSubSolo = $_POST['quantSubSolo'];
-    $idApart = strtoupper($_POST['idApart']);
-    $explode = $_POST['quantApart'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
+    $nome = filter_input(INPUT_POST, 'nomeBloco', FILTER_SANITIZE_STRING);
+    $quantAndar = intval(filter_input(INPUT_POST, 'quantAndar', FILTER_SANITIZE_STRING));
+    $quantSubSolo = filter_input(INPUT_POST, 'quantSubSolo', FILTER_SANITIZE_STRING);
+    $idApart = strtoupper(filter_input(INPUT_POST, 'idApart', FILTER_SANITIZE_STRING));
+    $explode = filter_input(INPUT_POST, 'quantApart', FILTER_SANITIZE_STRING);
     $quantApart = explode(',', $explode);
     $Values = '';
     $conexao = new ConexaoCard();
@@ -92,7 +122,7 @@ function cadBloco()
              VALUES ('$nome', '$idEnt', $quantAndar, '$quantSubSolo') RETURNING id";
     $result = $conexao->execQuerry($sql1);
     
-    $idBloco = $result[0]['id'];
+    $idBloco = $result[0]['id'] ;
 
     for ($i = 0; $i <= $quantAndar; $i++) {
         $zero = 0;
@@ -120,10 +150,10 @@ function cadSala($acao)
 {
     if ($acao == 'cadSala') {
         $resultado = "Sala(s) cadastrada(s) com sucesso";
-        $idBloco = $_POST['idBloco'];
-        $explodenome = explode(",", ($_POST['nomeSala']));
-        $explodeandar = explode(",", ($_POST['andar']));
-        $quantSala = $_POST['quantSala'];
+        $idBloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
+        $explodenome = explode(",", filter_input(INPUT_POST, 'nomeSala', FILTER_SANITIZE_STRING));
+        $explodeandar = explode(",", filter_input(INPUT_POST, 'andar', FILTER_SANITIZE_STRING));
+        $quantSala = filter_input(INPUT_POST, 'quantSala', FILTER_SANITIZE_STRING);
 
         $values = '';
         for ($i = 1; $i <= $quantSala; $i++) {
@@ -145,16 +175,16 @@ function cadSala($acao)
     }
     if ($acao == 'cadBloco') {
         $resultado = "Bloco adicionado com sucesso;";
-        $idEnt = $_POST['idEnt'];
-        $nomeBloco = $_POST['idBloco'];
-        $quantAndar = $_POST['quantAndar'];
-        $quantSubSolo = $_POST['quantSubSolo'];
+        $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
+        $nomeBloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
+        $quantAndar = filter_input(INPUT_POST, 'quantAndar', FILTER_SANITIZE_STRING);
+        $quantSubSolo = filter_input(INPUT_POST, 'quantSubSolo', FILTER_SANITIZE_STRING);
         $conexao = new ConexaoCard();
         $sql1 = "INSERT INTO public.bloco(nome, fk_entidade, quant_andar, quant_subsolo)
             VALUES ('$nomeBloco', '$idEnt', '$quantAndar', '$quantSubSolo') RETURNING id";
         $result = $conexao->execQuerry($sql1);
         $conexao->fecharConexao();
-        $idBloco = $result[0]['id'];
+        $idBloco = $result[0]['id'] ;
 
         echo json_encode($resultado . $idBloco);
     }
@@ -163,9 +193,9 @@ function cadSala($acao)
 function AddUH()
 {
     $resultado = "UH(s) adicionadas com sucesso";
-    $quant = $_POST['quant'];
-    $idBloco = $_POST['idbloco'];
-    $andar = $_POST['andar'];
+    $quant = filter_input(INPUT_POST, 'quant', FILTER_SANITIZE_STRING);
+    $idBloco = filter_input(INPUT_POST, 'idbloco', FILTER_SANITIZE_STRING);
+    $andar = filter_input(INPUT_POST, 'andar', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql1 = "SELECT * FROM uhs WHERE fk_bloco = $idBloco and andar = $andar and tipo_local = 'UH' and status = true";
     $result1 = $conexao->execQuerry($sql1);

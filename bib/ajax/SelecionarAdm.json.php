@@ -1,7 +1,7 @@
 <?php
 include_once "../comum/conf.ini.php";
 
-$acao = $_POST['acao'];
+$acao = filter_input(INPUT_POST, 'acao', FILTER_SANITIZE_STRING);
 
 switch ($acao) {
     case 'tabela':
@@ -29,7 +29,7 @@ switch ($acao) {
 
 function tabela()
 {
-    $idEnt = $_POST['idEnt'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql = "SELECT bloco.id AS id_bloco, uhs.nome AS nome, prefixo, uhs.andar, tipo_local, bloco.nome AS bloconome, quant_andar, quant_subsolo FROM uhs 
             INNER JOIN bloco ON fk_bloco = bloco.id
@@ -163,7 +163,7 @@ function tabela()
 
 function SelectEnt()
 {
-    $idLogin = $_POST['idUsuario'];
+    $idLogin = filter_input(INPUT_POST, 'idUsuario', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql = "SELECT dados_entidade.id AS ident, nome_fantasia FROM dados_entidade
              INNER JOIN entidade_login on fk_entidade = dados_entidade.id
@@ -184,7 +184,7 @@ function SelectEnt()
 
 function selectQuant()
 {
-    $idEnt = $_POST['idEnt'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql1 ="SELECT COUNT(uhs.nome) AS uhs FROM uhs
             INNER JOIN bloco ON fk_bloco = bloco.id
@@ -229,8 +229,8 @@ function MontarGerUH()
     $htmlUH = "<h5><b style='color:red'>Sem UH(s) nesse andar</b></h5>";
     $htmlSala = "<h5><b style='color:red'>Sem Sala(s) nesse andar</b></h5>";
     $teste = 0;
-    $bloco = $_POST['bloco'];
-    $andar = $_POST['andar'];
+    $bloco = filter_input(INPUT_POST, 'bloco', FILTER_SANITIZE_STRING);
+    $andar = filter_input(INPUT_POST, 'andar', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql = "SELECT * FROM uhs WHERE fk_bloco = $bloco and andar = $andar and status = true and tipo_local = 'UH' ORDER BY nome";
     $result1 = $conexao->execQuerry($sql);
@@ -335,7 +335,7 @@ function MontarGerUH()
 
 function SelectBloco()
 {
-    $idEnt = $_POST['idEnt'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql1 = "SELECT * FROM bloco WHERE fk_entidade = $idEnt";
     $result1 = $conexao->execQuerry($sql1);
@@ -353,8 +353,8 @@ function SelectBloco()
 
 function selectAndar()
 {
-    $idEnt = $_POST['idEnt'];
-    $bloco = $_POST['idBloco'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
+    $bloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
     $option = '<option value="">Selecione</option>';
     $conexao = new ConexaoCard();
     $sql = "SELECT * FROM bloco WHERE bloco.id = $bloco and fk_entidade = $idEnt";

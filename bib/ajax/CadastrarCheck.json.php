@@ -2,7 +2,7 @@
 error_reporting(0);
 
 include_once "../comum/conf.ini.php";
-$acao = $_POST['acao'];
+$acao = filter_input(INPUT_POST, 'acao', FILTER_SANITIZE_STRING);
 
 switch ($acao) {
     case 'CheckList':
@@ -16,17 +16,17 @@ switch ($acao) {
 function CheckList()
 {
     $resultado = "Check-List enviado com sucessso !!!";
-    $funcionario = $_POST['funcionario'];
-    $idUH = $_POST['idUH'];
-    $idAr = $_POST['idAr'];
-    $statusCheck = $_POST['statusCheck'];
-    $finalizados = explode(';', $_POST['finalizados']);
-    $naoFinalizados = explode(';', $_POST['naoFinalizados']);
-    $statusFinalizados = explode(';', $_POST['statusFinalizados']);
-    $statusNaoFinalizados = explode(';', $_POST['statusNaoFinalizados']);
-    $FinalizadosOBS = explode(';', $_POST['FinalizadosOBS']);
-    $NaoFinalizadosOBS = explode(';', $_POST['NaoFinalizadosOBS']);
-    $periodo = $_POST['periodo'];
+    $funcionario = filter_input(INPUT_POST, 'funcionario', FILTER_SANITIZE_STRING);
+    $idUH = filter_input(INPUT_POST, 'idUH', FILTER_SANITIZE_STRING);
+    $idAr = filter_input(INPUT_POST, 'idAr', FILTER_SANITIZE_STRING);
+    $statusCheck = filter_input(INPUT_POST, 'statusCheck', FILTER_SANITIZE_STRING);
+    $finalizados = explode(';', filter_input(INPUT_POST, 'finalizados', FILTER_SANITIZE_STRING));
+    $naoFinalizados = explode(';', filter_input(INPUT_POST, 'naoFinalizados', FILTER_SANITIZE_STRING));
+    $statusFinalizados = explode(';', filter_input(INPUT_POST, 'statusFinalizados', FILTER_SANITIZE_STRING));
+    $statusNaoFinalizados = explode(';', filter_input(INPUT_POST, 'statusNaoFinalizados', FILTER_SANITIZE_STRING));
+    $FinalizadosOBS = explode(';', filter_input(INPUT_POST, 'FinalizadosOBS', FILTER_SANITIZE_STRING));
+    $NaoFinalizadosOBS = explode(';', filter_input(INPUT_POST, 'NaoFinalizadosOBS', FILTER_SANITIZE_STRING));
+    $periodo = filter_input(INPUT_POST, 'periodo', FILTER_SANITIZE_STRING);
     $quantFinalizados = COUNT($finalizados) - 2;
     $quantNaoFinalizados = COUNT($naoFinalizados) - 2;
     $hj = date('Y/m/d');
@@ -34,8 +34,8 @@ function CheckList()
     $sqlUH = "SELECT * FROM uhs WHERE id = $idUH";
     $resultUH = $conexao->execQuerry($sqlUH);
     if (is_array($resultUH)) {
-        $andar = $resultUH[0]['andar'];
-        $Bloco = $resultUH[0]['fk_bloco'];
+        $andar = $resultUH[0]['andar'] ;
+        $Bloco = $resultUH[0]['fk_bloco'] ;
     }
     switch ($periodo) {
         case 'Quinzenal':
@@ -54,13 +54,13 @@ function CheckList()
     $teste = "SELECT * FROM check_list
               WHERE fk_uh = $idUH and periodo = '$periodo' and fk_equipamento = $idAr and vencimento >= '$hj'";
     $resultadoTeste = $conexao->execQuerry($teste);
-    $testeFinal = $resultadoTeste['id'];
+    $testeFinal = $resultadoTeste['id'] ;
 
     if ($testeFinal == null) {
         $sql1 = "INSERT INTO public.check_list(data_check, funcionario, fk_uh, fk_andar, fk_bloco, fk_equipamento, fk_engenheiro, data_asssinatura, status, periodo, vencimento)
         VALUES (now(), '$funcionario', '$idUH', '$andar', '$Bloco', '$idAr', 1, null, $statusCheck, '$periodo', '$vencimento') RETURNING id";
         $result1 = $conexao->execQuerry($sql1);
-        $idCheck = $result1[0]['id'];
+        $idCheck = $result1[0]['id'] ;
     } else {
         $idCheck = $testeFinal;
     }
@@ -75,7 +75,7 @@ function CheckList()
         INNER JOIN check_list ON fk_check_list = check_list.id
         WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
         $resultadoTeste = $conexao->execQuerry($teste);
-        $testeFinal = $resultadoTeste[0]['id'];
+        $testeFinal = $resultadoTeste[0]['id'] ;
         if ($testeFinal != null) {
             $up =  "UPDATE public.item_check
             SET data = now(), observacao='$OBS', status=$status
@@ -96,7 +96,7 @@ function CheckList()
                     INNER JOIN check_list ON fk_check_list = check_list.id
                     WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
         $resultadoTeste = $conexao->execQuerry($teste);
-        $teste = $resultadoTeste[0]['id'];
+        $teste = $resultadoTeste[0]['id'] ;
         if ($teste != null) {
             $up =  "UPDATE public.item_check
             SET data = now(), observacao='$OBS', status=$status
@@ -116,9 +116,9 @@ function CheckList()
 function Avisar()
 {
     $resultado = "Agedamento salvo com sucesso !!!";
-    $idUH = $_POST['idUH'];
-    $data = $_POST['data'];
-    $obs = $_POST['obs'];
+    $idUH = filter_input(INPUT_POST, 'idUH', FILTER_SANITIZE_STRING);
+    $data = filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING);
+    $obs = filter_input(INPUT_POST, 'obs', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql = "INSERT INTO public.agendamentos (data, observacao, fk_uh)
             VALUES  ('$data', '$obs', $idUH)";

@@ -403,6 +403,22 @@ function LimparCadEng() {
 }
 
 function CadastrarEngenheiro() {
+    var arquivo = document.getElementById('assinatura').files[0];
+    var fd = new FormData();
+    fd.append('campArquivo', arquivo);
+    fd.append('acao', "cadEng");
+    fd.append('idUsuario' , document.getElementById('idLogin').value);
+    fd.append('idEnt' , document.getElementById('idEnt').value);
+    fd.append('nomeEng' , document.getElementById('nomeEng').value);
+    fd.append('CREA' , document.getElementById('CREA').value);
+    fd.append('CPF' , document.getElementById('cpfEng').value);
+    fd.append('telefoneEng' , document.getElementById('telefoneEng').value);
+    fd.append('emailEng' , document.getElementById('emailEng').value);
+    fd.append('estadoEng' , document.getElementById('estadoEng').value);
+    fd.append('cidadeEng' , document.getElementById('cidadeEng').value);
+    fd.append('cepEng' , document.getElementById('cepEng').value);
+    fd.append('enderecoEng' , document.getElementById('enderecoEng').value);
+    fd.append('assinatura' , document.getElementById('assinatura').value);
     var idUsuario = document.getElementById('idLogin').value;
     var idEnt = document.getElementById('idEnt').value;
     var nomeEng = document.getElementById('nomeEng').value;
@@ -415,8 +431,13 @@ function CadastrarEngenheiro() {
     var cepEng = document.getElementById('cepEng').value;
     var enderecoEng = document.getElementById('enderecoEng').value;
     var assinatura = document.getElementById('assinatura').value;
-    if (nomeEng == '' || CREA == '' || CPF == '' || telefoneEng == '' || emailEng == '' || estadoEng == '' || cidadeEng == '' || enderecoEng == '' || assinatura == '') {
+    if (nomeEng == '' || CREA == '' || CPF == '' || telefoneEng == '' || emailEng == '' || estadoEng == '' || cidadeEng == '' || enderecoEng == '' || assinatura == null) {
         mostrarErros('Campo obrigatorio, por  favor preencha');
+        if (arquivo == null) {
+            $('#assinatura').attr('style', 'border: solid red 1px;border-radius: 5px; margin-bottom: 5px; width: 100%;');
+        }else{
+            $('#assinatura').attr('style', 'border: solid green 1px;border-radius: 5px; margin-bottom: 5px; width: 100%;');
+        }
         if (nomeEng == '') {
             $('#nomeEng').attr('style', 'border: solid red 1px;border-radius: 5px; margin-bottom: 5px; width: 100%;');
         } else {
@@ -462,34 +483,15 @@ function CadastrarEngenheiro() {
         } else {
             $('#enderecoEng').attr('style', 'border: solid green 1px;border-radius: 5px; margin-bottom: 5px; width: 100%;');
         }
-        if (assinatura == '') {
-            $('#assinatura').attr('style', 'border: solid red 1px;border-radius: 5px; margin-bottom: 5px; width: 100%;');
-        } else {
-            $('#assinatura').attr('style', 'border: solid green 1px;border-radius: 5px; margin-bottom: 5px; width: 100%;');
-        }
         return false;
     }
     $.ajax({
-        method: 'post',
-        dataType: 'json',
         url: 'bib/ajax/Cadastrar.json.php',
-        data: {
-            acao: 'cadEng',
-            idUsuario: idUsuario,
-            idEnt: idEnt,
-            nomeEng: nomeEng,
-            CREA: CREA,
-            CPF: CPF,
-            cepEng: cepEng,
-            telefoneEng: telefoneEng,
-            emailEng: emailEng,
-            estadoEng: estadoEng,
-            cidadeEng: cidadeEng,
-            enderecoEng: enderecoEng,
-            assinatura: assinatura,
-            processoData: false,
-            contentype: false
-        },
+        type: 'post',
+            dataType: "json",
+            data: fd,
+            contentType: false,
+            processData: false,
         success: function (data) {
             $('#CadEng').modal('hide');
             Tutorial('Parte3');

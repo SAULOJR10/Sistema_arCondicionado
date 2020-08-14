@@ -1,7 +1,7 @@
 <?php
 include_once "../comum/conf.ini.php";
 
-$acao = $_POST['acao'];
+$acao = filter_input(INPUT_POST, 'acao', FILTER_SANITIZE_STRING);
 
 switch ($acao) {
     case 'Gerenciada':
@@ -18,7 +18,7 @@ switch ($acao) {
 function Gerenciada()
 {
     $resultado = "Atualizado com Sucesso";
-    $gerenciadas = $_POST['gerenciadas'];
+    $gerenciadas = filter_input(INPUT_POST, 'gerenciadas', FILTER_SANITIZE_STRING);
     $explode = explode(';', $gerenciadas);
     $quant = count($explode);
     $quant = intval($quant) - 2;
@@ -32,7 +32,7 @@ function Gerenciada()
     $conexao->fecharConexao();
 
 
-    $nao_gerenciadas = $_POST['naoGerenciadas'];
+    $nao_gerenciadas = filter_input(INPUT_POST, 'naoGerenciadas', FILTER_SANITIZE_STRING);
     $nao_explode = explode(';', $nao_gerenciadas);
     $nao_quant = count($nao_explode);
     $nao_quant = intval($nao_quant) - 2;
@@ -50,10 +50,10 @@ function Gerenciada()
 
 function atualizarDadosAr()
 {
-    $tabela = $_POST['tabela'];
+    $tabela = filter_input(INPUT_POST, 'tabela', FILTER_SANITIZE_STRING);
     $resultado = "Dados de $tabela atualizado com sucesso !!!";
-    $nomeAntigo = $_POST['nomeAntigo'];
-    $novoNome = $_POST['novoNome'];
+    $nomeAntigo = filter_input(INPUT_POST, 'nomeAntigo', FILTER_SANITIZE_STRING);
+    $novoNome = filter_input(INPUT_POST, 'novoNome', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql = "UPDATE $tabela SET nome = '$novoNome' WHERE nome = '$nomeAntigo'";
     $conexao->execQuerry($sql);
@@ -63,8 +63,8 @@ function atualizarDadosAr()
 }
 
 function ExcluirDadosAr(){
-    $tabela = $_POST['tabela'];
-    $nomeAntigo = $_POST['nomeAntigo'];
+    $tabela = filter_input(INPUT_POST, 'tabela', FILTER_SANITIZE_STRING);
+    $nomeAntigo = filter_input(INPUT_POST, 'nomeAntigo', FILTER_SANITIZE_STRING);
     $resultado = "$nomeAntigo excluido com sucesso";
     $conexao = new ConexaoCard();
     $sql = "DELETE FROM $tabela WHERE nome = '$nomeAntigo'";

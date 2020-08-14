@@ -1,11 +1,10 @@
 <?php
-include_once "../comum/conexao.php";
 include_once "../comum/conf.ini.php";
-$acao = $_POST['acao'];
+$acao = filter_input(INPUT_POST, 'acao', FILTER_SANITIZE_STRING);
 
 switch ($acao) {
     case 'MontarCheckList':
-        $Periodo = $_POST['id'];
+        $Periodo = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
         MontarCheckList($Periodo);
         break;
     case 'selectBloco':
@@ -42,7 +41,7 @@ switch ($acao) {
 
 function SelectEnt()
 {
-    $idLogin = $_POST['idUsuario'];
+    $idLogin = filter_input(INPUT_POST, 'idUsuario', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql = "SELECT dados_entidade.id AS ident, nome_fantasia FROM dados_entidade
              INNER JOIN entidade_login on fk_entidade = dados_entidade.id
@@ -64,7 +63,7 @@ function SelectEnt()
 
 function Selects($acao)
 {
-    $idEnt = $_POST['idEnt'];
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
     if ($acao == 'Bloco') {
         $conexao = new ConexaoCard();
         $sql = "SELECT * FROM bloco WHERE fk_entidade = $idEnt ORDER BY nome";
@@ -82,7 +81,7 @@ function Selects($acao)
         echo json_encode($html);
     }
     if ($acao == 'Andar') {
-        $bloco = $_POST['idBloco'];
+        $bloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
         $option = '<option value="">Selecione</option>';
         $conexao = new ConexaoCard();
         $sql = "SELECT * FROM bloco WHERE bloco.id = $bloco and fk_entidade = $idEnt";
@@ -108,8 +107,8 @@ function Selects($acao)
         echo json_encode($html);
     }
     if ($acao == 'UH') {
-        $bloco = $_POST['idBloco'];
-        $andar = $_POST['andar'];
+        $bloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
+        $andar = filter_input(INPUT_POST, 'andar', FILTER_SANITIZE_STRING);
         $conexao = new ConexaoCard();
         $sql = "SELECT * FROM uhs WHERE fk_bloco = $bloco and andar = $andar and status = true ORDER BY nome";
         $result = $conexao->execQuerry($sql);
@@ -126,7 +125,7 @@ function Selects($acao)
         echo json_encode($html);
     }
     if ($acao == 'Ar') {
-        $idUH = $_POST['idUH'];
+        $idUH = filter_input(INPUT_POST, 'idUH', FILTER_SANITIZE_STRING);
         $conexao = new ConexaoCard();
         $sql = "SELECT * FROM equipamento WHERE uh = $idUH ORDER BY Marca";
         $result = $conexao->execQuerry($sql);
@@ -147,7 +146,7 @@ function Selects($acao)
 
 function MontarTela()
 {
-    $uh = $_POST['uh'];
+    $uh = filter_input(INPUT_POST, 'uh', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sql1 = "SELECT * FROM uhs WHERE id = $uh";
     $result1 = $conexao->execQuerry($sql1);
@@ -172,9 +171,9 @@ function MontarTela()
 
 function MontarCheckList($Periodo)
 {
-    $idUH = $_POST['uh'];
-    $idLogin = $_POST['idLogin'];
-    $idAr = $_POST['idAr'];
+    $idUH = filter_input(INPUT_POST, 'uh', FILTER_SANITIZE_STRING);
+    $idLogin = filter_input(INPUT_POST, 'idLogin', FILTER_SANITIZE_STRING);
+    $idAr = filter_input(INPUT_POST, 'idAr', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sqlUH = "SELECT * FROM uhs WHERE id = $idUH";
     $resultUH = $conexao->execQuerry($sqlUH);
@@ -301,8 +300,8 @@ function MontarCheckList($Periodo)
 
 function MontarGraficos($periodo)
 {
-    $idUH = $_POST['uh'];
-    $idAr = $_POST['idAr'];
+    $idUH = filter_input(INPUT_POST, 'uh', FILTER_SANITIZE_STRING);
+    $idAr = filter_input(INPUT_POST, 'idAr', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
     $sqlTotal = "SELECT COUNT(item.id) AS total FROM item WHERE item.periodo = '$periodo' and tipo_equipamento = 1";
     $result = $conexao->execQuerry($sqlTotal);
