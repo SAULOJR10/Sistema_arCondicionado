@@ -70,18 +70,16 @@ class ConexaoCard {
         $this->con = NULL;
     }
 
-    function gravarLog($id_user, $log) {
-        if ($this->isConnect()) {
-            $id_user += 0;
-            $sql = "insert into sislog (id_usuario,data,descricao) values($id_user, NOW(),'$log')";
-            $this->execQuerry($sql);
-        }
-    }
+    // function gravarLog($id_user, $log) {
+    //     if ($this->isConnect()) {
+    //         $id_user += 0;
+    //         $sql = "insert into sislog (id_usuario,data,descricao) values($id_user, NOW(),'$log')";
+    //         $this->execQuerry($sql);
+    //     }
+    // }
     private function gravarLogErro($mensagem) {
         $dia = date('d/m/Y H:i:s');
-//        $file = fopen("/var/sisInfo/logs/servico.log", 'a');
- //       $file = fopen("/home/u135599420/.logs/ipe.erro.log", 'a');
- $file = fopen("ipe.erro.log", 'a');
+        $file = fopen("Sistema_arErros.txt", 'a');
         fwrite($file, $dia . "-" . $mensagem . "\n");
         fclose($file);
     }

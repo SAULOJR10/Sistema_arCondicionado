@@ -33,9 +33,9 @@ function CheckList()
     $conexao = new ConexaoCard();
     $sqlUH = "SELECT * FROM uhs WHERE id = $idUH";
     $resultUH = $conexao->execQuerry($sqlUH);
-    if(is_array($resultUH)){
-        $andar = $resultUH[0]['andar'] ;
-        $Bloco = $resultUH[0]['fk_bloco'] ;
+    if (is_array($resultUH)) {
+        $andar = $resultUH[0]['andar'];
+        $Bloco = $resultUH[0]['fk_bloco'];
     }
     switch ($periodo) {
         case 'Quinzenal':
@@ -54,28 +54,32 @@ function CheckList()
     $teste = "SELECT * FROM check_list
               WHERE fk_uh = $idUH and periodo = '$periodo' and fk_equipamento = $idAr and vencimento >= '$hj'";
     $resultadoTeste = $conexao->execQuerry($teste);
-    $testeFinal = $resultadoTeste[0]['id'] ;
+    $testeFinal = $resultadoTeste[0]['id'];
 
     if ($testeFinal == null) {
         $sql1 = "INSERT INTO public.check_list(data_check, funcionario, fk_uh, fk_andar, fk_bloco, fk_equipamento, fk_engenheiro, data_asssinatura, status, periodo, vencimento)
                  VALUES (now(), '$funcionario', '$idUH', '$andar', '$Bloco', '$idAr', 1, null, $statusCheck, '$periodo', '$vencimento') RETURNING id";
         $result1 = $conexao->execQuerry($sql1);
-        $idCheck = $result1[0]['id'] ;
+        $idCheck = $result1[0]['id'];
     } else {
         $idCheck = $testeFinal;
     }
 
     $quantFinalizados = COUNT($finalizados) - 2;
     $quantNaoFinalizados = COUNT($naoFinalizados) - 2;
+    $statusCheck = true;
     for ($i = 1; $i <= $quantFinalizados; $i++) {
         $fk_item = $finalizados[$i];
         $status = $statusFinalizados[$i];
         $OBS = $FinalizadosOBS[$i];
-        $teste =  "SELECT * FROM item_check
+        $teste =  "SELECT item_check.id, item_check.status FROM item_check
                    INNER JOIN check_list ON fk_check_list = check_list.id
                    WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
         $resultadoTeste = $conexao->execQuerry($teste);
-        $testeFinal = $resultadoTeste[0]['id'] ;
+        $testeFinal = $resultadoTeste[0]['id'];
+        if ($resultadoTeste[0]['status'] == 0) {
+            $statusCheck = false;
+        }
         if ($testeFinal != null) {
             $up =  "UPDATE public.item_check
                     SET data = now(), observacao='$OBS', status=$status
@@ -88,6 +92,10 @@ function CheckList()
             $conexao->execQuerry($sql2);
         }
     }
+        $sql = "UPDATE public.check_list
+        SET status=$statusCheck
+        WHERE id = $idCheck";
+        $conexao->execQuerry($sql);
     for ($o = 1; $o <= $quantNaoFinalizados; $o++) {
         $fk_item = $naoFinalizados[$o];
         $status = $statusNaoFinalizados[$o];
@@ -96,7 +104,7 @@ function CheckList()
                     INNER JOIN check_list ON fk_check_list = check_list.id
                     WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
         $resultadoTeste = $conexao->execQuerry($teste);
-        $teste = $resultadoTeste[0]['id'] ;
+        $teste = $resultadoTeste[0]['id'];
         if ($teste != null) {
             $up =  "UPDATE public.item_check
                     SET data = now(), observacao='$OBS', status=$status

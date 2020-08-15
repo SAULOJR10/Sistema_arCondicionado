@@ -79,7 +79,6 @@ function SalvaCheckList() {
     var idAr = document.getElementById('idAr').value;
     var periodo = document.getElementById('periodo').value;
     var quantItem = document.getElementsByName('allitem').length;
-    var quantObs = document.getElementsByName('allobs').length;
     var statusCheck = true;
     var finalizados = ';';
     var naoFinalizados = ';';
