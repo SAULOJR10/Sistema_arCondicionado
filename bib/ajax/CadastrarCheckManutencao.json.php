@@ -19,7 +19,7 @@ function CheckList()
     $funcionario = filter_input(INPUT_POST, 'funcionario', FILTER_SANITIZE_STRING);
     $idUH = filter_input(INPUT_POST, 'idUH', FILTER_SANITIZE_STRING);
     $idAr = filter_input(INPUT_POST, 'idAr', FILTER_SANITIZE_STRING);
-    $statusCheck = filter_input(INPUT_POST, 'statusCheck', FILTER_SANITIZE_STRING);
+    $statusCheck = filter_input(INPUT_POST, 'statusCheck', FILTER_VALIDATE_BOOLEAN) ? 'true' : 'false';
     $finalizados = explode(';', filter_input(INPUT_POST, 'finalizados', FILTER_SANITIZE_STRING));
     $naoFinalizados = explode(';', filter_input(INPUT_POST, 'naoFinalizados', FILTER_SANITIZE_STRING));
     $statusFinalizados = explode(';', filter_input(INPUT_POST, 'statusFinalizados', FILTER_SANITIZE_STRING));
@@ -67,57 +67,73 @@ function CheckList()
 
     $quantFinalizados = COUNT($finalizados) - 2;
     $quantNaoFinalizados = COUNT($naoFinalizados) - 2;
-    $statusCheck = true;
+    $statusCheck = 'true';
     for ($i = 1; $i <= $quantFinalizados; $i++) {
         $fk_item = $finalizados[$i];
         $status = $statusFinalizados[$i];
         $OBS = $FinalizadosOBS[$i];
         $teste =  "SELECT item_check.id, item_check.status FROM item_check
-                   INNER JOIN check_list ON fk_check_list = check_list.id
-                   WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
+        INNER JOIN check_list ON fk_check_list = check_list.id
+        WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
         $resultadoTeste = $conexao->execQuerry($teste);
+
         $testeFinal = $resultadoTeste[0]['id'];
-        if ($resultadoTeste[0]['status'] == 0) {
-            $statusCheck = false;
-        }
         if ($testeFinal != null) {
             $up =  "UPDATE public.item_check
-                    SET data = now(), observacao='$OBS', status=$status
-                    FROM item_check A INNER JOIN check_list B ON A.fk_check_list = B.id
-                    WHERE item_check.fk_item = $fk_item and B.fk_equipamento = $idAr";
+            SET data = now(), observacao='$OBS', status=$status
+            FROM item_check A INNER JOIN check_list B ON A.fk_check_list = B.id
+            WHERE item_check.fk_item = $fk_item and B.fk_equipamento = $idAr";
             $conexao->execQuerry($up);
         } else {
             $sql2 = "INSERT INTO public.item_check(fk_item, fk_check_list, data, observacao, status)
                      VALUES ($fk_item, $idCheck, now(), '$OBS', $status);";
             $conexao->execQuerry($sql2);
         }
+        $teste =  "SELECT item_check.id, item_check.status FROM item_check
+        INNER JOIN check_list ON fk_check_list = check_list.id
+        WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
+        $resultadoTeste = $conexao->execQuerry($teste);
+        if ($resultadoTeste[0]['status'] == 0) {
+            $statusCheck = 'false';
+        }
     }
-        $sql = "UPDATE public.check_list
-        SET status=$statusCheck
-        WHERE id = $idCheck";
-        $conexao->execQuerry($sql);
+
     for ($o = 1; $o <= $quantNaoFinalizados; $o++) {
         $fk_item = $naoFinalizados[$o];
         $status = $statusNaoFinalizados[$o];
         $OBS = $NaoFinalizadosOBS[$o];
-        $teste =   "SELECT * FROM item_check
+        $teste =   "SELECT item_check.id, item_check.status FROM item_check
                     INNER JOIN check_list ON fk_check_list = check_list.id
                     WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
         $resultadoTeste = $conexao->execQuerry($teste);
+
         $teste = $resultadoTeste[0]['id'];
         if ($teste != null) {
             $up =  "UPDATE public.item_check
-                    SET data = now(), observacao='$OBS', status=$status
-                    FROM item_check A INNER JOIN check_list B ON A.fk_check_list = B.id
-                    WHERE item_check.fk_item = $fk_item and B.fk_equipamento = $idAr";
+            SET data = now(), observacao='$OBS', status=$status
+            FROM item_check A INNER JOIN check_list B ON A.fk_check_list = B.id
+            WHERE item_check.fk_item = $fk_item and B.fk_equipamento = $idAr";
             $conexao->execQuerry($up);
         } else {
             $sql2 = "INSERT INTO public.item_check(fk_item, fk_check_list, data, observacao, status)
                      VALUES ($fk_item, $idCheck, now(), '$OBS', $status);";
-            $resultUH = $conexao->execQuerry($sql2);
+            $conexao->execQuerry($sql2);
+        }
+        $teste =   "SELECT item_check.id, item_check.status FROM item_check
+        INNER JOIN check_list ON fk_check_list = check_list.id
+        WHERE fk_item = $fk_item and vencimento >= '$hj' and fk_equipamento = $idAr";
+        $resultadoTeste = $conexao->execQuerry($teste);
+        if ($resultadoTeste[0]['status'] == 0) {
+            $statusCheck = 'false';
         }
     }
+
+    $sql = "UPDATE public.check_list
+            SET status=$statusCheck
+            WHERE id = $idCheck";
+    $conexao->execQuerry($sql);
     $conexao->fecharConexao();
+    
     echo json_encode($resultado);
 }
 
@@ -131,6 +147,6 @@ function Avisar()
     $sql = "INSERT INTO public.agendamentos (data, observacao, fk_uh)
             VALUES  ('$data', '$obs', $idUH)";
     $conexao->execQuerry($sql);
-
+    $conexao->fecharConexao();
     echo json_encode($resultado);
 }

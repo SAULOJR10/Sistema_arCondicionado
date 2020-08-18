@@ -6,8 +6,23 @@ $idLogin = $_SESSION['idUsuario'];
 
 if (isset($_GET['Ent'])) {
     $Entidade = $_GET['Ent'];
+    if (isset($_GET['idUH'])) {
+        $idUH = $_GET['idUH'];
+        $idUH = "<input type='hidden' value='$idUH' id='idUH'/>";
+        if (isset($_GET['idAr'])) {
+            $idAr = $_GET['idAr'];
+            $idAr = "<input type='hidden' value='$idAr' id='idAr'/>";
+        } else {
+            $idAr = '';
+        }
+    } else {
+        $idUH = '';
+        $idAr = '';
+    }
 } else {
     $Entidade = 'Selecione';
+    $idUH = '';
+    $idAr = '';
 }
 
 if (isset($_SESSION['numLogin'])) {
@@ -25,23 +40,23 @@ if (isset($_SESSION['numLogin'])) {
 <html>
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="SHORTCUT ICON" href="../Sistema_arCondicionado/bib/img/i.png">
-<title>Infosoft - Tecnologia</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="SHORTCUT ICON" href="../Sistema_arCondicionado/bib/img/i.png">
+    <title>Infosoft - Tecnologia</title>
 
-<link rel="stylesheet" href="bib/css/bootstrap.min.css">
-<link rel="stylesheet" href="bib/css/formulario.css">
-<link rel="stylesheet" type="text/css" href="bib/css/fonts.css">
-<link rel="stylesheet" type="text/css" href="bib/css/modais.css">
-<link rel="stylesheet" href="bib/css/styles.css">
-<link rel="stylesheet" href="bib/css/all.css">
-<link rel="stylesheet" href="bib/css/animations.css">
-<script src="bib/js/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="bib/js/jquery.mask.js"></script>
-<script src="bib/js/popper.min.js"></script>    
-<script src="bib/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="bib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bib/css/formulario.css">
+    <link rel="stylesheet" type="text/css" href="bib/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="bib/css/modais.css">
+    <link rel="stylesheet" href="bib/css/styles.css">
+    <link rel="stylesheet" href="bib/css/all.css">
+    <link rel="stylesheet" href="bib/css/animations.css">
+    <script src="bib/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="bib/js/jquery.mask.js"></script>
+    <script src="bib/js/popper.min.js"></script>
+    <script src="bib/js/bootstrap.js"></script>
 </head>
 
 <body class="mybody" style="background-color: white;">
@@ -50,7 +65,8 @@ if (isset($_SESSION['numLogin'])) {
     <div class="row" style="margin-top:50px;">
         <div id="TodosCheck">
             <div class="col-sm-12 button" id="Ordem" style="background-color: white ; height:80px;border: none; text-align:center;" align="center">
-                <h3 style="font-size: 3rem; margin-top: 1%;"><i class="fas fa-map-marker-alt" style="font-size: 3rem; margin-top:1%;"></i> &nbsp;&nbsp;&nbsp;Check-List Ar Condicionado</h3>
+                <h3 style="font-size: 3rem; margin: 1% 0% 0% 0%;"><i class="fas fa-map-marker-alt" style="font-size: 3rem; margin-top:1%;"></i> &nbsp;&nbsp;&nbsp;Check-List</h3>
+                <h3 style="font-size: 3rem; margin: 0%;">Ar Condicionado</h3>
             </div>
 
             <div style="background-color: rgb(243,246,251); padding-top:1%; margin-bottom:30px;" class="col-sm-3 button " id="Ordem" align="center">
@@ -58,7 +74,7 @@ if (isset($_SESSION['numLogin'])) {
                 <p style="margin-bottom:2px; margin-top: 5px; font-size: 1.6rem;" align="center"> Check-List quinzenal</p>
                 <p style="color: black;"><b class="Blocos">Bloco A </b></p>
                 <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
-                <span id="IDUH"></span>
+                <span id="IDUH"><?php echo $idUH ?></span>
                 <div class="col-sm-12" style="border: solid white 5px; margin-bottom: 5px;">
                     <h5>Iniciado: <b style="color:red;" id="dataQuinzenal"></b></h5>
                     <h5>Status: <b style="color: red;" id="statusQuinzenal"></b></h5>
@@ -119,12 +135,12 @@ if (isset($_SESSION['numLogin'])) {
             </div>
         </div>
     </div>
-    <span id="ColocarAr"></span>
+    <span id="ColocarAr"><?php echo $idAr ?></span>
     <span id="checklist">
     </span>
     <!----------------------------------------------------------------Modal-------------------------------------------------------------------------->
-    <div class="modal fade" id="CheckList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" overflow:auto;">
-        <div class="modal-dialog" role="document" style="width: 95%;">
+    <div class="modal fade" id="CheckList" data-backdrop='static' tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" overflow:auto;">
+        <div class="modal-dialog" role="document">
             <div class="modal-content" style="border-radius: 15px;">
                 <div class="modal-header header">
                     <h3 class="modal-title" id="exampleModalLabel" style="float: left; margin-left:35%;">Check Lists</h3>
@@ -150,7 +166,7 @@ if (isset($_SESSION['numLogin'])) {
     </div>
 
     <div class="modal fade" id="agendar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" overflow:auto;">
-        <div class="modal-dialog" role="document" style="width: 40%;">
+        <div class="modal-dialog" role="document">
             <div class="modal-content" style="border-radius: 15px;">
                 <div class="modal-header header">
                     <h3 class="modal-title" id="exampleModalLabel" style="float: left; margin-left:45%;">Aviso</h3>

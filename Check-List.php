@@ -6,8 +6,23 @@ $idLogin = $_SESSION['idUsuario'];
 
 if (isset($_GET['Ent'])) {
     $Entidade = $_GET['Ent'];
+    if (isset($_GET['idUH'])) {
+        $idUH = $_GET['idUH'];
+        $idUH = "<input type='hidden' value='$idUH' id='idUH'/>";
+        if (isset($_GET['idAr'])) {
+            $idAr = $_GET['idAr'];
+            $idAr = "<input type='hidden' value='$idAr' id='idAr'/>";
+        } else {
+            $idAr = '';
+        }
+    } else {
+        $idUH = '';
+        $idAr = '';
+    }
 } else {
     $Entidade = 'Selecione';
+    $idUH = '';
+    $idAr = '';
 }
 
 if (isset($_SESSION['numLogin'])) {
@@ -33,11 +48,11 @@ if (isset($_SESSION['numLogin'])) {
 <body class="mybody" style="background-color: white;">
     <?php include_once 'bib/comum/menu_bar.php'; ?>
     <div class="row">
-        <div class="col-xs-3 infmenuslider inf_alt">
+        <div class="col-xs-3 infmenuslider inf_alt" style="overflow-y: visible;">
             <?php include_once 'bib/comum/menu.php'; ?>
         </div>
         <input type="hidden" id="idLogin" value="<?php echo $idLogin ?>">
-        <div class="col-xs-9 infcorpo inf_alt">
+        <div class="col-xs-9 infcorpo inf_alt" style="overflow-y: visible;">
             <div class="limiter">
                 <div class="container-table100">
                     <div class="row">
@@ -52,7 +67,7 @@ if (isset($_SESSION['numLogin'])) {
                                     <p style="margin-bottom:2px; margin-top: 5px; font-size: 1.6rem;" align="center"> Check-List quinzenal</p>
                                     <p style="color: black;"><b class="Blocos">Bloco A </b></p>
                                     <p style="color: black; margin-top: 1%;"><b class="UHs">UH: 101</b></p>
-                                    <span id="IDUH"></span>
+                                    <span id="IDUH"><?php echo $idUH ?></span>
                                     <div class="col-sm-12" style="border: solid white 5px; margin-bottom: 5px;">
                                         <h5>Iniciado: <b style="color:red;" id="dataQuinzenal"></b></h5>
                                         <h5>Status: <b style="color: red;" id="statusQuinzenal"></b></h5>
@@ -107,7 +122,7 @@ if (isset($_SESSION['numLogin'])) {
                                     </div>
                                 </div>
                             </div>
-                            <span id="ColocarAr"></span>
+                            <span id="ColocarAr"><?php echo $idAr ?></span>
                             <div class="col-sm-12" id="checklist">
                             </div>
                         </div>
@@ -169,7 +184,6 @@ if (isset($_SESSION['numLogin'])) {
     </div>
 
     <!----------------------------------------------------------------------------------------------------------------------------------------------->
-    <?php include_once 'bib/comum/rodape.php'; ?>
     <script src="bib/js/menu.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="bib/js/Check-List.js"></script>

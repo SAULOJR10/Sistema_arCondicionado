@@ -66,16 +66,29 @@ function Selects($acao)
     $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
     if ($acao == 'Bloco') {
         $conexao = new ConexaoCard();
-        $sql = "SELECT * FROM bloco WHERE fk_entidade = $idEnt ORDER BY nome";
+        $sql = "SELECT bloco.id, bloco.nome, equipamento.id AS equipamento FROM bloco
+                INNER JOIN uhs ON fk_bloco = bloco.id
+                INNER JOIN equipamento ON uh = uhs.id
+                WHERE fk_entidade = $idEnt and fk_bloco = bloco.id and uh = uhs.id GROUP BY equipamento, bloco.nome, bloco.id ORDER BY bloco.nome";
         $result = $conexao->execQuerry($sql);
         $conexao->fecharConexao();
 
         $quant = count($result) - 1;
         $option = '<option value="">Selecione</option>';
         for ($i = 0; $i <= $quant; $i++) {
+            if ($i != 0) {
+                $o = $i - 1;
+            } else {
+                $o = 1;
+            }
             $Bloco = $result[$i]['nome'];
             $id = $result[$i]['id'];
-            $option .= "<option value='$id'> $Bloco </option>";
+            $equip = $result[$i]['equipamento'];
+            if ($equip != '' && $equip != null && $Bloco != $result[$o]['nome']) {
+                $option .= "<option value='$id'> $Bloco </option>";
+            } else if ($o == 0 || !isset($o)) {
+                $option .= "<option value='$id'> $Bloco </option>";
+            }
         }
         $html = "<h4 style='text-align:center;'>Selecione o Bloco:</h4><select style='border-radius:10px;' id='Bloco' class='form-control' onchange=\"MontarQualUH('Andar')\">$option</select>";
         echo json_encode($html);
@@ -84,23 +97,42 @@ function Selects($acao)
         $bloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
         $option = '<option value="">Selecione</option>';
         $conexao = new ConexaoCard();
-        $sql = "SELECT * FROM bloco WHERE bloco.id = $bloco and fk_entidade = $idEnt";
+        $sql = "SELECT andar, equipamento.id FROM uhs
+                INNER JOIN equipamento ON uh = uhs.id
+                WHERE fk_bloco = $bloco GROUP BY equipamento.id, andar";
         $result = $conexao->execQuerry($sql);
         $conexao->fecharConexao();
+        $quant = count($result) - 1;
 
-        $quantAndar = $result[0]['quant_andar'];
-        $quantSubSolo = $result[0]['quant_subsolo'];
-        if ($quantSubSolo != 0) {
-            for ($i = 1; $i <= $quantSubSolo; $i++) {
-                $SubSolo = '-' . $i;
-                $option .= "<option value='$SubSolo'>SubSolo ($SubSolo) </option>";
-            }
-        }
-        for ($i = 0; $i <= $quantAndar; $i++) {
-            if ($i == 0) {
-                $option .= "<option value='$i'>Térreo</option>";
+        for ($i = 0; $i <= $quant; $i++) {
+            if ($i != 0) {
+                $o = $i - 1;
+                $u = '';
             } else {
-                $option .= "<option value='$i'>Andar $i</option>";
+                $o = 0;
+            }
+            $andar = $result[$i]['andar'];
+            $equip = $result[$i]['id'];
+            if ($equip != '' && $equip != null && $andar != $result[$o]['andar']) {
+                if ($andar == 0) {
+                    $option .= "<option value='$andar'>Térreo</option>";
+                }
+                if ($andar > 0) {
+                    $option .= "<option value='$andar'>Andar $andar</option>";
+                }
+                if ($andar < 0) {
+                    $option .= "<option value='$andar'>Sub-Solo ($andar)</option>";
+                }
+            } else if (isset($u) && $o == 0) {
+                if ($andar == 0) {
+                    $option .= "<option value='$andar'>Térreo</option>";
+                }
+                if ($andar > 0) {
+                    $option .= "<option value='$andar'>Andar $andar</option>";
+                }
+                if ($andar < 0) {
+                    $option .= "<option value='$andar'>Sub-Solo ($andar)</option>";
+                }
             }
         }
         $html = "<h4 style='text-align:center;'>Selecione andar:</h4><select class='form-control' id='andarGer' onchange='MontarQualUH(\"UH\")' style='border-radius:10px;'> $option </select>";
@@ -110,16 +142,28 @@ function Selects($acao)
         $bloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
         $andar = filter_input(INPUT_POST, 'andar', FILTER_SANITIZE_STRING);
         $conexao = new ConexaoCard();
-        $sql = "SELECT * FROM uhs WHERE fk_bloco = $bloco and andar = $andar and status = true ORDER BY nome";
+        $sql = "SELECT uhs.nome, uhs.id, equipamento.id AS equipamento FROM uhs
+                INNER JOIN equipamento ON uh = uhs.id
+                WHERE fk_bloco = $bloco and andar = $andar and status = true ORDER BY nome";
         $result = $conexao->execQuerry($sql);
         $conexao->fecharConexao();
 
         $quant = count($result) - 1;
         $option = '<option value="">Selecione</option>';
         for ($i = 0; $i <= $quant; $i++) {
+            if ($i != 0) {
+                $o = $i - 1;
+            } else {
+                $o = 1;
+            }
             $UH = $result[$i]['nome'];
             $id = $result[$i]['id'];
-            $option .= "<option value='$id'> $UH </option>";
+            $equip = $result[$i]['equipamento'];
+            if ($equip != '' && $equip != null && $UH != $result[$o]['nome']) {
+                $option .= "<option value='$id'> $UH </option>";
+            }else if ($o == 0 || !isset($o)) {
+                $option .= "<option value='$id'> $UH </option>";
+            }
         }
         $html = "<h4 style='text-align:center;'>Selecione local:</h4><select class='form-control' id='UHGer' onchange=\"MontarQualUH('Ar')\" style='border-radius:10px;'> $option </select>";
         echo json_encode($html);
@@ -209,9 +253,9 @@ function MontarCheckList($Periodo)
         $result2 = $conexao->execQuerry($sql2);
         if (is_array($result2) && $result2 != null) {
             $data =  $result2[0]['data'] . ' -';
-            if($result2[0]['observacao'] == ''){
-                $obs = "<span style='color: red;'>Nenhuma observação</span>";    
-            }else{
+            if ($result2[0]['observacao'] == '') {
+                $obs = "<span style='color: red;'>Nenhuma observação</span>";
+            } else {
                 $obs =  '<span style="color: red;"><b>' . $result2[0]['observacao'] . '</b></span>';
             }
             $valueOBS = $result2[0]['observacao'];
@@ -241,7 +285,7 @@ function MontarCheckList($Periodo)
             $num1++;
             $fim = "</div>";
         }
-        $htmlTitulo .= "<div style='padding:0px 40px 0px 40px;'>
+        $htmlTitulo .= "<div>
                             <h5 style='margin-top: 30px;'><b>$descricao</b></h5>
                             <div class='col-xs-3 ' style='float: right; padding-right: 0px; padding-left:0px;'>
                                 <img src='bib/img/agendaEdit.png' onclick='ColocarOBS($num2)' style='width: 25px; margin-top: -10px; height: 25px;'>
@@ -256,38 +300,43 @@ function MontarCheckList($Periodo)
         $num2++;
     }
     $html = "<div class='col-sm-1'></div>
-                <div class='col-sm-8' style='padding:0%; background-color: rgb(243,246,251);'>
+                <div class='col-sm-8' style='padding:0% 2% 0% 0%; background-color: rgb(243,246,251);'>
                     <div class='col-sm-12' style='padding:0%;background-color:#c4ced2; border-bottom: solid black 3px;'>
                         <div class='col-sm-4' style='text-align:center;'>
-                            <img src='bib/img/$Periodo.png' onclick='VoltarTodos()' style='width: 50%; height: 90px; margin-top: 15px;'>
+                            <img src='bib/img/$Periodo.png' onclick='VoltarTodos()' style='width: 30%; height: 60px; margin-top: 15px;'>
                         </div>
                         <div class='col-sm-6'>
-                            <h4 style='text-align: center;'>Check-List $Periodo</h4>
+                            <h5 style='text-align: center;'>Check-List $Periodo</h5>
                             <input type='hidden' id='periodo' value='$Periodo'>
-                            <h3 style='text-align: center'>$Bloco</h3>
-                            <h3 style='text-align: center; margin-top:5px;'>UH: $UH</h3>
+                            <h4 style='text-align: center'>$Bloco</h4>
+                            <h4 style='text-align: center; margin-top:5px;'>UH: $UH</h4>
                             <p style='text-align:center;'>
                             <img src='bib/img/Engenheiro.png' style='width: 25px; height: 25px; margin-top: -9px;'>
                             $Usuario</p>
                         </div>
-                        <div onclick='SalvaCheckList()' style='text-align:center; margin-top:15px; margin-left:86%; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
-                            <i class='fas fa-save' style='font-size: 2.5rem; color:white;'></i>
-                        </div>
-                        <div onclick='MarcarTodos()' style='text-align:center; margin-left:86%; margin-top:75px; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
-                            <i class='fas fa-check' style='font-size: 2.5rem; color:white;'></i>
-                        </div>
-                        <div onclick='abrirModal(\"agendar\")' style='text-align:center; margin-left:86%; margin-top:135px; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
-                            <i class='far fa-clock' style='font-size: 2.5rem; color:white;'></i>
-                        </div>
-                        <div onclick='OutroAr()' style='text-align:center; margin-left:86%; margin-top:195px; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
-                            <img src='bib/img/arcondicionadoIcon.png' style='width: 30px; height: 30px; color:white;'>  </i>
-                        </div>
-                        <div onclick='VoltarTodos()' style='text-align:center; margin-left:86%; margin-top:255px; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
-                            <i class='fas fa-chevron-circle-left' style='font-size: 2.5rem; color:white;'></i>
-                        </div>
+
                     </div>
                     <div class='col-sm-12' style='padding:1% 6% 1% 6%;'>
+                        <div onclick='SalvaCheckList()' style='text-align:center; margin-top:15px; margin-left:78%; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
+                            <i class='fas fa-save' style='font-size: 2.5rem; color:white;'></i>
+                        </div>
+                        <div onclick='MarcarTodos()' style='text-align:center; margin-left:78%; margin-top:75px; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
+                            <i class='fas fa-check' style='font-size: 2.5rem; color:white;'></i>
+                        </div>
+                        <div onclick='abrirModal(\"agendar\")' style='text-align:center; margin-left:78%; margin-top:135px; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
+                            <i class='far fa-clock' style='font-size: 2.5rem; color:white;'></i>
+                        </div>
+                        <div onclick='OutroAr()' style='text-align:center; margin-left:78%; margin-top:195px; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
+                            <img src='bib/img/arcondicionadoIcon.png' style='width: 30px; height: 30px; color:white;'>  </i>
+                        </div>
+                        <div onclick='VoltarTodos()' style='text-align:center; margin-left:78%; margin-top:255px; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
+                            <i class='fas fa-chevron-circle-left' style='font-size: 2.5rem; color:white;'></i>
+                        </div>
+                        <div id='descer' onclick='descerScroll(100)' style='text-align:center; margin-left:78%; margin-top:315px; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
+                            <i class='fas fa-arrow-down' style='font-size: 2.5rem; color:white;'></i>
+                        </div>
                         $htmlTitulo
+                        
                     </div>
                 </div>
             </div>
@@ -328,7 +377,7 @@ function MontarGraficos($periodo)
     if (is_array($result) && $result != null) {
         $data = $result[0]['data_check'];
         $status = $result[0]['status'];
-    }else{
+    } else {
         $data = "Não Inicializado";
         $status = "Não Inicializado";
     }

@@ -1,10 +1,19 @@
 $(document).ready(function () {
-    MontarQualUH('primeiro');
+    if (document.getElementById('idAr') != undefined) {
+        $('#CheckList').modal('hide');
+        MontarTela();
+    } else {
+        MontarQualUH('primeiro');
+    }
     $('#onclick').removeAttr('onclick');
     var url = window.location.href;
     var url = url.split('&')[0];
     $('#onclick').attr('href', url);
 });
+url = window.location.href;
+urlEnt = '';
+urlAr = '';
+urlUH = '';
 
 function SelectEnt(acao) {
     $('#nome_cliente').empty();
@@ -38,18 +47,20 @@ function EntSelected(acao) {
     $('#nome_cliente').empty();
     $('#nome_cliente').append("<input type='hidden' id='idEnt' value='" + idEnt + "'>" + nomeEnt);
     MontarQualUH('selectBloco');
+    var Ent = document.getElementById('nome_cliente').innerHTML;
+    urlEnt = url + '&Ent=' + Ent;
 }
 
-function Refresh(){
+function Refresh() {
     var url = window.location.href;
     var url = url.split('&')[0];
-    window.location.href= url;
+    window.location.href = url;
     document.location.reload(true);
 }
 
 function OutroAr() {
     var idEnt = document.getElementById('idEnt').value;
-    var idUH = document.getElementById('UHGer').value;
+    var idUH = document.getElementById('idUH').value;
     $.ajax({
         method: 'post',
         dataType: 'json',
@@ -90,12 +101,12 @@ function SalvaCheckList() {
         if ($('#ch_item' + i).is(':checked')) {
             var finalizados = finalizados + document.getElementById('ch_item' + i).value + ';';
             var statusFinalizados = statusFinalizados + true + ';';
-            var FinalizadosOBS = FinalizadosOBS + document.getElementById('obs'+i).value + ';';
+            var FinalizadosOBS = FinalizadosOBS + document.getElementById('obs' + i).value + ';';
         } else {
             var statusCheck = false;
             var naoFinalizados = naoFinalizados + document.getElementById('ch_item' + i).value + ';';
             var statusNaoFinalizados = statusNaoFinalizados + false + ';';
-            var NaoFinalizadosOBS = NaoFinalizadosOBS + document.getElementById('obs'+i).value + ';';
+            var NaoFinalizadosOBS = NaoFinalizadosOBS + document.getElementById('obs' + i).value + ';';
         }
     }
     $.ajax({
@@ -125,13 +136,18 @@ function SalvaCheckList() {
     });
 }
 
+function Continue(id) {
+    window.location.href = id;
+}
+
 function MontarQualUH(acao) {
     $('#CheckList').modal('show');
     if (acao == 'colocarButton') {
         var idAr = document.getElementById('Ar').value;
         $('#ColocarAr').empty();
         $('#ColocarAr').append('<input type="hidden" id="idAr" value="' + idAr + '">');
-        $('#btao_relat').attr('onclick', 'QualUH()');
+        urlAr = urlUH + '&idAr=' + idAr;
+        $('#btao_relat').attr('onclick', 'Continue(\'' + urlAr + '\')');
         return;
     }
     if (document.getElementById('idEnt') != undefined) {
@@ -148,8 +164,16 @@ function MontarQualUH(acao) {
         }
         if (document.getElementById('UHGer') != undefined) {
             var idUH = document.getElementById('UHGer').value;
+            $('#IDUH').empty();
+            $('#IDUH').append('<input type="hidden" value="' + idUH + '" id="idUH">');
+            urlUH = urlEnt + '&idUH=' + idUH;
         } else {
             var idUH = '';
+        }
+        if (document.getElementById('idAr') != undefined) {
+            var idAr = document.getElementById('idAr').value;
+        } else {
+            var idAr = '';
         }
         if (acao == 'primeiro') {
             acao = 'selectBloco';
@@ -180,6 +204,8 @@ function MontarQualUH(acao) {
                 $('#SelectAndar').empty();
                 $('#SelectAr').empty();
                 $('#btao_relat').removeAttr('onclick');
+                $('#IDUH').empty();
+                $('#ColocarAr').empty();
             }
             if (acao == 'Andar') {
                 $('#SelectAndar').empty();
@@ -187,16 +213,21 @@ function MontarQualUH(acao) {
                 $('#SelectUH').empty();
                 $('#SelectAr').empty();
                 $('#btao_relat').removeAttr('onclick');
+                $('#IDUH').empty();
+                $('#ColocarAr').empty();
             }
             if (acao == 'UH') {
                 $('#SelectUH').empty();
                 $('#SelectUH').append(data);
                 $('#SelectAr').empty();
                 $('#btao_relat').removeAttr('onclick');
+                $('#IDUH').empty();
+                $('#ColocarAr').empty();
             }
             if (acao == 'Ar') {
                 $('#SelectAr').empty();
                 $('#SelectAr').append(data);
+                $('#ColocarAr').empty();
             }
             $('#CheckList').modal('show');
         },
@@ -206,11 +237,17 @@ function MontarQualUH(acao) {
     });
 }
 
-function abrirModal(modal){
-    $('#'+modal).modal('show');
+function descerScroll(num) {
+    num2 = num + 200;
+    $('#descer').attr('onclick', 'descerScroll('+num2+')');
+    window.scroll(0, num2);
 }
 
-function Avisar(){
+function abrirModal(modal) {
+    $('#' + modal).modal('show');
+}
+
+function Avisar() {
     var idUH = document.getElementById('idUH').value;
     var data = document.getElementById('dataAgend').value;
     var obs = document.getElementById('observacao').value;
@@ -248,18 +285,18 @@ function VoltarTodos() {
     MontarTela();
 }
 
-function MarcarTodos(){
+function MarcarTodos() {
     var todos = document.getElementsByName('allitem').length;
-    for(i = 1; i <= todos; i++){
-        $('#ch_item'+i).prop('checked', true);
+    for (i = 1; i <= todos; i++) {
+        $('#ch_item' + i).prop('checked', true);
     }
 }
 
-function ColocarOBS(id){
-    $('#tirar'+id).empty();
-    $('#obs'+id).removeAttr('style');
-    $('#obs'+id).attr('style', 'width:100%;');
-    $('#obs'+id).focus();
+function ColocarOBS(id) {
+    $('#tirar' + id).empty();
+    $('#obs' + id).removeAttr('style');
+    $('#obs' + id).attr('style', 'width:100%;');
+    $('#obs' + id).focus();
 }
 
 function CheckList(id) {
@@ -274,7 +311,7 @@ function CheckList(id) {
             acao: 'MontarCheckList',
             uh: uh,
             idLogin: idLogin,
-            idAr:idAr,
+            idAr: idAr,
             id: id,
         },
         success: function (data) {
@@ -329,10 +366,10 @@ function drawChart1() {
         success: function (data) {
             var quantTotal = data.split(';')[0];
             $('#tituloQuinzenal').empty();
-            $('#tituloQuinzenal').append('<h5>Total de itens: '+quantTotal+'</h5>');
+            $('#tituloQuinzenal').append('<h5>Total de itens: ' + quantTotal + '</h5>');
             var quantFinalizados = data.split(';')[1];
             var quantNaoFinalizados = data.split(';')[2];
-            if(quantFinalizados == 0 && quantNaoFinalizados == 0){
+            if (quantFinalizados == 0 && quantNaoFinalizados == 0) {
                 quantNaoFinalizados = quantTotal;
             }
             var dataCheck = data.split(';')[3];
@@ -349,14 +386,14 @@ function drawChart1() {
 
             var options = {
                 pieHole: 0.3,
-                tooltip: {text: 'value'},
+                tooltip: { text: 'value' },
                 backgroundColor: '#f3f6fb',
                 chartArea: { left: '10%', bottom: '15%', width: '80%', height: '80%' },
                 colors: ['#69bd63', '#dc3912'],
                 legend: { position: 'bottom' },
                 fontSize: 12,
                 pieSliceText: 'value',
-                pieSliceTextStyle:{color:'black'},
+                pieSliceTextStyle: { color: 'black' },
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('donutchart1'));
@@ -384,10 +421,10 @@ function drawChart2() {
         success: function (data) {
             var quantTotal = data.split(';')[0];
             $('#tituloMensal').empty();
-            $('#tituloMensal').append('<h5>Total de itens: '+quantTotal+'</h5>');
+            $('#tituloMensal').append('<h5>Total de itens: ' + quantTotal + '</h5>');
             var quantFinalizados = data.split(';')[1];
             var quantNaoFinalizados = data.split(';')[2];
-            if(quantFinalizados == 0 && quantNaoFinalizados == 0){
+            if (quantFinalizados == 0 && quantNaoFinalizados == 0) {
                 quantNaoFinalizados = quantTotal;
             }
             var dataCheck = data.split(';')[3];
@@ -404,14 +441,14 @@ function drawChart2() {
 
             var options = {
                 pieHole: 0.3,
-                tooltip: {text: 'value'},
+                tooltip: { text: 'value' },
                 backgroundColor: '#f3f6fb',
                 chartArea: { left: '10%', bottom: '15%', width: '80%', height: '80%' },
                 colors: ['#69bd63', '#dc3912'],
                 legend: { position: 'bottom' },
                 fontSize: 12,
                 pieSliceText: 'value',
-                pieSliceTextStyle:{color:'black', fontSize: '120px', margin:'20px'},
+                pieSliceTextStyle: { color: 'black', fontSize: '120px', margin: '20px' },
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('donutchart2'));
@@ -439,10 +476,10 @@ function drawChart3() {
         success: function (data) {
             var quantTotal = data.split(';')[0];
             $('#tituloTrimestral').empty();
-            $('#tituloTrimestral').append('<h5>Total de itens: '+quantTotal+'</h5>');
+            $('#tituloTrimestral').append('<h5>Total de itens: ' + quantTotal + '</h5>');
             var quantFinalizados = data.split(';')[1];
             var quantNaoFinalizados = data.split(';')[2];
-            if(quantFinalizados == 0 && quantNaoFinalizados == 0){
+            if (quantFinalizados == 0 && quantNaoFinalizados == 0) {
                 quantNaoFinalizados = quantTotal;
             }
             var dataCheck = data.split(';')[3];
@@ -459,14 +496,14 @@ function drawChart3() {
 
             var options = {
                 pieHole: 0.3,
-                tooltip: {text: 'value'},
+                tooltip: { text: 'value' },
                 backgroundColor: '#f3f6fb',
                 chartArea: { left: '10%', bottom: '15%', width: '80%', height: '80%' },
                 colors: ['#69bd63', '#dc3912'],
                 legend: { position: 'bottom' },
                 fontSize: 12,
                 pieSliceText: 'value',
-                pieSliceTextStyle:{color:'black', fontSize: '120px', margin:'20px'},
+                pieSliceTextStyle: { color: 'black', fontSize: '120px', margin: '20px' },
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('donutchart3'));
@@ -494,10 +531,10 @@ function drawChart4() {
         success: function (data) {
             var quantTotal = data.split(';')[0];
             $('#tituloAnual').empty();
-            $('#tituloAnual').append('<h5>Total de itens: '+quantTotal+'</h5>');
+            $('#tituloAnual').append('<h5>Total de itens: ' + quantTotal + '</h5>');
             var quantFinalizados = data.split(';')[1];
             var quantNaoFinalizados = data.split(';')[2];
-            if(quantFinalizados == 0 && quantNaoFinalizados == 0){
+            if (quantFinalizados == 0 && quantNaoFinalizados == 0) {
                 quantNaoFinalizados = quantTotal;
             }
             var dataCheck = data.split(';')[3];
@@ -514,14 +551,14 @@ function drawChart4() {
 
             var options = {
                 pieHole: 0.3,
-                tooltip: {text: 'value'},
+                tooltip: { text: 'value' },
                 backgroundColor: '#f3f6fb',
                 chartArea: { left: '10%', bottom: '15%', width: '80%', height: '80%' },
                 colors: ['#69bd63', '#dc3912'],
                 legend: { position: 'bottom' },
                 fontSize: 12,
                 pieSliceText: 'value',
-                pieSliceTextStyle:{color:'black', fontSize: '120px', margin:'20px'},
+                pieSliceTextStyle: { color: 'black', fontSize: '120px', margin: '20px' },
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('donutchart4'));
