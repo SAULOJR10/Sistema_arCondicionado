@@ -22,7 +22,12 @@ if (isset($_POST['login']) && isset($_POST['senha'])) {
             $_SESSION['usuario'] = $res['usuario'];
             $_SESSION['arquivo'] = $res['arquivo'];
             header("Location:TelaManutencionista.php?num1=$num");
-        }
+        }else if ($res['tipo_usuario'] == "eng" && $res['status'] == true) {
+            $_SESSION['idUsuario'] = $res['id'];
+            $_SESSION['usuario'] = $res['usuario'];
+            $_SESSION['arquivo'] = $res['arquivo'];
+            header("Location:RT.php?num1=$num");
+        } 
     }
 }
 ?>

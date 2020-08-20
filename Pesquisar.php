@@ -1,3 +1,42 @@
+<?php
+include_once "bib/comum/conexao.php";
+
+session_start();
+$idLogin = $_SESSION['idUsuario'];
+
+if (isset($_GET['Ent'])) {
+    $Entidade = $_GET['Ent'];
+    if (isset($_GET['idUH'])) {
+        $idUH = $_GET['idUH'];
+        $idUH = "<input type='hidden' value='$idUH' id='idUH'/>";
+        if (isset($_GET['idAr'])) {
+            $idAr = $_GET['idAr'];
+            $idAr = "<input type='hidden' value='$idAr' id='idAr'/>";
+        } else {
+            $idAr = '';
+        }
+    } else {
+        $idUH = '';
+        $idAr = '';
+    }
+} else {
+    $Entidade = 'Selecione';
+    $idUH = '';
+    $idAr = '';
+}
+
+if (isset($_SESSION['numLogin'])) {
+    $n1 = $_GET["num1"];
+    $n2 = $_SESSION["numLogin"];
+    if ($n1 != $n2) {
+        header("Location:index.php");
+        exit;
+    }
+} else {
+    header("Location:index.php");
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -22,8 +61,8 @@
                         <div class="col-sm-12" style="background-color: white; margin-bottom:2%; height:100px; padding:0%;">
 
                             <div class="col-sm-4 button" id="Ordem" style="background-color: white ; height:80%;border: none;" align="center">
-                                <i class="fas fa-map-marker-alt" style="font-size: 3rem; float:left; margin-left:10%; margin-top:1%;"></i>
-                                <h3 style="font-size: 4rem; margin-top: 0%; margin-right:35%;">Gerência</h3>
+                                <i class="fas fa-search" style="font-size: 3rem; float:left; margin-left:10%; margin-top:1%;"></i>
+                                <h3 style="font-size: 4rem; margin-top: 0%; margin-right:35%;">Pesquisa</h3>
                                 <h3 style="font-size: 4rem; float:right; margin-right:15%; margin-top:-15px;">Predial</h3>
                             </div>
 

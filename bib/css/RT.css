@@ -1,0 +1,16 @@
+table{
+    border:solid black 1px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+td{
+    border:solid black 1px;
+    padding: 2px;
+}
+
+.naoQuebra{
+    white-space: nowrap;
+    width: 100px;
+    text-align:center;
+}

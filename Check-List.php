@@ -41,7 +41,6 @@ if (isset($_SESSION['numLogin'])) {
 
 <head>
     <?php include_once 'bib/comum/bibi.php'; ?>
-    <!-- <link rel="stylesheet" type="text/css" href="bib/css/checkList.css"> -->
     <link rel="stylesheet" type="text/css" href="bib/css/tabelas.css">
 </head>
 

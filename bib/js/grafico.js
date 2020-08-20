@@ -46,14 +46,15 @@ function drawChart() {
     ['Não realizado', 30],
   ]);
 
-  var options = {
+  var options2 = {
+    pieHole: 0.3,
+    fontSize: 12,
     title: '',
     colors: ['#14591b', '#ff9d00', '#be181a'],
-    pieHole: 0.4,
   };
 
   var chart = new google.visualization.PieChart(document.getElementById('donutchart1'));
-  chart.draw(data, options);
+  chart.draw(data, options2);
   var chart2 = new google.visualization.PieChart(document.getElementById('donutchart2'));
-  chart2.draw(data, options);
+  chart2.draw(data, options2);
 } 

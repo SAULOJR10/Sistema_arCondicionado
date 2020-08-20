@@ -166,6 +166,9 @@ function MontarQualUH(acao) {
             var idUH = document.getElementById('UHGer').value;
             $('#IDUH').empty();
             $('#IDUH').append('<input type="hidden" value="' + idUH + '" id="idUH">');
+            if(urlEnt == ''){
+                urlEnt = url;
+            }
             urlUH = urlEnt + '&idUH=' + idUH;
         } else {
             var idUH = '';
