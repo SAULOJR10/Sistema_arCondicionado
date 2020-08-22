@@ -60,20 +60,8 @@ if (isset($_SESSION['numLogin'])) {
 
                         <div class="col-sm-12" style="background-color: white; margin-bottom:2%; height:100px; padding:0%;">
 
-                            <div class="col-sm-4 button" id="Ordem" style="background-color: white ; height:80%;border: none;" align="center">
-                                <i class="fas fa-search" style="font-size: 3rem; float:left; margin-left:10%; margin-top:1%;"></i>
-                                <h3 style="font-size: 4rem; margin-top: 0%; margin-right:35%;">Pesquisa</h3>
-                                <h3 style="font-size: 4rem; float:right; margin-right:15%; margin-top:-15px;">Predial</h3>
-                            </div>
-
-                            <div style="padding-top:1%;" class="col-sm-3 button " id="Ordem" align="center">
-                                <h1 style="margin-top: 0%;"><b>425</b></h1>
-                                <h3 style="margin-top: 5px; font-size: 1.6rem;" align="center"> UHs gerenciadas</h3>
-                            </div>
-
-                            <div style="padding-top:1%;" class="col-sm-3 button" align="center">
-                                <h1 style="margin-top: 0%;"><b>425</b></h1>
-                                <h3 style="margin-top: 5px; font-size: 1.6rem;" align="center"> Ar cond. gerenciados</h3>
+                            <div class="col-sm-12 button" id="Ordem" style="background-color: white; height:80%;border: none;" align="center">
+                                <h3 style="font-size: 4rem; margin-top: 0%;"><i class="fas fa-search" style="font-size: 3rem; margin-top:1%;"></i>&nbsp;&nbsp;Pesquisa Predial</h3>
                             </div>
                             <div class="col-sm-12" style="margin-top: 20px;padding:1%; border-bottom:solid lightgray 1px; border-top:solid lightgray 1px;">
                                 <div class="col-sm-12">
@@ -97,7 +85,7 @@ if (isset($_SESSION['numLogin'])) {
                                         </div>
                                         <div class="col-sm-4">
                                             <div style="padding-right: 0px; padding-left:0px; margin:2% 0% 0% 27%;">
-                                                <input id="ch_Marca" class="switch switch--shadow" type="checkbox" disabled="true">
+                                                <input id="ch_Marca" onchange="PesquisaAr()" class="switch switch--shadow" type="checkbox" disabled="true">
                                                 <label style="float:right; min-width: 40px;" for="ch_Marca"></label>
                                             </div>
                                         </div>
@@ -106,7 +94,7 @@ if (isset($_SESSION['numLogin'])) {
                                         </div>
                                         <div class="col-sm-4">
                                             <div style="padding-right: 0px; padding-left:0px; margin:2% 0% 0% 27%;">
-                                                <input id="ch_Modelo" class="switch switch--shadow" type="checkbox" disabled="true">
+                                                <input id="ch_Modelo" onchange="PesquisaAr()" class="switch switch--shadow" type="checkbox" disabled="true">
                                                 <label style="float:right; min-width: 40px;" for="ch_Modelo"></label>
                                             </div>
                                         </div>
@@ -115,7 +103,7 @@ if (isset($_SESSION['numLogin'])) {
                                         </div>
                                         <div class="col-sm-4">
                                             <div style="padding-right: 0px; padding-left:0px; margin:2% 0% 0% 27%;">
-                                                <input id="ch_Potencia" class="switch switch--shadow" type="checkbox" disabled="true">
+                                                <input id="ch_Potencia" onchange="PesquisaAr()" class="switch switch--shadow" type="checkbox" disabled="true">
                                                 <label style="float:right; min-width: 40px;" for="ch_Potencia"></label>
                                             </div>
                                         </div>
@@ -124,14 +112,14 @@ if (isset($_SESSION['numLogin'])) {
                                         </div>
                                         <div class="col-sm-4">
                                             <div style="padding-right: 0px; padding-left:0px; margin:2% 0% 0% 27%;">
-                                                <input id="ch_Localizacao" class="switch switch--shadow" type="checkbox" disabled="true">
+                                                <input id="ch_Localizacao" onchange="PesquisaAr()" class="switch switch--shadow" type="checkbox" disabled="true">
                                                 <label style="float:right; min-width: 40px;" for="ch_Localizacao"></label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-8" style="height: 50px;"></div>
                                     <div class="col-sm-4">
-                                        <input readonly="readonly" id="btao_relat" value="ir" class="fourth " style="height: 20px; font-size:1.2rem;">
+                                        <input readonly="readonly" id="Ar" value="ir" class="fourth " style="height: 20px; font-size:1.2rem;">
                                     </div>
                                 </div>
                                 <div class="col-sm-4 divs">
@@ -153,7 +141,7 @@ if (isset($_SESSION['numLogin'])) {
                                     </div>
                                     <div class="col-sm-8" style="height: 50px;"></div>
                                     <div class="col-sm-4">
-                                        <input readonly="readonly" id="btao_relat" value="ir" class="fourth " style="height: 20px; font-size:1.2rem;">
+                                        <input readonly="readonly" id="btao_relat" onclick="Pesquisar('', 'Prop')" value="ir" class="fourth " style="height: 20px; font-size:1.2rem;">
                                     </div>
                                 </div>
                                 <div class="col-sm-4 divs">
@@ -175,7 +163,7 @@ if (isset($_SESSION['numLogin'])) {
                                     </div>
                                     <div class="col-sm-8" style="height: 50px;"></div>
                                     <div class="col-sm-4">
-                                        <input readonly="readonly" id="btao_relat" value="ir" class="fourth " style="height: 20px; font-size:1.2rem;">
+                                        <input readonly="readonly" id="btao_relat" onclick="Pesquisar('', 'UH')" value="ir" class="fourth " style="height: 20px; font-size:1.2rem;">
                                     </div>
                                 </div>
                             </div>

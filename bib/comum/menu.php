@@ -50,7 +50,7 @@ if (session_id() == '') {
                 </a>
             </li>
             <!------------------------------------------------------------------------------------------------------------->
-            <li><a onclick="ContinuarEntidade(<?php echo $n1?>, 'RT.php')">
+            <li><a href="Relatorio.php?num1=<?php echo $n1 ?>">
                     <div class="row" style="width: 100%">
                         <div class="col-xs-2 p-l-0 p-r-0"><i class="far fa-file-alt" style="font-size: 1.8rem; float:left; margin-left:10%; margin-top:1%;"></i></div>
                         <div class="col-xs-10 p-l-0 p-r-0"> <b>Impressão RT</b></div>

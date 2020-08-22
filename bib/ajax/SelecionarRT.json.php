@@ -46,61 +46,15 @@ function Selects($acao)
                 $option .= "<option value='$id'> $Bloco </option>";
             }
         }
-        $html = "<h4 style='text-align:center;'>Selecione o Bloco:</h4><select style='border-radius:10px;' id='Bloco' class='form-control' onchange=\"MontarQualUH('Andar')\">$option</select>";
-        echo json_encode($html);
-    }
-    if ($acao == 'Andar') {
-        $bloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
-        $option = '<option value="">Selecione</option>';
-        $conexao = new ConexaoCard();
-        $sql = "SELECT andar, equipamento.id FROM uhs
-                INNER JOIN equipamento ON uh = uhs.id
-                WHERE fk_bloco = $bloco GROUP BY equipamento.id, andar";
-        $result = $conexao->execQuerry($sql);
-        $conexao->fecharConexao();
-        $quant = count($result) - 1;
-
-        for ($i = 0; $i <= $quant; $i++) {
-            if ($i != 0) {
-                $o = $i - 1;
-                $u = '';
-            } else {
-                $o = 0;
-            }
-            $andar = $result[$i]['andar'];
-            $equip = $result[$i]['id'];
-            if ($equip != '' && $equip != null && $andar != $result[$o]['andar']) {
-                if ($andar == 0) {
-                    $option .= "<option value='$andar'>Térreo</option>";
-                }
-                if ($andar > 0) {
-                    $option .= "<option value='$andar'>Andar $andar</option>";
-                }
-                if ($andar < 0) {
-                    $option .= "<option value='$andar'>Sub-Solo ($andar)</option>";
-                }
-            } else if (isset($u) && $o == 0) {
-                if ($andar == 0) {
-                    $option .= "<option value='$andar'>Térreo</option>";
-                }
-                if ($andar > 0) {
-                    $option .= "<option value='$andar'>Andar $andar</option>";
-                }
-                if ($andar < 0) {
-                    $option .= "<option value='$andar'>Sub-Solo ($andar)</option>";
-                }
-            }
-        }
-        $html = "<h4 style='text-align:center;'>Selecione andar:</h4><select class='form-control' id='andarGer' onchange='MontarQualUH(\"UH\")' style='border-radius:10px;'> $option </select>";
+        $html = "<select style='border-radius:5px; width: 100%;' id='Bloco' class='form-control' onchange=\"MontarQualUH('UH')\">$option</select>";
         echo json_encode($html);
     }
     if ($acao == 'UH') {
         $bloco = filter_input(INPUT_POST, 'idBloco', FILTER_SANITIZE_STRING);
-        $andar = filter_input(INPUT_POST, 'andar', FILTER_SANITIZE_STRING);
         $conexao = new ConexaoCard();
         $sql = "SELECT uhs.nome, uhs.id, equipamento.id AS equipamento FROM uhs
                 INNER JOIN equipamento ON uh = uhs.id
-                WHERE fk_bloco = $bloco and andar = $andar and status = true ORDER BY nome";
+                WHERE fk_bloco = $bloco and status = true ORDER BY nome";
         $result = $conexao->execQuerry($sql);
         $conexao->fecharConexao();
 
@@ -121,7 +75,7 @@ function Selects($acao)
                 $option .= "<option value='$id'> $UH </option>";
             }
         }
-        $html = "<h4 style='text-align:center;'>Selecione local:</h4><select class='form-control' id='UHGer' onchange=\"MontarQualUH('colocarButton')\" style='border-radius:10px;'> $option </select>";
+        $html = "<select class='form-control' id='UHGer' onchange=\"MontarQualUH('colocarButton')\" style='border-radius:5px; width: 100%;'> $option </select>";
         echo json_encode($html);
     }
 }
@@ -188,7 +142,7 @@ function Relatorio()
                     INNER JOIN item ON fk_item = item.id
                     INNER JOIN check_list ON fk_check_list = check_list.id
                     WHERE fk_equipamento = $idAr
-                    ORDER BY data desc, fk_item";
+                    ORDER BY fk_item, status desc, data desc";
             $result2 = $conexao->execQuerry($sql2);
             $quant2 = count($result2) - 1;
             $ItensQuinzenal = '';
@@ -196,7 +150,6 @@ function Relatorio()
             $ItensTrimestral = '';
             $ItensAnual = '';
             $idItemAnterior = 0;
-            $num = 0;
             for ($o = 0; $o <= $quant2; $o++) {
                 $idItem = $result2[$o]['fk_item'];
                 $perido = $result2[$o]['periodo'];
@@ -210,13 +163,17 @@ function Relatorio()
                     if ($perido == 'Quinzenal') {
                         $dataTeste = date('Y/m/d', strtotime('+15 days', strtotime($dataItem)));
                         $dataItem = date('d/m/y', strtotime($dataItem));
-                        if ($hj <= $dataTeste && $status == 0) {
-                            $situacao = '<span style="color:blue;"> Aguardando </span>';
-                        }else if ($hj >= $dataTeste || $status == 0) {
+                        if ($hj >= $dataTeste) {
                             $situacao = '<span style="color:red;"> Atrasado </span>';
                         }
-                        if ($hj <= $dataTeste && $status == 1) {
-                            $situacao = '<span style="color:green;"> Em dia </span>';
+                        if ($hj <= $dataTeste) {
+                            if($status == 0){
+                                $situacao = '-----------';
+                                $dataItem = '<span style="color: red;">Nunca Feito</span>';
+                            }
+                            if($status == 1){
+                                $situacao = '<span style="color:green;"> Em dia </span>';
+                            }
                         }
                         $ItensQuinzenal .= "<tr>
                                                 <td>$idItem</td>
@@ -230,13 +187,17 @@ function Relatorio()
                     if ($perido == 'Mensal') {
                         $dataTeste = date('Y/m/d', strtotime('+30 days', strtotime($dataItem)));
                         $dataItem = date('d/m/y', strtotime($dataItem));
-                        if ($hj <= $dataTeste && $status == 0) {
-                            $situacao = '<span style="color:blue;"> Aguardando </span>';
-                        }else if ($hj <= $dataTeste || $status == 0) {
+                        if ($hj >= $dataTeste) {
                             $situacao = '<span style="color:red;"> Atrasado </span>';
                         }
-                        if ($hj <= $dataTeste && $status == 1) {
-                            $situacao = '<span style="color:green;"> Em dia </span>';
+                        if ($hj <= $dataTeste) {
+                            if($status == 0){
+                                $situacao = '-----------';
+                                $dataItem = '<span style="color: red;">Nunca Feito</span>';
+                            }
+                            if($status == 1){
+                                $situacao = '<span style="color:green;"> Em dia </span>';
+                            }
                         }
                         $ItensMensal .= "<tr>
                                                 <td>$idItem</td>
@@ -250,13 +211,17 @@ function Relatorio()
                     if ($perido == 'Trimestral') {
                         $dataTeste = date('Y/m/d', strtotime('+90 days', strtotime($dataItem)));
                         $dataItem = date('d/m/y', strtotime($dataItem));
-                        if ($hj <= $dataTeste && $status == 0) {
-                            $situacao = '<span style="color:blue;"> Aguardando </span>';
-                        }else if ($hj >= $dataTeste || $status == 0) {
+                        if ($hj >= $dataTeste) {
                             $situacao = '<span style="color:red;"> Atrasado </span>';
                         }
-                        if ($hj <= $dataTeste && $status == 1) {
-                            $situacao = '<span style="color:green;"> Em dia </span>';
+                        if ($hj <= $dataTeste) {
+                            if($status == 0){
+                                $situacao = '-----------';
+                                $dataItem = '<span style="color: red;">Nunca Feito</span>';
+                            }
+                            if($status == 1){
+                                $situacao = '<span style="color:green;"> Em dia </span>';
+                            }
                         }
                         $ItensTrimestral .= "<tr>
                                                 <td>$idItem</td>
@@ -270,13 +235,17 @@ function Relatorio()
                     if ($perido == 'Anual') {
                         $dataTeste = date('Y/m/d', strtotime('+365 days', strtotime($dataItem)));
                         $dataItem = date('d/m/y', strtotime($dataItem));
-                        if ($hj <= $dataTeste && $status == 0) {
-                            $situacao = '<span style="color:blue;"> Aguardando </span>';
-                        }else if ($hj >= $dataTeste || $status == 0) {
+                        if ($hj >= $dataTeste) {
                             $situacao = '<span style="color:red;"> Atrasado </span>';
                         }
-                        if ($hj <= $dataTeste && $status == 1) {
-                            $situacao = '<span style="color:green;"> Em dia </span>';
+                        if ($hj <= $dataTeste) {
+                            if($status == 0){
+                                $situacao = '-----------';
+                                $dataItem = '<span style="color: red;">Nunca Feito</span>';
+                            }
+                            if($status == 1){
+                                $situacao = '<span style="color:green;"> Em dia </span>';
+                            }
                         }
                         $ItensAnual .= "<tr>
                                                 <td>$idItem</td>
@@ -297,11 +266,7 @@ function Relatorio()
                 $quantQuinzenal = count($resultQuinzenal) - 1;
                 $num = 0;
                 for ($u = 0; $u <= $quantQuinzenal; $u++) {
-                    if($num = 0){
-                        $num = $ultimoNum +1;
-                    }else{
-                        $num = $num +1;
-                    }
+                    $num = $ultimoNum +1;
                     $perido = $resultQuinzenal[$u]['periodo'];
                     $desc = $resultQuinzenal[$u]['descricao'];
                     $situacao = '';
@@ -322,11 +287,7 @@ function Relatorio()
                 $quantMensal = count($resultMensal) - 1;
                 $num = 0;
                 for ($u = 0; $u <= $quantMensal; $u++) {
-                    if($num = 0){
-                        $num = $ultimoNum +1;
-                    }else{
-                        $num = $num +1;
-                    }
+                    $num = $ultimoNum +1;
                     $perido = $resultMensal[$u]['periodo'];
                     $desc = $resultMensal[$u]['descricao'];
                     $situacao = '';
@@ -345,13 +306,8 @@ function Relatorio()
                 $sqlTrimestral = "SELECT * FROM item WHERE periodo = 'Trimestral'";
                 $resultTrimestral = $conexao->execQuerry($sqlTrimestral);
                 $quantTrimestral = count($resultTrimestral) - 1;
-                $num = 0;
                 for ($u = 0; $u <= $quantTrimestral; $u++) {
-                    if($num = 0){
-                        $num = $ultimoNum +1;
-                    }else{
-                        $num = $num +1;
-                    }
+                    $num = $ultimoNum +1;
                     $perido = $resultTrimestral[$u]['periodo'];
                     $desc = $resultTrimestral[$u]['descricao'];
                     $situacao = '';
@@ -372,11 +328,7 @@ function Relatorio()
                 $quantAnual = count($resultAnual) - 1;
                 $num = 0;
                 for ($u = 0; $u <= $quantAnual; $u++) {
-                    if($num = 0){
-                        $num = $ultimoNum +1;
-                    }else{
-                        $num = $num +1;
-                    }
+                    $num = $ultimoNum +1;
                     $perido = $resultAnual[$u]['periodo'];
                     $desc = $resultAnual[$u]['descricao'];
                     $situacao = '';
@@ -460,21 +412,24 @@ function Relatorio()
     $sqlLogin = "SELECT * FROM login WHERE id = $idLogin";
     $resultLogin = $conexao->execQuerry($sqlLogin);
     if ($resultLogin[0]['tipo_usuario'] == 'eng') {
+        $dia = date('d/m/y');
         // $idEng = $resultLogin[0]['fk_engenheiro'];
-        $sqlEng = "SELECT * FROM dados_engenheiro WHERE id = 45";
+        $sqlEng = "SELECT * FROM dados_engenheiro WHERE id = $idEng";
         $resultEng = $conexao->execQuerry($sqlEng);
-        $assinatura = $resultEng[0]['assinatura'];
+        $assinatura = "<img src='" . $resultEng[0]['assinatura'] . "' style='width: 100%; height: 70px;'>";
         $nomeEng = $resultEng[0]['nome'];
-        $telefoneEng = $resultEng[0]['telefone'];
-        $CREA = $resultEng[0]['crea'];
+        $telefoneEng = "<h5>Telefone: " . $resultEng[0]['telefone'] . "</h5>";
+        $CREA = "<h5>CREA: " . $resultEng[0]['crea'] . "</h5>";
+        $titulo = "<h4 style='white-space: nowrap;  margin-left: -10px;'>Firmo o presente: $dia - Caldas Novas</h4>";
     } else {
         $assinatura = '';
         $nomeEng = '';
         $telefoneEng = '';
         $CREA = '';
+        $titulo = '';
     }
     $conexao->fecharConexao();
-    $dia = date('d/m/y');
+    
     $HTML = "  <div class='row'>
                         <div class='col-sm-12' style='border-bottom: solid black 1px;'>
                             <div class='col-sm-4'>
@@ -505,8 +460,8 @@ function Relatorio()
                     <div class='row'>
                         <div class='col-sm-4'></div>
                         <div class='col-sm-4' style='text-align:center; padding-top: 10px; margin-bottom: 20px;'>
-                            <h4 style='white-space: nowrap;  margin-left: -10px;'>Firmo o presente: $dia - Caldas Novas</h4>
-                            <img src='$assinatura' style='width: 100%; height: 70px;'>
+                            $titulo
+                            $assinatura
                         </div>
                         </div class='col-sm-4'></div>
                     </div>
@@ -514,8 +469,8 @@ function Relatorio()
                         <div class='col-sm-4'></div>
                         <div class='col-sm-4' style='text-align:center;'>
                             <h5><b><u>$nomeEng</b></u></h5>
-                            <h5>CREA: $CREA</h5>
-                            <h5>Telefone: $telefoneEng</h5>
+                            $CREA
+                            $telefoneEng
                         </div>
                         <div class='col-sm-4'></div>
                     </div>

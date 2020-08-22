@@ -1,7 +1,8 @@
 $(document).ready(function () {
-    if (document.getElementById('idAr') == undefined) {
-        $('#Selecao').modal('show');
-        MontarQualUH('primeiro');   
+    if (document.getElementById('idUH') != undefined) {
+        Relatorio();
+    }else{
+        SelectEnt('QualEnt');
     }
 });
 
@@ -20,7 +21,6 @@ function Relatorio(){
         success: function (data) {
             $('#colocarRT').empty();
             $('#colocarRT').append(data);
-            $('#Selecao').modal('hide');
         },
         error: function (msg) {
             alert(msg.responseText);
@@ -43,7 +43,10 @@ function SelectEnt(acao) {
         },
         success: function (data) {
             if (acao == 'QualEnt') {
-                $('#SelectEnt').append('<h4 style=\'text-align:center;\'>Selecione a entidade:</h4>' + data);
+                var select = data.split('<select')[1]
+                $('#SelectEnt').append('<select style="width: 100%; border-radius: 5px;"' + select);
+                $('#TitleSelectEnt').empty();
+                $('#TitleSelectEnt').append('Selecione um entidade:');
             } else {
                 $('#nome_cliente').append(data);
                 $('#onclick').removeAttr('onclick');
@@ -53,6 +56,13 @@ function SelectEnt(acao) {
             alert(msg.responseText);
         }
     });
+}
+
+function Pesquisar(){
+    var idUH = document.getElementById('idUH').value;
+    var idEnt = document.getElementById('idEnt').value;
+    var num = document.getElementById('num').value;
+    window.open("RT.php?num1="+num+"&Ent="+idEnt+"&idUH="+idUH+"");
 }
 
 function EntSelected(acao) {
@@ -69,7 +79,7 @@ function MontarQualUH(acao) {
         idUH = document.getElementById('UHGer').value;
         $('#IDUH').empty();
         $('#IDUH').append('<input type="hidden" value="'+idUH+'" id="idUH">');
-        $('#btao_relat').attr('onclick', 'Relatorio()');
+        $('#btao_relat').attr('onclick', 'Pesquisar()');
         return;
     }
     if (document.getElementById('idEnt') != undefined) {
@@ -78,11 +88,6 @@ function MontarQualUH(acao) {
             var idBloco = document.getElementById('Bloco').value;
         } else {
             var idBloco = '';
-        }
-        if (document.getElementById('andarGer') != undefined) {
-            var andar = document.getElementById('andarGer').value;
-        } else {
-            var andar = '';
         }
         if (document.getElementById('UHGer') != undefined) {
             var idUH = document.getElementById('UHGer').value;
@@ -97,7 +102,6 @@ function MontarQualUH(acao) {
     } else {
         SelectEnt('QualEnt');
         $('#SelectBloco').empty();
-        $('#SelectAndar').empty();
         $('#btao_relat').removeAttr('onclick');
         return;
     }
@@ -109,7 +113,6 @@ function MontarQualUH(acao) {
             acao: acao,
             idEnt: idEnt,
             idBloco: idBloco,
-            andar: andar,
             idUH: idUH,
         },
         success: function (data) {
@@ -117,20 +120,14 @@ function MontarQualUH(acao) {
                 $('#SelectBloco').empty();
                 $('#SelectBloco').append(data);
                 $('#SelectUH').empty();
-                $('#SelectAndar').empty();
-                $('#btao_relat').removeAttr('onclick');
-                $('#IDUH').empty();
-            }
-            if (acao == 'Andar') {
-                $('#SelectAndar').empty();
-                $('#SelectAndar').append(data);
-                $('#SelectUH').empty();
+                $('#TitleSelectBloco').append('Selecione o Bloco:');
                 $('#btao_relat').removeAttr('onclick');
                 $('#IDUH').empty();
             }
             if (acao == 'UH') {
                 $('#SelectUH').empty();
                 $('#SelectUH').append(data);
+                $('#TitleSelectUH').append('Selecione o Local:');
                 $('#IDUH').empty();
             }
             $('#Selecao').modal('show');
