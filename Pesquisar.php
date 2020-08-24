@@ -64,6 +64,7 @@ if (isset($_SESSION['numLogin'])) {
                                 <h3 style="font-size: 4rem; margin-top: 0%;"><i class="fas fa-search" style="font-size: 3rem; margin-top:1%;"></i>&nbsp;&nbsp;Pesquisa Predial</h3>
                             </div>
                             <div class="col-sm-12" style="margin-top: 20px;padding:1%; border-bottom:solid lightgray 1px; border-top:solid lightgray 1px;">
+                            <div class="row">
                                 <div class="col-sm-12">
                                     <img src="bib/img/Pesquisa.jpg" style="float: left; width:80px; height:80px;">
                                     <h2>Escolha tipo de pesquisa</h2>
@@ -85,7 +86,7 @@ if (isset($_SESSION['numLogin'])) {
                                         </div>
                                         <div class="col-sm-4">
                                             <div style="padding-right: 0px; padding-left:0px; margin:2% 0% 0% 27%;">
-                                                <input id="ch_Marca" onchange="PesquisaAr()" class="switch switch--shadow" type="checkbox" disabled="true">
+                                                <input id="ch_Marca" name="AR" class="switch switch--shadow" type="checkbox" disabled="true">
                                                 <label style="float:right; min-width: 40px;" for="ch_Marca"></label>
                                             </div>
                                         </div>
@@ -94,7 +95,7 @@ if (isset($_SESSION['numLogin'])) {
                                         </div>
                                         <div class="col-sm-4">
                                             <div style="padding-right: 0px; padding-left:0px; margin:2% 0% 0% 27%;">
-                                                <input id="ch_Modelo" onchange="PesquisaAr()" class="switch switch--shadow" type="checkbox" disabled="true">
+                                                <input id="ch_Modelo" name="AR" class="switch switch--shadow" type="checkbox" disabled="true">
                                                 <label style="float:right; min-width: 40px;" for="ch_Modelo"></label>
                                             </div>
                                         </div>
@@ -103,7 +104,7 @@ if (isset($_SESSION['numLogin'])) {
                                         </div>
                                         <div class="col-sm-4">
                                             <div style="padding-right: 0px; padding-left:0px; margin:2% 0% 0% 27%;">
-                                                <input id="ch_Potencia" onchange="PesquisaAr()" class="switch switch--shadow" type="checkbox" disabled="true">
+                                                <input id="ch_Potencia" name="AR" class="switch switch--shadow" type="checkbox" disabled="true">
                                                 <label style="float:right; min-width: 40px;" for="ch_Potencia"></label>
                                             </div>
                                         </div>
@@ -112,14 +113,14 @@ if (isset($_SESSION['numLogin'])) {
                                         </div>
                                         <div class="col-sm-4">
                                             <div style="padding-right: 0px; padding-left:0px; margin:2% 0% 0% 27%;">
-                                                <input id="ch_Localizacao" onchange="PesquisaAr()" class="switch switch--shadow" type="checkbox" disabled="true">
+                                                <input id="ch_Localizacao" name="AR" class="switch switch--shadow" type="checkbox" disabled="true">
                                                 <label style="float:right; min-width: 40px;" for="ch_Localizacao"></label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-8" style="height: 50px;"></div>
                                     <div class="col-sm-4">
-                                        <input readonly="readonly" id="Ar" value="ir" class="fourth " style="height: 20px; font-size:1.2rem;">
+                                        <input readonly="readonly" onclick="PesquisarAr()" id="Ar" value="ir" class="fourth " style="height: 20px; font-size:1.2rem;">
                                     </div>
                                 </div>
                                 <div class="col-sm-4 divs">
@@ -136,12 +137,12 @@ if (isset($_SESSION['numLogin'])) {
                                     <div class="col-sm-12" style="margin-top:15px">
                                         <p>Nome</p>
                                         <div class="form-group">
-                                            <input type="text" placeholder="(auto preeenchimento)" class="form-control" style="width: 98%; height:30px;">
+                                            <input type="text" id="Prop" placeholder="(auto preeenchimento)" class="form-control" style="width: 98%; height:30px;">
                                         </div>
                                     </div>
                                     <div class="col-sm-8" style="height: 50px;"></div>
                                     <div class="col-sm-4">
-                                        <input readonly="readonly" id="btao_relat" onclick="Pesquisar('', 'Prop')" value="ir" class="fourth " style="height: 20px; font-size:1.2rem;">
+                                        <input readonly="readonly" id="btao_relat" onclick="Pesquisar('Prop')" value="ir" class="fourth " style="height: 20px; font-size:1.2rem;">
                                     </div>
                                 </div>
                                 <div class="col-sm-4 divs">
@@ -158,14 +159,20 @@ if (isset($_SESSION['numLogin'])) {
                                     <div class="col-sm-12" style="margin-top:15px">
                                         <p>Preencha</p>
                                         <div class="form-group">
-                                            <input type="text" placeholder="(auto preeenchimento)" class="form-control" style="width: 98%; height:30px;">
+                                            <input type="text" id="UH" placeholder="(auto preeenchimento)" class="form-control" style="width: 98%; height:30px;">
                                         </div>
                                     </div>
                                     <div class="col-sm-8" style="height: 50px;"></div>
                                     <div class="col-sm-4">
-                                        <input readonly="readonly" id="btao_relat" onclick="Pesquisar('', 'UH')" value="ir" class="fourth " style="height: 20px; font-size:1.2rem;">
+                                        <input readonly="readonly" id="btao_relat" onclick="Pesquisar('UH')" value="ir" class="fourth " style="height: 20px; font-size:1.2rem;">
                                     </div>
                                 </div>
+                            </div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8" id="graficos" style="height:300px; text-align: center;">
+                                    <h4 id="titulo" style="display: none;">Resultados:</h4>
+                                </div>
+                                <div class="col-sm-2"></div>
                             </div>
                         </div>
                     </div>
@@ -175,6 +182,7 @@ if (isset($_SESSION['numLogin'])) {
     </div>
     <?php include_once 'bib/comum/rodape.php'; ?>
     <script src="bib/js/menu.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="bib/js/Pesquisar.js"></script>
 
 </body>
