@@ -413,7 +413,7 @@ function Relatorio()
     $resultLogin = $conexao->execQuerry($sqlLogin);
     if ($resultLogin[0]['tipo_usuario'] == 'eng') {
         $dia = date('d/m/y');
-        // $idEng = $resultLogin[0]['fk_engenheiro'];
+        $idEng = $resultLogin[0]['fk_engenheiro'];
         $sqlEng = "SELECT * FROM dados_engenheiro WHERE id = $idEng";
         $resultEng = $conexao->execQuerry($sqlEng);
         $assinatura = "<img src='" . $resultEng[0]['assinatura'] . "' style='width: 100%; height: 70px;'>";

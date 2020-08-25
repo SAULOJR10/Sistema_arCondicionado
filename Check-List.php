@@ -157,6 +157,28 @@ if (isset($_SESSION['numLogin'])) {
         </div>
     </div>
 
+    <div class="modal fade" id="Avisos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" overflow:auto;">
+        <div class="modal-dialog" role="document" style="width: 40%;">
+            <div class="modal-content" style="border-radius: 15px;">
+                <div class="modal-header header">
+                    <h3 class="modal-title" id="exampleModalLabel" style="float: left; margin-left:35%;">Sucesso</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <div id="MSG"></div>
+                        </div>
+                        <div class="col-sm-3"></div>
+                    </div>
+                    <div class="footer">
+                        <div id="dv_relat"><input data-dismiss="modal" readonly="readonly" id="btao_relat" value="ok" class="fourth " style="width: 40%; float:right;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="agendar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" overflow:auto;">
         <div class="modal-dialog" role="document" style="width: 40%;">
             <div class="modal-content" style="border-radius: 15px;">

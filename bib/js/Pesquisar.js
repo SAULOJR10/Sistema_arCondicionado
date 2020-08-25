@@ -1,7 +1,7 @@
 function SoUm(id) {
     switch (id) {
         case 'ch_Arcond':
-            if ($('#ch_ArCond').is(':checked')) {
+            if ($('#ch_ArCond').is(':checked') && document.getElementById('idEnt') != undefined) {
                 $('#ch_Prop').prop('checked', false);
                 $('#ch_UH').prop('checked', false);
                 $('.opaco').removeAttr('style');
@@ -11,7 +11,17 @@ function SoUm(id) {
                 $('#ch_Potencia').removeAttr('disabled');
                 $('#ch_Localizacao').removeAttr('disabled');
             } else {
+                $('#graficosmarca').empty();
+                $('#graficosmodelo').empty();
+                $('#graficospotencia').empty();
+                $('#graficoslocalizacao').empty();
+                $('#titulo').attr('style', 'visibility: hidden');
+                $('#titulomarca').attr('style', 'visibility: hidden');
+                $('#titulomodelo').attr('style', 'visibility: hidden');
+                $('#titulopotencia').attr('style', 'visibility: hidden');
+                $('#titulolocalizacao').attr('style', 'visibility: hidden');
                 $('.opaco').attr('style', 'margin-top:15px; opacity:0.5');
+                $('#ch_ArCond').prop('checked', false);
                 $('#ch_Marca').attr('disabled', true);
                 $('#ch_Modelo').attr('disabled', true);
                 $('#ch_Potencia').attr('disabled', true);
@@ -23,50 +33,154 @@ function SoUm(id) {
             }
             break;
         case 'ch_Prop':
-            $('#ch_ArCond').prop('checked', false);
-            $('#ch_UH').prop('checked', false);
-            SoUm('ch_Arcond');
+            if ($('#ch_Prop').is(':checked') && document.getElementById('idEnt') != undefined) {
+                $('#ch_ArCond').prop('checked', false);
+                $('#ch_UH').prop('checked', false);
+                SoUm('ch_Arcond');
+                $('#Prop').removeAttr('disabled');
+                $('#pesquisarProp').attr('onclick', 'Pesquisar(\'UH\')');
+            } else {
+                $('#ch_Prop').prop('checked', false);
+                $('#Prop').attr('disabled', true);
+                $('#pesquisarProp').removeAttr('onclick', 'Pesquisar(\'Prop\')');
+            }
             break;
         case 'ch_UH':
-            $('#ch_Prop').prop('checked', false);
-            $('#ch_Arcond').prop('checked', false);
-            SoUm('ch_Arcond');
+            if ($('#ch_UH').is(':checked') && document.getElementById('idEnt') != undefined) {
+                $('#ch_Prop').prop('checked', false);
+                $('#ch_Arcond').prop('checked', false);
+                SoUm('ch_Arcond');
+                SelectBloco();
+                $('#UH').removeAttr('disabled');
+                $('#pesquisarUH').attr('onclick', 'Pesquisar(\'UH\')');
+            } else {
+                $('#ch_UH').prop('checked', false);
+                $('#UH').attr('disabled', true);
+                $('#pesquisarUH').removeAttr('onclick', 'Pesquisar(\'UH\')');
+            }
             break;
     }
 
-}
-
-function PesquisaAr() {
-    var quais = ';';
-    if ($('#ch_Marca').is(':checked')) {
-        quais = quais + 'Marca' + ';';
-    }
-    if ($('#ch_Modelo').is(':checked')) {
-        quais = quais + 'Modelo' + ';';
-    }
-    if ($('#ch_Potencia').is(':checked')) {
-        quais = quais + 'Potencia' + ';';
-    }
-    if ($('#ch_Localizacao').is(':checked')) {
-        quais = quais + 'Localizacao' + ';';
-    }
-    $('#Ar').removeAttr('onclick');
-    $('#Ar').attr('onclick', 'Pesquisar(\'' + quais + '\', \'AR\')');
 }
 
 function PesquisarAr() {
-        if ($('#ch_Localizacao').is(':checked')) {
-            MontarGrafico('localizacao');
+    if ($('#ch_Localizacao').is(':checked')) {
+        MontarGrafico('localizacao');
+    }
+    if ($('#ch_Marca').is(':checked')) {
+        MontarGrafico('marca');
+    }
+    if ($('#ch_Modelo').is(':checked')) {
+        MontarGrafico('modelo');
+    }
+    if ($('#ch_Potencia').is(':checked')) {
+        MontarGrafico('potencia');
+    }
+    window.scroll(0, 100000);
+}
+
+function SelectEnt(acao) {
+    $('#nome_cliente').empty();
+    var idUsuario = document.getElementById('idLogin').value;
+    $.ajax({
+        method: 'post',
+        dataType: 'json',
+        url: 'bib/ajax/SelecionarPesquisar.json.php',
+        data: {
+            acao: acao,
+            idUsuario: idUsuario,
+            processoData: false,
+            contentype: false,
+        },
+        success: function (data) {
+            $('#nome_cliente').append(data);
+            $('#onclick').removeAttr('onclick');
+        },
+        error: function (msg) {
+            alert(msg.responseText);
         }
-        if ($('#ch_Marca').is(':checked')) {
-            MontarGrafico('marca');
+    });
+}
+function EntSelected() {
+    var idEnt = document.getElementById('EntidadeGer').value;
+    var nomeEnt = document.getElementById('optionEnt' + idEnt).textContent;
+    $('#nome_cliente').empty();
+    $('#nome_cliente').append("<input type='hidden' id='idEnt' value='" + idEnt + "'>" + nomeEnt);
+}
+
+function SelectBloco() {
+    var idEnt = document.getElementById('idEnt').value;
+    $.ajax({
+        method: 'post',
+        dataType: 'json',
+        url: 'bib/ajax/SelecionarPesquisar.json.php',
+        data: {
+            acao: 'Bloco',
+            idEnt: idEnt,
+        },
+        success: function (data) {
+            $('#SelectBloco').empty();
+            $('#SelectBloco').append(data);
+        },
+        error: function (msg) {
+            alert(msg.responseText);
         }
-        if ($('#ch_Modelo').is(':checked')) {
-            MontarGrafico('modelo');
+    });
+}
+
+function SelectUH() {
+    var idEnt = document.getElementById('idEnt').value;
+    var idBloco = document.getElementById('Bloco').value;
+    $.ajax({
+        method: 'post',
+        dataType: 'json',
+        url: 'bib/ajax/SelecionarPesquisar.json.php',
+        data: {
+            acao: 'SelectUH',
+            idEnt: idEnt,
+            idBloco: idBloco,
+        },
+        success: function (data) {
+            $('#SelectUH').empty();
+            $('#SelectUH').append(data);
+        },
+        error: function (msg) {
+            alert(msg.responseText);
         }
-        if ($('#ch_Potencia').is(':checked')) {
-            MontarGrafico('potencia');
+    });
+}
+
+function ImprimirResult(){
+    $('#imprimir').append('style', 'visibility: hidden;');
+    window.print();
+    $('.modal-body').empty();
+    $('#resultadosModal').modal('hide');
+}
+
+function Pesquisar(acao) {
+    if (acao == 'UH') {
+        var pesquisa = document.getElementById('UHGer').value;
+    }
+    if (acao == 'Prop') {
+        var pesquisa = document.getElementById('Prop').value;
+    }
+    $.ajax({
+        method: 'post',
+        dataType: 'json',
+        url: 'bib/ajax/SelecionarPesquisar.json.php',
+        data: {
+            acao: acao,
+            pesquisa: pesquisa,
+        },
+        success: function (data) {
+            $('#resultPesq').append(data);
+            $('#resultPesq').after("<div class='footer'><div id='dv_relat'><input readonly='readonly' onclick='ImprimirResult()' id='imprimir' value='Imprimir Resultado' class='fourth ' style='width: 40%; float:right;'></div></div>")
+            $('#resultadosModal').modal('show');
+        },
+        error: function (msg) {
+            alert('ERRO' + msg.responseText);
         }
+    });
 }
 
 function MontarGrafico(id) {
@@ -81,24 +195,25 @@ function MontarGrafico(id) {
             id: id,
         },
         success: function (data) {
-            data = data.replace(new RegExp(';', 'g'),"");
-            alert(data);
+            data = data.replace(new RegExp(';', 'g'), "");
             $('#titulo').removeAttr('style');
+            $('#titulo').attr('style', 'margin: 30px;');
             var data2 = google.visualization.arrayToDataTable([
                 ['Titulo', 'Quantidade'],
-                data
+                ['Consul', 5],['LG', 2],['Philips', 4],['Samsung', 4],
             ]);
 
             var options = {
                 pieHole: 0.3,
                 tooltip: { text: 'value' },
-                chartArea: { left: '10%', bottom: '15%', width: '80%', height: '80%' },
-                legend: { position: 'bottom' },
-                fontSize: 12,
+                chartArea: {width: '100%', height: '60%' },
+                legend: { position: 'bottom', textStyle:{fontSize: 10} },
+                fontSize: 15,
                 pieSliceText: 'value',
-                pieSliceTextStyle: { color: 'black', fontSize: '120px', margin: '20px' },
+                pieSliceTextStyle: { color: 'black'},
             };
-            var chart = new google.visualization.PieChart(document.getElementById('graficos'));
+            var chart = new google.visualization.PieChart(document.getElementById('graficos' + id));
+            $('#titulo'+id).removeAttr('style');
             chart.draw(data2, options);
         },
         error: function (msg) {

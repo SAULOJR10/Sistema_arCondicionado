@@ -128,6 +128,8 @@ function SalvaCheckList() {
             periodo: periodo,
         },
         success: function (data) {
+            $('#MSG').append('<h4 style="text-align: center">Check-List enviado com sucesso !!!</h4>');
+            $('#Avisos').modal('show');
             VoltarTodos();
         },
         error: function (msg) {
@@ -146,7 +148,17 @@ function MontarQualUH(acao) {
         var idAr = document.getElementById('Ar').value;
         $('#ColocarAr').empty();
         $('#ColocarAr').append('<input type="hidden" id="idAr" value="' + idAr + '">');
-        urlAr = urlUH + '&idAr=' + idAr;
+        if(urlUH != ''){
+            urlAr = urlUH + '&idAr=' + idAr;
+        }else{
+            var url = window.location.href;
+            var explode = url.split('&');
+            var quant = explode.length -1;
+            explode.splice(quant);
+            var explode = explode.toString();
+            var explode = explode.replace(/,/g, "&");
+            var urlAr = explode + '&idAr=' + idAr;
+        }
         $('#btao_relat').attr('onclick', 'Continue(\'' + urlAr + '\')');
         return;
     }
@@ -266,6 +278,11 @@ function Avisar() {
         },
         success: function (data) {
             $('#agendar').modal('hide');
+            $('#MSG').empty();
+            $('#MSG').append('<h4 style="text-align: center">Agendado com sucesso !!!</h4>');
+            document.getElementById('dataAgend').value = '';
+            document.getElementById('observacao').value = '';
+            $('#Avisos').modal('show');
         },
         error: function (msg) {
             alert(msg.responseText);
