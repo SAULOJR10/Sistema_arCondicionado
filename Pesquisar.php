@@ -138,7 +138,7 @@ if (isset($_SESSION['numLogin'])) {
                                         <div class="col-sm-12" style="margin-top:15px">
                                             <p>Nome</p>
                                             <div class="form-group">
-                                                <input type="text" id="Prop" placeholder="(auto preeenchimento)" class="form-control" style="width: 98%; height:30px;" disabled>
+                                                <input type="text" id="Prop" onkeyup="AutoComplete()" placeholder="(auto preeenchimento)" class="form-control" style="width: 98%; height:30px;" disabled>
                                             </div>
                                         </div>
                                         <div class="col-sm-8" style="height: 50px;"></div>
@@ -196,12 +196,12 @@ if (isset($_SESSION['numLogin'])) {
     </div>
 
     <!-------------------------------------------------------------Modais-------------------------------------------------------->
-    <div class="modal fade" id="resultadosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" overflow:auto;">
+    <div class="modal fade" id="resultadosModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" overflow:auto;">
         <div class="modal-dialog" role="document" style="width: 50%;">
             <div class="modal-content" style="border-radius: 15px;">
                 <div class="modal-header header">
                     <h3 class="modal-title" id="exampleModalLabel" style="float: left; margin-left:30%;">Resultado da pesquisa</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" onclick="limparModal()" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" style="font-size: 3rem;">X</span>
                     </button>
                 </div>

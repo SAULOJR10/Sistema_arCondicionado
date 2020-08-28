@@ -10,6 +10,11 @@ function SoUm(id) {
                 $('#ch_Modelo').removeAttr('disabled');
                 $('#ch_Potencia').removeAttr('disabled');
                 $('#ch_Localizacao').removeAttr('disabled');
+                $('#UH').attr('disabled', true);
+                $('#pesquisarUH').removeAttr('onclick');
+                $('#Prop').attr('disabled', true);
+                document.getElementById('Prop').value = '';
+                $('#pesquisarProp').removeAttr('onclick');
             } else {
                 $('#graficosmarca').empty();
                 $('#graficosmodelo').empty();
@@ -38,25 +43,39 @@ function SoUm(id) {
                 $('#ch_UH').prop('checked', false);
                 SoUm('ch_Arcond');
                 $('#Prop').removeAttr('disabled');
-                $('#pesquisarProp').attr('onclick', 'Pesquisar(\'UH\')');
+                $('#pesquisarProp').attr('onclick', 'Pesquisar(\'Prop\')');
+                $('#UH').attr('disabled', true);
+                $('#pesquisarUH').removeAttr('onclick');
+                $('#Bloco').attr('disabled', 'true');
+                $('#UHGer').attr('disabled', 'true');
+                document.getElementById('Bloco').value = '';
+                document.getElementById('UHGer').value = '';
             } else {
                 $('#ch_Prop').prop('checked', false);
                 $('#Prop').attr('disabled', true);
-                $('#pesquisarProp').removeAttr('onclick', 'Pesquisar(\'Prop\')');
+                document.getElementById('Prop').value = '';
+                $('#pesquisarProp').removeAttr('onclick');
             }
             break;
         case 'ch_UH':
             if ($('#ch_UH').is(':checked') && document.getElementById('idEnt') != undefined) {
                 $('#ch_Prop').prop('checked', false);
+                $('#Prop').attr('disabled', true);
+                document.getElementById('Prop').value = '';
+                $('#pesquisarProp').removeAttr('onclick');
                 $('#ch_Arcond').prop('checked', false);
                 SoUm('ch_Arcond');
                 SelectBloco();
                 $('#UH').removeAttr('disabled');
                 $('#pesquisarUH').attr('onclick', 'Pesquisar(\'UH\')');
+                $('#Bloco').attr('disabled', 'true');
+                $('#UHGer').attr('disabled', 'true');
+                document.getElementById('Bloco').value = '';
+                document.getElementById('UHGer').value = '';
             } else {
                 $('#ch_UH').prop('checked', false);
                 $('#UH').attr('disabled', true);
-                $('#pesquisarUH').removeAttr('onclick', 'Pesquisar(\'UH\')');
+                $('#pesquisarUH').removeAttr('onclick');
             }
             break;
     }
@@ -150,11 +169,17 @@ function SelectUH() {
     });
 }
 
-function ImprimirResult(){
+function ImprimirResult() {
     $('#imprimir').append('style', 'visibility: hidden;');
     window.print();
     $('.modal-body').empty();
+    $('.modal-body').append('<span id="resultPesq"></span>');
     $('#resultadosModal').modal('hide');
+}
+
+function limparModal() {
+    $('.modal-body').empty();
+    $('.modal-body').append('<span id="resultPesq"></span>');
 }
 
 function Pesquisar(acao) {
@@ -185,7 +210,6 @@ function Pesquisar(acao) {
 
 function MontarGrafico(id) {
     google.charts.load("current", { packages: ["corechart"] });
-    var titulo = id.toUpperCase();
     $.ajax({
         method: 'post',
         dataType: 'json',
@@ -195,26 +219,45 @@ function MontarGrafico(id) {
             id: id,
         },
         success: function (data) {
-            data = data.replace(new RegExp(';', 'g'), "");
+            var teste = data.replace(/;/g, "");
+            alert(teste);
             $('#titulo').removeAttr('style');
             $('#titulo').attr('style', 'margin: 30px;');
-            var data2 = google.visualization.arrayToDataTable([
-                ['Titulo', 'Quantidade'],
-                ['Consul', 5],['LG', 2],['Philips', 4],['Samsung', 4],
-            ]);
 
             var options = {
                 pieHole: 0.3,
                 tooltip: { text: 'value' },
-                chartArea: {width: '100%', height: '60%' },
-                legend: { position: 'bottom', textStyle:{fontSize: 10} },
+                chartArea: { width: '100%', height: '60%' },
+                legend: { position: 'bottom', textStyle: { fontSize: 10 } },
                 fontSize: 15,
                 pieSliceText: 'value',
-                pieSliceTextStyle: { color: 'black'},
+                pieSliceTextStyle: { color: 'black' },
             };
             var chart = new google.visualization.PieChart(document.getElementById('graficos' + id));
-            $('#titulo'+id).removeAttr('style');
-            chart.draw(data2, options);
+            $('#titulo' + id).removeAttr('style');
+            chart.draw(teste, options);
+        },
+        error: function (msg) {
+            alert('ERRO' + msg.responseText);
+            $('#graficoslocalizacao').after(msg.responseText);
+        }
+    });
+}
+
+function AutoComplete() {
+    var auto = document.getElementById('Prop').value;
+    $.ajax({
+        method: 'post',
+        dataType: 'json',
+        url: 'bib/ajax/SelecionarPesquisar.json.php',
+        data: {
+            acao: 'AutoCompleta',
+            auto: auto,
+        },
+        success: function (data) {
+            $("#Prop").autocomplete({
+                source: data
+            });
         },
         error: function (msg) {
             alert('ERRO' + msg.responseText);

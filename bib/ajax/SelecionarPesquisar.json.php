@@ -21,6 +21,9 @@ switch ($acao) {
     case 'selectEnt':
         SelectEnt('selectEnt');
         break;
+    case 'AutoCompleta':
+        AutoCompleta();
+        break;
 }
 
 function SelectUH()
@@ -109,7 +112,7 @@ function Pesquisar($acao)
         $sql = "SELECT proprietarios.nome AS nomeprop, endereco, telefone, marca, modelo, potencia, localizacao FROM uhs
                 INNER JOIN proprietarios ON proprietario = proprietarios.id
                 INNER JOIN equipamento ON uh = uhs.id
-                WHERE uhs.id = $pesquisa";
+                WHERE uhs.id = $pesquisa and gerenciada = true";
         $conexao = new ConexaoCard();
         $result = $conexao->execQuerry($sql);
         $conexao->fecharConexao();
@@ -121,7 +124,7 @@ function Pesquisar($acao)
                     <h4 style='text-align:center'><b>Proprietario(s):</b></h4>
                     <h5 style='text-align:center'>$nomeProp</h5>
                     <h5 style='text-align:center'>$endereco</h5>
-                    <h5 style='text-align:center'>$telefoneProp</h5>
+                    <h5 style='text-align:center'>Telefone: $telefoneProp</h5>
                     <hr>
                     <h4 style='text-align:center'><b>Equipamento(s):</b></h4>";
 
@@ -143,6 +146,64 @@ function Pesquisar($acao)
         echo json_encode($html);
     }
     if ($acao == 'Prop') {
+        $pesquisa = filter_input(INPUT_POST, 'pesquisa', FILTER_SANITIZE_STRING);
+        $nome = explode(' - ', $pesquisa)[0];
+        $documento = explode(' - ', $pesquisa)[1];
+
+        $sql = "SELECT proprietarios.nome AS nomeprop, bloco.nome AS nomebloco, uhs.nome AS nomeuh, tipo_local, andar, gerenciada, documento, endereco, telefone, email, estado, cidade, tipo_pessoa FROM uhs
+                INNER JOIN proprietarios ON proprietario = proprietarios.id
+                INNER JOIN bloco ON fk_bloco = bloco.id
+                WHERE proprietarios.nome = '$nome' and documento = '$documento' and gerenciada = true";
+        $conexao = new ConexaoCard();
+        $result = $conexao->execQuerry($sql);
+        $conexao->fecharConexao();
+
+        $nomeProp = $result[0]['nomeprop'];
+        $tipo_pessoa = $result[0]['tipo_pessoa'];
+        if ($tipo_pessoa == 'Fisica') {
+            $documento = "CPF: " . $result[0]['documento'];
+        } else {
+            $documento = "CNPJ: " . $result[0]['documento'];
+        }
+        $email = $result[0]['email'];
+        $telefone = $result[0]['telefone'];
+        $estado = $result[0]['estado'];
+        $cidade = $result[0]['cidade'];
+        $endereco = $result[0]['endereco'];
+        $html = "<div class='row'>
+                    <h4 style='text-align:center'><b>Proprietario:</b></h4>
+                    <h5 style='text-align:center'>$nomeProp</h5>
+                    <h5 style='text-align:center'>$endereco</h5>
+                    <h5 style='text-align:center'>$cidade - $estado</h5>
+                    <h5 style='text-align:center'>$documento</h5>
+                    <h5 style='text-align:center'>E-mail: $email</h5>
+                    <h5 style='text-align:center'>Telefone: $telefone</h5>
+                    <hr>
+                    <h4 style='text-align:center'><b>Propriedade(s):</b></h4>";
+
+        $quant = count($result) - 1;
+        for ($i = 0; $i <= $quant; $i++) {
+            $nomeBloco = $result[$i]['nomebloco'];
+            if ($result[$i]['andar'] > 0) {
+                $andar = 'Andar ' . $result[$i]['andar'];
+            }
+            if ($result[$i]['andar'] == 0) {
+                $andar = 'Térreo';
+            }
+            if ($result[$i]['andar'] < 0) {
+                $andar = 'Sub-Solo(' . $result[$i]['andar'] . ')';
+            }
+            if ($result[$i]['tipo_local'] == 'UH') {
+                $nomeUH = 'UH:' . $result[$i]['nomeuh'];
+            } else {
+                $nomeUH = 'Sala:' . $result[$i]['nomeuh'];
+            }
+            $html .= "<h5 style='text-align:center'>$nomeBloco</h5>
+                      <h5 style='text-align:center'>$andar</h5>
+                      <h5 style='text-align:center'>$nomeUH</h5>
+                      <br>";
+        }
+        echo json_encode($html);
     }
 }
 
@@ -173,4 +234,23 @@ function PesquisarAr()
         $anterior = $resultado;
     }
     echo json_encode($data);
+}
+
+function AutoCompleta()
+{
+    $auto = filter_input(INPUT_POST, 'auto', FILTER_SANITIZE_STRING);
+    $sql = "SELECT nome, documento FROM proprietarios
+            WHERE nome LIKE '$auto%'";
+    $conexao = new ConexaoCard();
+    $result = $conexao->execQuerry($sql);
+    $conexao->fecharConexao();
+
+    $quant = count($result) - 1;
+    $resposta = array();
+    for ($i = 0; $i <= $quant; $i++) {
+        $nome = $result[$i]['nome'];
+        $documento = $result[$i]['documento'];
+        $resposta[] = $nome . " - " . $documento;
+    }
+    echo json_encode($resposta);
 }
