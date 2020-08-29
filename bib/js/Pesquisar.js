@@ -219,10 +219,10 @@ function MontarGrafico(id) {
             id: id,
         },
         success: function (data) {
-            var teste = data.replace(/;/g, "");
-            alert(teste);
             $('#titulo').removeAttr('style');
             $('#titulo').attr('style', 'margin: 30px;');
+
+            var dados = google.charts.setOnLoadCallback([data['dados']]);
 
             var options = {
                 pieHole: 0.3,
@@ -233,9 +233,11 @@ function MontarGrafico(id) {
                 pieSliceText: 'value',
                 pieSliceTextStyle: { color: 'black' },
             };
+
             var chart = new google.visualization.PieChart(document.getElementById('graficos' + id));
+            
             $('#titulo' + id).removeAttr('style');
-            chart.draw(teste, options);
+            chart.draw(dados, options);
         },
         error: function (msg) {
             alert('ERRO' + msg.responseText);

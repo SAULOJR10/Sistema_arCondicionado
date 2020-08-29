@@ -209,31 +209,36 @@ function Pesquisar($acao)
 
 function PesquisarAr()
 {
-    $pesquisa = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
-    $sql = "SELECT $pesquisa FROM equipamento ORDER BY $pesquisa";
-    $conexao = new ConexaoCard();
-    $result = $conexao->execQuerry($sql);
-    $conexao->fecharConexao();
-    $quant1 = count($result) - 1;
-    $anterior = '';
-    $data = '';
-    $quant2 = 1;
-    for ($i = 0; $i <= $quant1; $i++) {
-        $resultado = $result[$i]["$pesquisa"];
-        if ($resultado != $anterior) {
-            $quant2 = 1;
-            $data .= ";['$resultado', $quant2],";
-        } else {
-            $quant2 = $quant2 + 1;
-            $explode2 = explode(';', $data);
-            $remove = count($explode2) - 1;
-            unset($explode2[$remove]);
-            $data = implode(";", $explode2);
-            $data .= ";['$resultado', $quant2],";
-        }
-        $anterior = $resultado;
-    }
-    echo json_encode($data);
+    // $pesquisa = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
+    // $sql = "SELECT $pesquisa FROM equipamento ORDER BY $pesquisa";
+    // $conexao = new ConexaoCard();
+    // $result = $conexao->execQuerry($sql);
+    // $conexao->fecharConexao();
+    // $quant1 = count($result) - 1;
+    // $anterior = '';
+    // $data = [array("Titulo", "Quantidade")];
+    // $quant2 = 1;
+    // for ($i = 0; $i <= $quant1; $i++) {
+    //     $resultado = $result[$i]["$pesquisa"];
+    //     if ($resultado != $anterior && $anterior != '') {
+    //         $data[] = array("$anterior", $quant2);
+    //         $quant2 = 1;
+    //     } else {
+    //         $quant2 = $quant2 + 1;
+    //     }
+    //     $anterior = $resultado;
+    // }
+    // $retorno['dado'] = $data;
+
+
+    $dados = [array("task", "hours per day"),
+        array("completo", "30"),
+        array("incompleto", "40"),
+        array("Não Realizado", "30")
+    ];
+
+    $retorno['dado'] = $dados;
+    echo json_encode($retorno);
 }
 
 function AutoCompleta()
