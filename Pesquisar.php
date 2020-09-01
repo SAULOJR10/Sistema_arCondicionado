@@ -177,10 +177,6 @@ if (isset($_SESSION['numLogin'])) {
                                 </div>
                                 <div class="col-sm-12" style="height:300px; text-align: center;">
                                     <h3 id="titulo" style="display: none;"><b><u>Resultados:</b></u></h3>
-                                    <div class="col-sm-3" id="titulomarca" style="visibility: hidden"><b>Marca:</b></div>
-                                    <div class="col-sm-3" id="titulomodelo" style="visibility: hidden"><b>Modelo:</b></div>
-                                    <div class="col-sm-3" id="titulopotencia" style="visibility: hidden"><b>Potência:</b></div>
-                                    <div class="col-sm-3" id="titulolocalizacao" style="visibility: hidden"><b>Localização:</b></div>
                                     <div class="col-sm-3" style="height: 100%;" id="graficosmarca"></div>
                                     <div class="col-sm-3" style="height: 100%;" id="graficosmodelo"></div>
                                     <div class="col-sm-3" style="height: 100%;" id="graficospotencia"></div>

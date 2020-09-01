@@ -13,6 +13,9 @@ switch ($acao) {
     case 'infoTela':
         selectQuant();
         break;
+    case 'AutoCompleta':
+        AutoCompleta();
+        break;
     case 'SelectBloco':
         SelectBloco();
         break;
@@ -25,6 +28,25 @@ switch ($acao) {
     case 'selects':
         Selects();
         break;
+}
+
+function AutoCompleta()
+{
+    $auto = filter_input(INPUT_POST, 'auto', FILTER_SANITIZE_STRING);
+    $sql = "SELECT nome, documento FROM proprietarios
+            WHERE nome LIKE '$auto%'";
+    $conexao = new ConexaoCard();
+    $result = $conexao->execQuerry($sql);
+    $conexao->fecharConexao();
+
+    $quant = count($result) - 1;
+    $resposta = array();
+    for ($i = 0; $i <= $quant; $i++) {
+        $nome = $result[$i]['nome'];
+        $documento = $result[$i]['documento'];
+        $resposta[] = $nome . " - " . $documento;
+    }
+    echo json_encode($resposta);
 }
 
 function tabela()
@@ -46,7 +68,7 @@ function tabela()
     $espaco = '';
     $vetaux = array();
 
-    $quant = count($result2) -1;
+    $quant = count($result2) - 1;
     for ($i = 0; $i <= $quant; $i++) {
         $vetaux[$result2[$i]['id']]['quant'] = $result2[$i]['quant_andar'] + 1;
         $vetaux[$result2[$i]['id']]['nome'] =  $result2[$i]['nome'];
@@ -62,8 +84,8 @@ function tabela()
         }
     }
 
-    $quant2 = count($result) -1;
-    for($i = 0; $i <= $quant2; $i++) {
+    $quant2 = count($result) - 1;
+    for ($i = 0; $i <= $quant2; $i++) {
         $andar = $result[$i]['andar'];
         $tipo_local = trim($result[$i]['tipo_local']);
         if (!isset($bloco[$result[$i]['id_bloco']])) {
@@ -171,7 +193,7 @@ function SelectEnt()
     $result = $conexao->execQuerry($sql);
     $conexao->fecharConexao();
 
-    $quant = count($result) -1;
+    $quant = count($result) - 1;
     $option = '<option value="">Selecione</option>";';
     for ($i = 0; $i <= $quant; $i++) {
         $valor = $result[$i]['nome_fantasia'];
@@ -186,7 +208,7 @@ function selectQuant()
 {
     $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
     $conexao = new ConexaoCard();
-    $sql1 ="SELECT COUNT(uhs.nome) AS uhs FROM uhs
+    $sql1 = "SELECT COUNT(uhs.nome) AS uhs FROM uhs
             INNER JOIN bloco ON fk_bloco = bloco.id
             WHERE fk_entidade = '$idEnt' and tipo_local = 'UH' and status = true and gerenciada = true";
     $result1 = $conexao->execQuerry($sql1);
@@ -234,8 +256,8 @@ function MontarGerUH()
     $conexao = new ConexaoCard();
     $sql = "SELECT * FROM uhs WHERE fk_bloco = $bloco and andar = $andar and status = true and tipo_local = 'UH' ORDER BY nome";
     $result1 = $conexao->execQuerry($sql);
-    
-    $quant = count($result1) -1;
+
+    $quant = count($result1) - 1;
     $nomeUH = '';
     $idUH = '';
     $gerenciada = '';
@@ -257,7 +279,7 @@ function MontarGerUH()
         $uh = $explodeUH[$i];
         $iduh = $explodeIdUH[$i];
         $ger = $explodeGer[$i];
-        if ($ger == 't') {
+        if ($ger == 1) {
             $selected = "checked";
         } else {
             $selected = "";
@@ -277,7 +299,7 @@ function MontarGerUH()
     $result2 = $conexao->execQuerry($sql2);
     $conexao->fecharConexao();
 
-    $quant2 = count($result2) -1;
+    $quant2 = count($result2) - 1;
     $nomeSala = '';
     $idSala = '';
     $salaGerenciada = '';
@@ -304,7 +326,7 @@ function MontarGerUH()
         $sala = $explodeSala[$o];
         $idsala = $explodeIdSala[$o];
         $salaGer = $explodeSalaGer[$o];
-        if ($salaGer == 't') {
+        if ($salaGer == 1) {
             $selected = "checked";
         } else {
             $selected = "";
@@ -341,7 +363,7 @@ function SelectBloco()
     $result1 = $conexao->execQuerry($sql1);
     $conexao->fecharConexao();
 
-    $quant = count($result1) -1;
+    $quant = count($result1) - 1;
     $option = '<option value="">Selecione</option>';
     for ($i = 0; $i <= $quant; $i++) {
         $Bloco = $result1[$i]['nome'];
@@ -385,8 +407,8 @@ function Selects()
     $conexao = new ConexaoCard();
     $sql1 = "SELECT * FROM localizacao";
     $result1 = $conexao->execQuerry($sql1);
-    
-    $quant1 =  count($result1) -1;
+
+    $quant1 =  count($result1) - 1;
     $option = ';<option value="">Selecione</option>';
     for ($i = 0; $i <= $quant1; $i++) {
         $loc = $result1[$i]['nome'];
@@ -396,17 +418,17 @@ function Selects()
     $sql2 = "SELECT * FROM marca";
     $result2 = $conexao->execQuerry($sql2);
 
-    $quant2 = count($result2) -1;
+    $quant2 = count($result2) - 1;
     $option .= ';<option value="">Selecione</option>';
     for ($i = 0; $i <= $quant2; $i++) {
         $marc = $result2[$i]['nome'];
         $option .= "<option value='$marc'>$marc</option>";
     }
-    
+
     $sql3 = "SELECT * FROM modelo";
     $result3 = $conexao->execQuerry($sql3);
-    
-    $quant3 = count($result3) -1;
+
+    $quant3 = count($result3) - 1;
     $option .= ';<option value="">Selecione</option>';
     for ($i = 0; $i <= $quant3; $i++) {
         $mod = $result3[$i]['nome'];
@@ -417,7 +439,7 @@ function Selects()
     $result4 = $conexao->execQuerry($sql4);
     $conexao->fecharConexao();
 
-    $quant4 = count($result4) -1;
+    $quant4 = count($result4) - 1;
     $option .= ';<option value="">Selecione</option>';
     for ($i = 0; $i <= $quant4; $i++) {
         $pot = $result4[$i]['nome'];

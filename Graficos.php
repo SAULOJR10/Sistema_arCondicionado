@@ -47,7 +47,7 @@ if (isset($_SESSION['numLogin'])) {
     <link rel="stylesheet" type="text/css" href="bib/css/SistemaArCondicionado.css">
     <?php include_once 'bib/comum/bibi.php'; ?>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="bib/js/grafico.js"></script>
+    <script type="text/javascript" src="bib/js/graficos.js"></script>
 
 </head>
 
@@ -96,32 +96,19 @@ if (isset($_SESSION['numLogin'])) {
                             </div>
                         </div>
                     </div>
-
-                    <div class="title">Equipamentos (Ar condicionado)</div>
-                    <div class="Equipamento">
-                        <div class="um">
-                            <p>Total</p>
-                            <div class="total">100</div>
-                        </div>
-                        <div class="dois">
-                            <p>Completos</p>
-                            <div class="completos">30</div>
-                        </div>
-                        <div class="tres">
-                            <p>Incompletos</p>
-                            <div class="imcompletos">40</div>
-                        </div>
-                        <div class="quatro">
-                            <p>Não realizado</p>
-                            <div class="naorealizados">30</div>
-                        </div>
+                </div>
+                <div class="row">
+                    <div style="padding: 2% 2% 2% 2%; background-color: #add8e666; height: 250px; margin-bottom:20px; border: solid #00000030 1px;">
+                        <div class="col-sm-12" style="margin-bottom: 20px; background-color: white; height: 200px;" id="graficosTorresquinzenal"></div>
                     </div>
-                    <div class="graficoRosca">
-                        <div id="donutchart2" style="width: 100%; height: 100%;"></div>
+                    <div style="padding: 2% 2% 2% 2%; background-color: #add8e666; height: 250px; margin-bottom:20px; border: solid #00000030 1px;">
+                        <div class="col-sm-12" style="margin-bottom: 20px; background-color: white; height: 200px;" id="graficosTorresmensal"></div>
                     </div>
-
-                    <div class="graficoTorres">
-                        <div id="chart_div"></div>
+                    <div style="padding: 2% 2% 2% 2%; background-color: #add8e666; height: 250px; margin-bottom:20px; border: solid #00000030 1px;">
+                        <div class="col-sm-12" style="margin-bottom: 20px; background-color: white; height: 200px;" id="graficosTorrestrimestral"></div>
+                    </div>
+                    <div style="padding: 2% 2% 2% 2%; background-color: #add8e666; height: 250px; margin-bottom:20px; border: solid #00000030 1px;">
+                        <div class="col-sm-12" style="margin-bottom: 20px; background-color: white; height: 200px;" id="graficosTorresanual"></div>
                     </div>
                 </div>
             </div>

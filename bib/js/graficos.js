@@ -1,6 +1,7 @@
 $(document).ready(function () {
   if (document.getElementById('idEnt') != undefined) {
     GraficoRosca();
+    GraficoTorres();
   } else {
     SelectEnt('QualEnt');
     $('#modalEnt').modal('show');
@@ -11,26 +12,26 @@ function SelectEnt(acao) {
   $('#nome_cliente').empty();
   var idUsuario = document.getElementById('idLogin').value;
   $.ajax({
-      method: 'post',
-      dataType: 'json',
-      url: 'bib/ajax/SelecionarGraficos.json.php',
-      data: {
-          acao: acao,
-          idUsuario: idUsuario,
-          processoData: false,
-          contentype: false,
-      },
-      success: function (data) {
-          if (acao == 'QualEnt') {
-              $('#SelectEnt').append('<h4 style=\'text-align:center;\'>Selecione a entidade:</h4>' + data);
-          } else {
-              $('#nome_cliente').append(data);
-              $('#onclick').removeAttr('onclick');
-          }
-      },
-      error: function (msg) {
-          alert(msg.responseText);
+    method: 'post',
+    dataType: 'json',
+    url: 'bib/ajax/SelecionarGraficos.json.php',
+    data: {
+      acao: acao,
+      idUsuario: idUsuario,
+      processoData: false,
+      contentype: false,
+    },
+    success: function (data) {
+      if (acao == 'QualEnt') {
+        $('#SelectEnt').append('<h4 style=\'text-align:center;\'>Selecione a entidade:</h4>' + data);
+      } else {
+        $('#nome_cliente').append(data);
+        $('#onclick').removeAttr('onclick');
       }
+    },
+    error: function (msg) {
+      alert(msg.responseText);
+    }
   });
 }
 function EntSelected(acao) {
@@ -40,46 +41,10 @@ function EntSelected(acao) {
   $('#nome_cliente').append("<input type='hidden' id='idEnt' value='" + idEnt + "'>" + nomeEnt);
   $('#buttonModal').attr('data-dismiss', 'modal');
   GraficoRosca();
+  GraficoTorres();
 }
 
-google.charts.load('current', { packages: ['corechart', 'bar'] });
-google.charts.setOnLoadCallback(drawColColors);
-
-function drawColColors() {
-  var data = new google.visualization.DataTable();
-  data.addColumn('string', 'Meses');
-  data.addColumn('number', 'Completos');
-  data.addColumn('number', 'Incompletos');
-  data.addColumn('number', 'Não realizado');
-  data.addRows([
-    ['Janeiro', 4, 6, 1],
-    ['Fevereiro', 8, 7, 5],
-    ['Março', 5, 7, 5],
-    ['Abril', 8, 6, 7],
-    ['Maio', 3, 4, 8],
-    ['Junho', 6, 7, 3],
-    ['Julho', 2, 9, 6],
-    ['Agosto', 5, 8, 3],
-    ['Setembro', 7, 7, 1],
-    ['Outubro', 4, 9, 5],
-    ['Novembro', 6, 4, 3],
-    ['Dezembro', 9, 5, 7],
-  ]);
-
-  var options = {
-    'legend': 'right',
-    'title': 'Listagem dos equipamentos',
-    colors: ['#14591b', '#ff9d00', '#be181a'],
-    'margin': -10,
-    'is3D': true,
-    seriesType: "bars",
-    series: { 4: { type: "line" } }
-  };
-
-  var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-  chart.draw(data, options);
-}
-
+google.charts.load("current", { packages: ["corechart"] });
 function GraficoRosca() {
   var idEnt = document.getElementById('idEnt').value;
   $.ajax({
@@ -94,7 +59,7 @@ function GraficoRosca() {
     },
     success: function (data) {
       var explode = data.split('&');
-      var quant = explode.length -1;
+      var quant = explode.length - 1;
       for (i = 0; i <= quant; i++) {
         if (i == 0) {
           id = 'Quinzenal';
@@ -113,7 +78,6 @@ function GraficoRosca() {
         var completa = parseInt(check_list[0]);
         var incompleta = parseInt(check_list[1]);
         var naoRealizada = parseInt(check_list[2]);
-        google.charts.load("current", { packages: ["corechart"] });
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
           ['Completa', completa],
@@ -140,4 +104,46 @@ function GraficoRosca() {
       alert(msg.responseText);
     }
   });
-} 
+}
+
+function GraficoTorres() {
+  var idEnt = document.getElementById('idEnt').value;
+  $.ajax({
+    method: 'post',
+    dataType: 'json',
+    url: 'bib/ajax/SelecionarGraficos.json.php',
+    data: {
+      acao: 'GraficosTorres',
+      idEnt: idEnt,
+      processoData: false,
+      contentype: false,
+    },
+    success: function (data) {
+      var dados = new google.visualization.DataTable();
+      dados.addColumn('string', 'Meses');
+      dados.addColumn('number', 'Completos');
+      dados.addColumn('number', 'Incompletos');
+      dados.addColumn('number', 'Não realizado');
+      dados.addRows([data['dados']]);
+
+      var options = {
+        legend: 'right',
+        title: 'Check-Lists Quinzenal',
+        titleTextStyle: { bold: false, fontSize: 20 },
+        colors: ['#14591b', '#ff9d00', '#be181a'],
+        'is3D': true,
+        seriesType: "bars",
+        chartArea: { left: '5%', top: '20%', bottom: '15%', width: '80%', height: '80%' },
+        fontSize: 12,
+        series: { 4: { type: "line" } }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('graficosTorresquinzenal'));
+      chart.draw(dados, options);
+    },
+    error: function (msg) {
+      alert(msg.responseText);
+      $('#graficosTorresquinzenal').after(msg.responseText);
+    }
+  });
+}

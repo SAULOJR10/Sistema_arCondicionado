@@ -85,19 +85,15 @@ function SoUm(id) {
 function PesquisarAr() {
     if ($('#ch_Localizacao').is(':checked')) {
         MontarGrafico('localizacao');
-        MontarGrafico2('localizacao');
     }
     if ($('#ch_Marca').is(':checked')) {
         MontarGrafico('marca');
-        MontarGrafico2('marca');
     }
     if ($('#ch_Modelo').is(':checked')) {
         MontarGrafico('modelo');
-        MontarGrafico2('modelo');
     }
     if ($('#ch_Potencia').is(':checked')) {
         MontarGrafico('potencia');
-        MontarGrafico2('potencia');
     }
     window.scroll(0, 100000);
 }
@@ -213,6 +209,7 @@ function Pesquisar(acao) {
 }
 
 function MontarGrafico(id) {
+    idEnt = document.getElementById('idEnt').value;
     google.charts.load("current", { packages: ["corechart"] });
     $.ajax({
         method: 'post',
@@ -221,14 +218,18 @@ function MontarGrafico(id) {
         data: {
             acao: 'Ar',
             id: id,
+            idEnt: idEnt,
         },
         success: function (data) {
             $('#titulo').removeAttr('style');
             $('#titulo').attr('style', 'margin: 30px;');
 
-            var dados = google.charts.setOnLoadCallback([data['dado']]);
+            var data = google.visualization.arrayToDataTable(data['dado']);
 
+            title = id.toUpperCase();
             var options = {
+                'title': '' + title + ':',
+                titleTextStyle:{bold: false},
                 pieHole: 0.3,
                 tooltip: { text: 'value' },
                 chartArea: { width: '100%', height: '60%' },
@@ -239,51 +240,7 @@ function MontarGrafico(id) {
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('graficos' + id));
-            
-            $('#titulo' + id).removeAttr('style');
-            chart.draw(dados, options);
-        },
-        error: function (msg) {
-            alert('ERRO' + msg.responseText);
-            $('#graficoslocalizacao').after(msg.responseText);
-        }
-    });
-}
 
-function MontarGrafico2(id) {
-    google.charts.load("current", { packages: ["corechart"] });
-    $.ajax({
-        method: 'post',
-        dataType: 'json',
-        url: 'bib/ajax/SelecionarPesquisar.json.php',
-        data: {
-            acao: 'Ar',
-            id: id,
-        },
-        success: function (data) {
-            $('#titulo').removeAttr('style');
-            $('#titulo').attr('style', 'margin: 30px;');
-
-            var data = google.visualization.arrayToDataTable([
-                ['Titulo', 'Quantidade'],
-                ['Consul', 3],
-                ['Samsung', 5],
-                ['LG', 2],
-                ['Philips', 8],
-            ]);
-
-            var options = {
-                pieHole: 0.3,
-                tooltip: { text: 'value' },
-                chartArea: { width: '100%', height: '60%' },
-                legend: { position: 'bottom', textStyle: { fontSize: 10 } },
-                fontSize: 15,
-                pieSliceText: 'value',
-                pieSliceTextStyle: { color: 'black' },
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('graficospotencia'));
-            
             $('#titulo' + id).removeAttr('style');
             chart.draw(data, options);
         },

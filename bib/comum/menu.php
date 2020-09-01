@@ -18,7 +18,7 @@ if (session_id() == '') {
         <div class="divider"></div>
         <ul class="nav menu">
             <!------------------------------------------------------------------------------------------------------------->
-            <li><a href="index.php">
+            <li><a onclick="ContinuarEntidade(<?php echo $n1?>, 'Inicio.php')">
                     <div class="row" style="width: 100%">
                         <div class="col-xs-2 p-l-0 p-r-0"><em class="fa fa-home p-l-0 p-r-0"></em> </div>
                         <div class="col-xs-10 p-l-0 p-r-0"> <b>Início</b></div>
@@ -66,10 +66,26 @@ if (session_id() == '') {
                 </a>
             </li>
             <!------------------------------------------------------------------------------------------------------------->
-            <li><a onclick="ContinuarEntidade(<?php echo $n1?>, 'Dashbord.php')">
+            <li><a onclick="ContinuarEntidade(<?php echo $n1?>, 'Graficos.php')">
                     <div class="row" style="width: 100%">
                         <div class="col-xs-2 p-l-0 p-r-0"><i class="fas fa-chart-bar" style="font-size: 1.8rem; float:left; margin-left:10%; margin-top:1%;"></i></div>
                         <div class="col-xs-10 p-l-0 p-r-0"> <b>Graficos</b></div>
+                    </div>
+                </a>
+            </li>
+            <!------------------------------------------------------------------------------------------------------------->
+            <li><a onclick="ContinuarEntidade(<?php echo $n1?>, 'Cadastros.php')">
+                    <div class="row" style="width: 100%">
+                        <div class="col-xs-2 p-l-0 p-r-0"><i class="fas fa-user-plus" style="font-size: 1.8rem; float:left; margin-left:10%; margin-top:1%;"></i></div>
+                        <div class="col-xs-10 p-l-0 p-r-0"> <b>Cadastro de usuario</b></div>
+                    </div>
+                </a>
+            </li>
+            <!------------------------------------------------------------------------------------------------------------->
+            <li><a onclick="ContinuarEntidade(<?php echo $n1?>, '.php')">
+                    <div class="row" style="width: 100%">
+                        <div class="col-xs-2 p-l-0 p-r-0"><i class="fas fa-sign-out-alt" style="font-size: 1.8rem; float:left; margin-left:10%; margin-top:1%;"></i></div>
+                        <div class="col-xs-10 p-l-0 p-r-0"> <b>Sair</b></div>
                     </div>
                 </a>
             </li>

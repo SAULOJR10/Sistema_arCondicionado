@@ -4,8 +4,11 @@ include_once '../comum/conf.ini.php';
 $acao = filter_input(INPUT_POST, 'acao', FILTER_SANITIZE_STRING);
 
 switch ($acao) {
-    case 'ADDProp':
-        ADDProp();
+    case 'novo':
+        ADDProp('novo');
+        break;
+    case 'existe':
+        ADDProp('existe');
         break;
     case 'ADDAR':
         ADDAR();
@@ -24,33 +27,53 @@ switch ($acao) {
         break;
 }
 
-function ADDProp()
+function ADDProp($acao)
 {
-    $resultado = "Proprietário cadastrado com sucesso !!!";
-    $UH = filter_input(INPUT_POST, 'UH', FILTER_SANITIZE_STRING);
-    $nomeProp = filter_input(INPUT_POST, 'nomeProp', FILTER_SANITIZE_STRING);
-    $razaoSocial = filter_input(INPUT_POST, 'razaoSocial', FILTER_SANITIZE_STRING);
-    $documentoProp = filter_input(INPUT_POST, 'documento', FILTER_SANITIZE_STRING);
-    $telefoneProp = filter_input(INPUT_POST, 'telefoneProp', FILTER_SANITIZE_STRING);
-    $emailProp = filter_input(INPUT_POST, 'emailProp', FILTER_SANITIZE_STRING);
-    $CEPProp = filter_input(INPUT_POST, 'CEPProp', FILTER_SANITIZE_STRING);
-    $EstadoProp = filter_input(INPUT_POST, 'EstadoProp', FILTER_SANITIZE_STRING);
-    $CidadeProp = filter_input(INPUT_POST, 'CidadeProp', FILTER_SANITIZE_STRING);
-    $tipoPropriedade = filter_input(INPUT_POST, 'tipoPropriedade', FILTER_SANITIZE_STRING);
-    $tipoPessoa = filter_input(INPUT_POST, 'tipoPessoa', FILTER_SANITIZE_STRING);
-    $EnderecoProp = filter_input(INPUT_POST, 'enderecoProp', FILTER_SANITIZE_STRING);
-    $conexao = new ConexaoCard();
-    $sql1 = "INSERT INTO public.proprietarios(nome, documento, email, telefone, estado, cidade, cep, endereco, razao_social, data_cadastro, data_alteracao, tipo_pessoa)
-    VALUES ('$nomeProp', '$documentoProp', '$emailProp', '$telefoneProp', '$EstadoProp', '$CidadeProp', '$CEPProp', '$EnderecoProp', '$razaoSocial', now(), now(), '$tipoPessoa') RETURNING id;";
-    $result = $conexao->execQuerry($sql1);
-    if (is_array($result)) {
-        $idProp = $result[0]['id'] ;
+    if($acao == 'existe'){
+        $resultado = "Proprietário cadastrado com sucesso !!!";
+        $UH = filter_input(INPUT_POST, 'UH', FILTER_SANITIZE_STRING);
+        $tipoPropriedade = filter_input(INPUT_POST, 'tipoPropriedade', FILTER_SANITIZE_STRING);
+        $nomeProp = filter_input(INPUT_POST, 'nomeProp', FILTER_SANITIZE_STRING);
+        $nome = explode(' - ', $nomeProp)[0];
+        $documento = explode(' - ', $nomeProp)[1];
+        $sql = "SELECT * FROM proprietarios WHERE nome = '$nome' and documento = '$documento'";
+        $conexao = new ConexaoCard();
+        $result = $conexao->execQuerry($sql);
+        $idProp = $result[0]['id'];
+
+        $sql2 = "UPDATE public.uhs SET proprietario=$idProp, tipo_proprietario='$tipoPropriedade' WHERE id=$UH";
+        $conexao->execQuerry($sql2);
+        $conexao->fecharConexao();
+        echo json_encode($resultado);
     }
 
-    $sql2 = "UPDATE public.uhs SET proprietario=$idProp, tipo_proprietario='$tipoPropriedade' WHERE id=$UH";
-    $conexao->execQuerry($sql2);
-    $conexao->fecharConexao();
-    echo json_encode($resultado);
+    if ($acao == 'novo') {
+        $resultado = "Proprietário cadastrado com sucesso !!!";
+        $UH = filter_input(INPUT_POST, 'UH', FILTER_SANITIZE_STRING);
+        $nomeProp = filter_input(INPUT_POST, 'nomeProp', FILTER_SANITIZE_STRING);
+        $razaoSocial = filter_input(INPUT_POST, 'razaoSocial', FILTER_SANITIZE_STRING);
+        $documentoProp = filter_input(INPUT_POST, 'documento', FILTER_SANITIZE_STRING);
+        $telefoneProp = filter_input(INPUT_POST, 'telefoneProp', FILTER_SANITIZE_STRING);
+        $emailProp = filter_input(INPUT_POST, 'emailProp', FILTER_SANITIZE_STRING);
+        $CEPProp = filter_input(INPUT_POST, 'CEPProp', FILTER_SANITIZE_STRING);
+        $EstadoProp = filter_input(INPUT_POST, 'EstadoProp', FILTER_SANITIZE_STRING);
+        $CidadeProp = filter_input(INPUT_POST, 'CidadeProp', FILTER_SANITIZE_STRING);
+        $tipoPropriedade = filter_input(INPUT_POST, 'tipoPropriedade', FILTER_SANITIZE_STRING);
+        $tipoPessoa = filter_input(INPUT_POST, 'tipoPessoa', FILTER_SANITIZE_STRING);
+        $EnderecoProp = filter_input(INPUT_POST, 'enderecoProp', FILTER_SANITIZE_STRING);
+        $conexao = new ConexaoCard();
+        $sql1 = "INSERT INTO public.proprietarios(nome, documento, email, telefone, estado, cidade, cep, endereco, razao_social, data_cadastro, data_alteracao, tipo_pessoa)
+                 VALUES ('$nomeProp', '$documentoProp', '$emailProp', '$telefoneProp', '$EstadoProp', '$CidadeProp', '$CEPProp', '$EnderecoProp', '$razaoSocial', now(), now(), '$tipoPessoa') RETURNING id;";
+        $result = $conexao->execQuerry($sql1);
+        if (is_array($result)) {
+            $idProp = $result[0]['id'];
+        }
+
+        $sql2 = "UPDATE public.uhs SET proprietario=$idProp, tipo_proprietario='$tipoPropriedade' WHERE id=$UH";
+        $conexao->execQuerry($sql2);
+        $conexao->fecharConexao();
+        echo json_encode($resultado);
+    }
 }
 
 function ADDAR()
@@ -82,7 +105,8 @@ function ADDAR()
     echo json_encode($resultado);
 }
 
-function InserirDadosAr($tabela){
+function InserirDadosAr($tabela)
+{
     $resultado = "$tabela inserida com sucesso !!!";
     $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
 

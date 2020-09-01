@@ -99,7 +99,7 @@ function Selects($acao)
         $conexao = new ConexaoCard();
         $sql = "SELECT andar, equipamento.id FROM uhs
                 INNER JOIN equipamento ON uh = uhs.id
-                WHERE fk_bloco = $bloco GROUP BY equipamento.id, andar";
+                WHERE fk_bloco = $bloco GROUP BY equipamento.id, andar ORDER BY andar";
         $result = $conexao->execQuerry($sql);
         $conexao->fecharConexao();
         $quant = count($result) - 1;

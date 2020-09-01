@@ -12,6 +12,10 @@
     text-align: center;
 }
 
+.ui-autocomplete{
+    z-index: 1050 !important;
+ }
+
 .mais:hover{
     background-color: rgb(194,228,255);
     color: white;

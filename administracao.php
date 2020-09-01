@@ -4,9 +4,9 @@ include_once "bib/comum/conexao.php";
 session_start();
 $idLogin = $_SESSION['idUsuario'];
 
-if(isset($_GET['Ent'])){
+if (isset($_GET['Ent'])) {
     $Entidade = $_GET['Ent'];
-}else{
+} else {
     $Entidade = 'Selecione';
 }
 
@@ -169,9 +169,11 @@ if (isset($_SESSION['numLogin'])) {
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <input type="text" name="search" id="nomeProp" class="j_complete">
+                                <div class="form-group" style="float: left; width: 60%;">
+                                    <input type="text" onkeyup="AutoComplete()" style="height: 30px; float: left; width: 100%;" name="search" id="nomeProp" class="form-control">
+                                </div>
                                 <i class="fas fa-user-plus" id="ColocarAparecer" style="font-size: 2.5rem; margin-left:2%"></i>
-                                <i class="fas fa-check-circle" style="font-size: 2.5rem; margin-left:2%"></i>
+                                <i class="fas fa-check-circle" onclick="ADDProp('existe')" style="font-size: 2.5rem; margin-left:2%"></i>
                             </div>
                         </div>
                         <div class="Edit" style="display: none;">
@@ -229,7 +231,7 @@ if (isset($_SESSION['numLogin'])) {
 
                     </div>
                     <div class="footer">
-                        <div id="dv_relat"><input readonly="readonly" onclick="ADDProp()" value="Gravar e Prosseguir" class="fourth " style="width: 40%; float:right;"></div>
+                        <div id="dv_relat"><input readonly="readonly" id='buttonProp' value="Gravar e Prosseguir" class="fourth " style="width: 40%; float:right;"></div>
                     </div>
                 </div>
             </div>

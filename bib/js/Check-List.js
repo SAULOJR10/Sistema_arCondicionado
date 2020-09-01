@@ -48,6 +48,7 @@ function EntSelected(acao) {
     $('#nome_cliente').append("<input type='hidden' id='idEnt' value='" + idEnt + "'>" + nomeEnt);
     MontarQualUH('selectBloco');
     var Ent = document.getElementById('nome_cliente').innerHTML;
+    url = url.split('&');
     urlEnt = url + '&Ent=' + Ent;
 }
 
@@ -128,6 +129,7 @@ function SalvaCheckList() {
             periodo: periodo,
         },
         success: function (data) {
+            $('#MSG').empty();
             $('#MSG').append('<h4 style="text-align: center">Check-List enviado com sucesso !!!</h4>');
             $('#Avisos').modal('show');
             VoltarTodos();
@@ -178,8 +180,8 @@ function MontarQualUH(acao) {
             var idUH = document.getElementById('UHGer').value;
             $('#IDUH').empty();
             $('#IDUH').append('<input type="hidden" value="' + idUH + '" id="idUH">');
-            if(urlEnt == ''){
-                urlEnt = url;
+            if(urlEnt == '' || urlEnt == undefined){
+                urlEnt = window.location.href;
             }
             urlUH = urlEnt + '&idUH=' + idUH;
         } else {
@@ -194,6 +196,7 @@ function MontarQualUH(acao) {
             acao = 'selectBloco';
         }
     } else {
+        urlEnt = url;
         SelectEnt('QualEnt');
         $('#SelectBloco').empty();
         $('#SelectAndar').empty();

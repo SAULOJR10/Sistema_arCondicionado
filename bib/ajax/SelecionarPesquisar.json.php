@@ -209,35 +209,37 @@ function Pesquisar($acao)
 
 function PesquisarAr()
 {
-    // $pesquisa = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
-    // $sql = "SELECT $pesquisa FROM equipamento ORDER BY $pesquisa";
-    // $conexao = new ConexaoCard();
-    // $result = $conexao->execQuerry($sql);
-    // $conexao->fecharConexao();
-    // $quant1 = count($result) - 1;
-    // $anterior = '';
-    // $data = [array("Titulo", "Quantidade")];
-    // $quant2 = 1;
-    // for ($i = 0; $i <= $quant1; $i++) {
-    //     $resultado = $result[$i]["$pesquisa"];
-    //     if ($resultado != $anterior && $anterior != '') {
-    //         $data[] = array("$anterior", $quant2);
-    //         $quant2 = 1;
-    //     } else {
-    //         $quant2 = $quant2 + 1;
-    //     }
-    //     $anterior = $resultado;
-    // }
-    // $retorno['dado'] = $data;
+    $pesquisa = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
+    $idEnt = filter_input(INPUT_POST, 'idEnt', FILTER_SANITIZE_STRING);
+    $sql = "SELECT $pesquisa FROM equipamento
+            INNER JOIN uhs ON uh = uhs.id
+            INNER JOIN bloco ON fk_bloco = bloco.id
+            WHERE fk_entidade = $idEnt and gerenciada = true ORDER BY $pesquisa";
+    $conexao = new ConexaoCard();
+    $result = $conexao->execQuerry($sql);
+    $conexao->fecharConexao();
+    $quant1 = count($result) -1;
+    $anterior = '';
+    $data = [array("Titulo", "Quantidade")];
+    $quant2 = 0;
+    for ($i = 0; $i <= $quant1; $i++) {
+        $resultado = $result[$i]["$pesquisa"];
+        if ($resultado != $anterior && $anterior != '' || $i == $quant1) {
+            if($i == $quant1){
+                $quant2++;
+                if($quant2 == 1){
+                    $quant2 = 1;
+                }
+            }
+            $data[] = array("$anterior", $quant2);
+            $quant2 = 1;
+        } else {
+            $quant2 = $quant2 + 1;
+        }
+        $anterior = $resultado;
+    }
+    $retorno['dado'] = $data;
 
-
-    $dados = [array("task", "hours per day"),
-        array("completo", "30"),
-        array("incompleto", "40"),
-        array("Não Realizado", "30")
-    ];
-
-    $retorno['dado'] = $dados;
     echo json_encode($retorno);
 }
 
