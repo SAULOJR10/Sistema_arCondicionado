@@ -63,6 +63,7 @@ if (isset($_SESSION['numLogin'])) {
                 <div class="container-table100">
                     <div class="col-sm-12 button" id="Ordem" style="margin-bottom: 20px; background-color: white; border: none;" align="center">
                         <h3 style="text-align: center; font-size: 4rem; margin-top: 0%; "><i class="fas fa-chart-bar" style="font-size: 3rem; margin-top:1%;"></i>&nbsp;Gráficos</h3>
+                        <hr>
                     </div>
                     <div class="col-sm-6 button" id="Ordem" style="margin-bottom: 20px; background-color: white; border: none;" align="center">
                         <div style="padding: 0% 2% 1% 2%; background-color: #add8e666; border: solid #00000030 1px;">

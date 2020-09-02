@@ -1,7 +1,10 @@
 $(document).ready(function () {
   if (document.getElementById('idEnt') != undefined) {
     GraficoRosca();
-    GraficoTorres();
+    GraficoTorresQuinzenal();
+    GraficoTorresMensal();
+    GraficoTorresTrimestral();
+    GraficoTorresAnual();
   } else {
     SelectEnt('QualEnt');
     $('#modalEnt').modal('show');
@@ -41,7 +44,10 @@ function EntSelected(acao) {
   $('#nome_cliente').append("<input type='hidden' id='idEnt' value='" + idEnt + "'>" + nomeEnt);
   $('#buttonModal').attr('data-dismiss', 'modal');
   GraficoRosca();
-  GraficoTorres();
+  GraficoTorresQuinzenal();
+  GraficoTorresMensal();
+  GraficoTorresTrimestral();
+  GraficoTorresAnual();
 }
 
 google.charts.load("current", { packages: ["corechart"] });
@@ -106,14 +112,14 @@ function GraficoRosca() {
   });
 }
 
-function GraficoTorres() {
+function GraficoTorresQuinzenal() {
   var idEnt = document.getElementById('idEnt').value;
   $.ajax({
     method: 'post',
     dataType: 'json',
     url: 'bib/ajax/SelecionarGraficos.json.php',
     data: {
-      acao: 'GraficosTorres',
+      acao: 'GraficosTorresQuinzenal',
       idEnt: idEnt,
       processoData: false,
       contentype: false,
@@ -124,7 +130,7 @@ function GraficoTorres() {
       dados.addColumn('number', 'Completos');
       dados.addColumn('number', 'Incompletos');
       dados.addColumn('number', 'Não realizado');
-      dados.addRows([data['dados']]);
+      dados.addRows(data);
 
       var options = {
         legend: 'right',
@@ -143,7 +149,130 @@ function GraficoTorres() {
     },
     error: function (msg) {
       alert(msg.responseText);
-      $('#graficosTorresquinzenal').after(msg.responseText);
+      $('#Ordem').after(msg.responseText);
+    }
+  });
+}
+function GraficoTorresMensal() {
+  var idEnt = document.getElementById('idEnt').value;
+  $.ajax({
+    method: 'post',
+    dataType: 'json',
+    url: 'bib/ajax/SelecionarGraficos.json.php',
+    data: {
+      acao: 'GraficosTorresMensal',
+      idEnt: idEnt,
+      processoData: false,
+      contentype: false,
+    },
+    success: function (data) {
+      var dados = new google.visualization.DataTable();
+      dados.addColumn('string', 'Meses');
+      dados.addColumn('number', 'Completos');
+      dados.addColumn('number', 'Incompletos');
+      dados.addColumn('number', 'Não realizado');
+      dados.addRows(data);
+
+      var options = {
+        legend: 'right',
+        title: 'Check-Lists Quinzenal',
+        titleTextStyle: { bold: false, fontSize: 20 },
+        colors: ['#14591b', '#ff9d00', '#be181a'],
+        'is3D': true,
+        seriesType: "bars",
+        chartArea: { left: '5%', top: '20%', bottom: '15%', width: '80%', height: '80%' },
+        fontSize: 12,
+        series: { 4: { type: "line" } }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('graficosTorresmensal'));
+      chart.draw(dados, options);
+    },
+    error: function (msg) {
+      alert(msg.responseText);
+      $('#Ordem').after(msg.responseText);
+    }
+  });
+}
+function GraficoTorresTrimestral() {
+  var idEnt = document.getElementById('idEnt').value;
+  $.ajax({
+    method: 'post',
+    dataType: 'json',
+    url: 'bib/ajax/SelecionarGraficos.json.php',
+    data: {
+      acao: 'GraficosTorresTrimestral',
+      idEnt: idEnt,
+      processoData: false,
+      contentype: false,
+    },
+    success: function (data) {
+      var dados = new google.visualization.DataTable();
+      dados.addColumn('string', 'Meses');
+      dados.addColumn('number', 'Completos');
+      dados.addColumn('number', 'Incompletos');
+      dados.addColumn('number', 'Não realizado');
+      dados.addRows(data);
+
+      var options = {
+        legend: 'right',
+        title: 'Check-Lists Quinzenal',
+        titleTextStyle: { bold: false, fontSize: 20 },
+        colors: ['#14591b', '#ff9d00', '#be181a'],
+        'is3D': true,
+        seriesType: "bars",
+        chartArea: { left: '5%', top: '20%', bottom: '15%', width: '80%', height: '80%' },
+        fontSize: 12,
+        series: { 4: { type: "line" } }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('graficosTorrestrimestral'));
+      chart.draw(dados, options);
+    },
+    error: function (msg) {
+      alert(msg.responseText);
+      $('#Ordem').after(msg.responseText);
+    }
+  });
+}
+function GraficoTorresAnual() {
+  var idEnt = document.getElementById('idEnt').value;
+  $.ajax({
+    method: 'post',
+    dataType: 'json',
+    url: 'bib/ajax/SelecionarGraficos.json.php',
+    data: {
+      acao: 'GraficosTorresAnual',
+      idEnt: idEnt,
+      processoData: false,
+      contentype: false,
+    },
+    success: function (data) {
+      var dados = new google.visualization.DataTable();
+      dados.addColumn('string', 'Meses');
+      dados.addColumn('number', 'Completos');
+      dados.addColumn('number', 'Incompletos');
+      dados.addColumn('number', 'Não realizado');
+      dados.addRows(data);
+
+      var options = {
+        legend: 'right',
+        title: 'Check-Lists Quinzenal',
+        titleTextStyle: { bold: false, fontSize: 20 },
+        colors: ['#14591b', '#ff9d00', '#be181a'],
+        'is3D': true,
+        seriesType: "bars",
+        chartArea: { left: '5%', top: '20%', bottom: '15%', width: '80%', height: '80%' },
+        fontSize: 12,
+        series: { 4: { type: "line" } }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('graficosTorresanual'));
+      chart.draw(dados, options);
+    },
+    error: function (msg) {
+      alert(msg.responseText);
+      $('#Ordem').after(msg.responseText);
     }
   });
 }

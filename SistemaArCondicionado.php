@@ -46,6 +46,7 @@ if (isset($_SESSION['numLogin'])) {
                             <div class="col-sm-12 button" id="Ordem" style="background-color: white; border: none;" align="center">
                                 <i class="fas fa-map-marker-alt" style="font-size: 3rem; float:left; margin-left:30%; margin-top:1%;"></i>
                                 <h3 style="font-size: 4rem; margin-top: 0%; margin-right:35%;">Cadastro Predial</h3>
+                                <hr>
                             </div>
                         </div>
                         <div class="col-sm-12" style="height:100px;">

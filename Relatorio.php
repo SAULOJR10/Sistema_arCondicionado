@@ -41,28 +41,29 @@ if (isset($_SESSION['numLogin'])) {
 
                         <div class="col-sm-12" style="background-color: white; margin-bottom:2%; height:100px; padding:0%;">
 
-                            <div class="col-sm-12 button" id="Ordem" style="background-color: white ; height:80%;border: none;" align="center">
+                            <div class="col-sm-12 button" id="Ordem" style="background-color: white ; height:80%;border: none; margin-bottom: 20px;" align="center">
                                 <h3 style="font-size: 4rem;">
                                     <i class="fas fa-map-marker-alt" style="font-size: 3rem; margin-right: 8px;"></i>
                                     Impressão Relatorio
                                 </h3>
+                                <hr>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-xs-3">
                                 <div class="numeracao" style="padding-top: 2.5%; margin-bottom: 20px;">1</div>
                                 <h5><b id="TitleSelectEnt"></b></h5>
-                                <div id="SelectEnt"></div>
+                                <div style="margin-top: 40px;" id="SelectEnt"></div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-xs-3">
                                 <div class="numeracao" style="padding-top: 2.5%; margin-bottom: 20px;">2</div>
                                 <h5><b id="TitleSelectBloco"></b></h5>
-                                <div id="SelectBloco"></div>
+                                <div style="margin-top: 40px;" id="SelectBloco"></div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-xs-3">
                                 <div class="numeracao" style="padding-top: 2.5%; margin-bottom: 20px;">3</div>
                                 <h5><b id="TitleSelectUH"></b></h5>
-                                <div id="SelectUH"></div>
+                                <div style="margin-top: 40px;" id="SelectUH"></div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-xs-3">
                                 <div class="numeracao" style="padding-top: 2.5%; margin-bottom: 20px;">4</div>
                                 <h5><b id="TitleSelectEnt">Enviar:</b></h5>
                                 <div id="dv_relat"><input readonly="readonly" id="btao_relat" value="Prosseguir" class="fourth " style="width: 100%;"></div>

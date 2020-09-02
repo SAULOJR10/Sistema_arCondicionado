@@ -12,21 +12,12 @@ if (isset($_POST['login']) && isset($_POST['senha'])) {
     if ($psw == $res['senha']) {
         $num = rand(100000, 900000);
         $_SESSION['numLogin'] = $num;
-        if ($res['tipo_usuario'] == "adm" && $res['status'] == true) {
+        if ($res['status'] == true) {
             $_SESSION['idUsuario'] = $res['id'];
             $_SESSION['usuario'] = $res['usuario'];
             $_SESSION['arquivo'] = $res['arquivo'];
-            header("Location:SistemaArCondicionado.php?num1=$num");
-        }else if ($res['tipo_usuario'] == "manutencionista" && $res['status'] == true) {
-            $_SESSION['idUsuario'] = $res['id'];
-            $_SESSION['usuario'] = $res['usuario'];
-            $_SESSION['arquivo'] = $res['arquivo'];
-            header("Location:TelaManutencionista.php?num1=$num");
-        }else if ($res['tipo_usuario'] == "eng" && $res['status'] == true) {
-            $_SESSION['idUsuario'] = $res['id'];
-            $_SESSION['usuario'] = $res['usuario'];
-            $_SESSION['arquivo'] = $res['arquivo'];
-            header("Location:RT.php?num1=$num");
+            $_SESSION['tipo_usuario'] = $res['tipo_usuario'];
+            header("Location:Inicio.php?num1=$num");
         } 
     }
 }

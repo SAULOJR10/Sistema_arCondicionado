@@ -150,6 +150,7 @@ function Relatorio()
             $ItensTrimestral = '';
             $ItensAnual = '';
             $idItemAnterior = 0;
+            $ultimoNum = 0;
             for ($o = 0; $o <= $quant2; $o++) {
                 $idItem = $result2[$o]['fk_item'];
                 $perido = $result2[$o]['periodo'];
