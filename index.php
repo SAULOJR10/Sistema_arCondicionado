@@ -15,9 +15,13 @@ if (isset($_POST['login']) && isset($_POST['senha'])) {
         if ($res['status'] == true) {
             $_SESSION['idUsuario'] = $res['id'];
             $_SESSION['usuario'] = $res['usuario'];
-            $_SESSION['arquivo'] = $res['arquivo'];
+            $_SESSION['arquivo'] = $res['imagem'];
             $_SESSION['tipo_usuario'] = $res['tipo_usuario'];
-            header("Location:Inicio.php?num1=$num");
+            if($res['tipo_usuario'] == 'manutencionista'){
+                header("Location:TelaManutencionista.php?num1=$num");
+            }else{
+                header("Location:Inicio.php?num1=$num");
+            }
         } 
     }
 }

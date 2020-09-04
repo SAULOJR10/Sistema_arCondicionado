@@ -56,7 +56,13 @@ function Refresh() {
     var url = window.location.href;
     var url = url.split('&')[0];
     window.location.href = url;
-    document.location.reload(true);
+}
+
+function Home(){
+    var url = window.location.href;
+    var url = url.split('&')[0];
+    var url = url.split('?')[1];
+    window.location.href = 'Inicio.php?' + url;
 }
 
 function OutroAr() {

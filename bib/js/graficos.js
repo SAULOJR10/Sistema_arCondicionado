@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  Funcionalidades();
   if (document.getElementById('idEnt') != undefined) {
     GraficoRosca();
     GraficoTorresQuinzenal();
@@ -10,6 +11,37 @@ $(document).ready(function () {
     $('#modalEnt').modal('show');
   }
 });
+
+function Funcionalidades(){
+  var tipo_usu = document.getElementById('tipo_usuario').value;
+  if(tipo_usu == 'manutencionista'){
+      $('#cadastropredial').removeAttr('onclick');
+      $('#cadastropredial').attr('data-toggle', 'popover');
+      $('#cadastropredial').attr('data-trigger', 'hover');
+      $('#cadastropredial').attr('data-placement', 'bottom');
+      $('#cadastropredial').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+      $('#administracao').removeAttr('onclick');
+      $('#administracao').attr('data-toggle', 'popover');
+      $('#administracao').attr('data-trigger', 'hover');
+      $('#administracao').attr('data-placement', 'bottom');
+      $('#administracao').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+      $('#relatorio').removeAttr('onclick');
+      $('#relatorio').attr('data-toggle', 'popover');
+      $('#relatorio').attr('data-trigger', 'hover');
+      $('#relatorio').attr('data-placement', 'bottom');
+      $('#relatorio').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+      $('#cadastrousuario').removeAttr('onclick');
+      $('#cadastrousuario').attr('data-toggle', 'popover');
+      $('#cadastrousuario').attr('data-trigger', 'hover');
+      $('#cadastrousuario').attr('data-placement', 'bottom');
+      $('#cadastrousuario').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+      $('#excluirusuario').removeAttr('onclick');
+      $('#excluirusuario').attr('data-toggle', 'popover');
+      $('#excluirusuario').attr('data-trigger', 'hover');
+      $('#excluirusuario').attr('data-placement', 'bottom');
+      $('#excluirusuario').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+  }
+}
 
 function SelectEnt(acao) {
   $('#nome_cliente').empty();

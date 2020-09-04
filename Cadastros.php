@@ -74,38 +74,50 @@ if (isset($_SESSION['numLogin'])) {
                                     <h4 style="margin-bottom: 20px;">Dados usuário:</h4>
                                     <h5 style="margin: 1% 0% 1% 0%;"><b>Tipo de usuário:</b></h5>
                                     <div class="form_group" style="margin-bottom: 10px;">
-                                        <select>
-                                            <option>Selecione</option>
+                                        <select id="tipo_usuario" onchange="tipoEng()">
+                                            <option value="nd">Selecione</option>
                                             <option value="adm">Administrador</option>
                                             <option value="eng">Engenheiro</option>
                                             <option value="manutencionista">Manutencionista</option>
                                         </select>
-                                        <h6 style="margin: 0%;">Engenheiro deve ser cadastro primeiro</h6>
+                                        <h6 style="margin: 0%;"><i>Engenheiro deve primeiro ser cadastro primeiro</i></h6>
                                     </div>
                                     <h5 style="margin: 1% 0% 1% 0%;"><b>Usuário:</b></h5>
                                     <div class="form_group" style="margin-bottom: 30px;">
-                                        <input type="text" class="form_control">
-                                        <h6 style="margin: 0%;"><i>apenas primeiro nome</i></h6>
+                                        <input type="text" id="nomeUsu" class="form_control">
+                                        <h6 style="margin: 0%;"><i>Apenas primeiro nome</i></h6>
                                     </div>
                                     <h5 style="margin: 1% 0% 1% 0%;"><b>Senha:</b></h5>
                                     <div class="form_group" style="margin-bottom: 10px;">
-                                        <input type="text" class="form_control">
+                                        <input type="password" id="senha" class="form_control">
                                     </div>
                                     <h5 style="margin: 1% 0% 1% 0%;"><b>Confirmar senha:</b></h5>
                                     <div class="form_group">
-                                        <input type="text" class="form_control">
+                                        <input type="password" id="confirmSenha" onblur="confirmeSenha()" class="form_control">
+                                        <h6 style="margin: 0%;" id="senhaIncorreta"><i></i></h6>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="numeracao">2</div>
-                                    <h4>Entidade(s):<h4>
-                                    <div class=""></div>
+                                <div class="col-sm-5">
+                                    <div class="numeracao" style="padding-top: 2%;">2</div>
+                                    <h4>Entidade(s):</h4>
+                                    <div id="Entidades"></div>
                                 </div>
-                                <div class="col-sm-2">
-                                    <div class="numeracao" style="padding-top: 5%;">3</div>
-                                    <h4>Salvar:</h4>
-                                    <div style="margin: 20% 0% 0% 20%; width: 40%; border-radius: 50px; text-align: center; background-color: #add8e666;">
-                                        <i class="far fa-save" style="font-size: 3.5rem; margin: 20%"></i>
+                                <div class="col-sm-3">
+                                    <div class="numeracao" style="padding-top: 2%;">3</div>
+                                    <h4>Imagem:</h4>
+                                    <div class="col-sm-12" style="text-align: center;">
+                                        <img id="imagemPre" src="bib/img/i.png" style="height: 100px; width: 60%"><br>
+                                        <label style="width:100%; padding: 4px; margin-top:2%; font-size: 13px; border:solid lightblue 1px; color: #808080a8; text-align: center;min-height: 27px">
+                                            &nbsp; Arquivo   <img src="bib/img/imagem.png" style="width: 15%;">
+                                            <input type="file" accept="image/png, image/jpeg, image/jpg" style="display: none;" value="Escolha a imagem" onclick="mostrarImg()" id="ftusu">
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-top: 20px;">
+                                        <div class="numeracao" style="padding-top: 2%;">4</div>
+                                        <h4>Salvar:</h4>
+                                        <div onclick="SalvarUsuario()" style="margin: 10% 0% 0% 20%; width: 30%; border-radius: 50px; text-align: center; background-color: #add8e666;">
+                                            <i class="far fa-save" style="font-size: 3.5rem; margin: 20%"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -115,6 +127,7 @@ if (isset($_SESSION['numLogin'])) {
             </div>
         </div>
         <script src="bib/js/menu.js"></script>
+        <script src="bib/js/Cadastros.js"></script>
 </body>
 
 </html>

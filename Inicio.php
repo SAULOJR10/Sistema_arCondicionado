@@ -31,6 +31,7 @@ if (isset($_SESSION['numLogin'])) {
 </head>
 
 <body class="mybody" style="background-color: white;">
+<input type="hidden" id="idLogin" value="<?php echo $idLogin ?>">
     <?php include_once 'bib/comum/menu_bar.php'; ?>
     <div class="row">
         <div class="col-xs-3 infmenuslider inf_alt">

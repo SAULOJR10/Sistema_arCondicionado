@@ -44,11 +44,9 @@ if (isset($_SESSION['numLogin'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar</title>
-    <link rel="stylesheet" type="text/css" href="bib/css/SistemaArCondicionado.css">
     <?php include_once 'bib/comum/bibi.php'; ?>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="bib/js/graficos.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="bib/css/SistemaArCondicionado.css">
+    <link rel="stylesheet" type="text/css" href="bib/css/tabelas.css">
 </head>
 
 <body class="mybody" style="background-color: white;">
@@ -61,12 +59,27 @@ if (isset($_SESSION['numLogin'])) {
         <div class="col-xs-9 infcorpo inf_alt">
             <div class="limiter">
                 <div class="container-table100">
+                    <div class="row">
+                        <div class="col-sm-12 button" id="Ordem" style="margin-bottom: 20px; background-color: white ; height:80%;border: none;" align="center">
+                            <h3 style="font-size: 4rem;">
+                                <i class="fas fa-user-times" style="font-size: 3rem; margin-right: 8px;"></i>
+                                Excluir usuários
+                            </h3>
+                            <hr>
+                        </div>
+                    </div>
+                    <table id="demo-table">
 
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+
+    
+
     <script src="bib/js/menu.js"></script>
+    <script src="bib/js/Excluir.js"></script>
 </body>
 
 </html>

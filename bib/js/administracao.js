@@ -1,4 +1,5 @@
 $(document).ready(function () {
+        Funcionalidades();
         $(".cnpj").mask("99.999.999/9999-99");
         $(".telefone").mask("(99) 99999-9999");
         $(".cep").mask("99999-999");
@@ -7,6 +8,37 @@ $(document).ready(function () {
                 Tabela();
         }
 });
+
+function Funcionalidades() {
+        var tipo_usu = document.getElementById('tipo_usuario').value;
+        if (tipo_usu == 'manutencionista') {
+                $('#cadastropredial').removeAttr('onclick');
+                $('#cadastropredial').attr('data-toggle', 'popover');
+                $('#cadastropredial').attr('data-trigger', 'hover');
+                $('#cadastropredial').attr('data-placement', 'bottom');
+                $('#cadastropredial').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+                $('#administracao').removeAttr('onclick');
+                $('#administracao').attr('data-toggle', 'popover');
+                $('#administracao').attr('data-trigger', 'hover');
+                $('#administracao').attr('data-placement', 'bottom');
+                $('#administracao').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+                $('#relatorio').removeAttr('onclick');
+                $('#relatorio').attr('data-toggle', 'popover');
+                $('#relatorio').attr('data-trigger', 'hover');
+                $('#relatorio').attr('data-placement', 'bottom');
+                $('#relatorio').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+                $('#cadastrousuario').removeAttr('onclick');
+                $('#cadastrousuario').attr('data-toggle', 'popover');
+                $('#cadastrousuario').attr('data-trigger', 'hover');
+                $('#cadastrousuario').attr('data-placement', 'bottom');
+                $('#cadastrousuario').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+                $('#excluirusuario').removeAttr('onclick');
+                $('#excluirusuario').attr('data-toggle', 'popover');
+                $('#excluirusuario').attr('data-trigger', 'hover');
+                $('#excluirusuario').attr('data-placement', 'bottom');
+                $('#excluirusuario').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        }
+}
 
 $(".j_complete").autocomplete({
         source: 'bib/ajax/AutoComplete.php'
@@ -407,7 +439,7 @@ function aparecer(classe, acao, id) {
         if (acao == 'aparecer') {
                 $('.' + classe).removeAttr('style');
         }
-        if(acao == 'aparecerMais'){
+        if (acao == 'aparecerMais') {
                 $('.' + classe).removeAttr('style');
                 $('#buttonProp').attr('onclick', 'ADDProp(\'novo\')');
         }
@@ -481,23 +513,23 @@ function limparUHGer() {
 function AutoComplete() {
         var auto = document.getElementById('nomeProp').value;
         $.ajax({
-            method: 'post',
-            dataType: 'json',
-            url: 'bib/ajax/SelecionarADM.json.php',
-            data: {
-                acao: 'AutoCompleta',
-                auto: auto,
-            },
-            success: function (data) {
-                $("#nomeProp").autocomplete({
-                    source: data
-                });
-            },
-            error: function (msg) {
-                alert('ERRO' + msg.responseText);
-            }
+                method: 'post',
+                dataType: 'json',
+                url: 'bib/ajax/SelecionarADM.json.php',
+                data: {
+                        acao: 'AutoCompleta',
+                        auto: auto,
+                },
+                success: function (data) {
+                        $("#nomeProp").autocomplete({
+                                source: data
+                        });
+                },
+                error: function (msg) {
+                        alert('ERRO' + msg.responseText);
+                }
         });
-    }
+}
 
 function ADDProp(acao) {
         if (acao == 'existe') {

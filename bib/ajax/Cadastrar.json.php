@@ -95,7 +95,7 @@ function cadEng()
 function getNomeArquivo($extensao) {
     $valor = random_int(100, 100000);
     $val = 0;
-    while (file_exists("../img/ass$valor.$extensao")) {
+    while (file_exists("../imgAss/assinatura$valor.$extensao")) {
         $valor = random_int(100, 100000);
         $val++;
         if ($val > 1000) {
@@ -103,7 +103,7 @@ function getNomeArquivo($extensao) {
             break;
         }
     }
-    return "imgProd/prod$valor.$extensao";
+    return "imgAss/assinatura$valor.$extensao";
 }
 
 function cadBloco()

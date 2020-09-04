@@ -69,6 +69,10 @@ if (isset($_SESSION['numLogin'])) {
                 <h3 style="font-size: 3rem; margin: 0%;">Ar Condicionado</h3>
             </div>
 
+            <div onclick="Home()" style='z-index: 1050 !important; text-align:center; margin-left:80%; margin-top:415px; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
+                <i class='fas fa-home' style='font-size: 2.5rem; color:white;'></i>
+            </div>
+
             <div style="background-color: rgb(243,246,251); padding-top:1%; margin-bottom:30px;" class="col-sm-3 button " id="Ordem" align="center">
                 <img onclick="CheckList('Quinzenal')" src="bib/img/Quinzenal.png" style="width: 30%; height: 60px;">
                 <p style="margin-bottom:2px; margin-top: 5px; font-size: 1.6rem;" align="center"> Check-List quinzenal</p>

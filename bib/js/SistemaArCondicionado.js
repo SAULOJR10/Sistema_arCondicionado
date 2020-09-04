@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    Funcionalidades();
     $(".cnpj").mask("99.999.999/9999-99");
     $(".telefone").mask("(99) 99999-9999");
     $(".cep").mask("99999-999");
@@ -34,6 +35,64 @@ $(document).ready(function () {
         }
     });
 });
+
+function Funcionalidades(){
+    var tipo_usu = document.getElementById('tipo_usuario').value;
+    if(tipo_usu == 'manutencionista'){
+        $('#cadastropredial').removeAttr('onclick');
+        $('#cadastropredial').attr('data-toggle', 'popover');
+        $('#cadastropredial').attr('data-trigger', 'hover');
+        $('#cadastropredial').attr('data-placement', 'bottom');
+        $('#cadastropredial').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#administracao').removeAttr('onclick');
+        $('#administracao').attr('data-toggle', 'popover');
+        $('#administracao').attr('data-trigger', 'hover');
+        $('#administracao').attr('data-placement', 'bottom');
+        $('#administracao').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#relatorio').removeAttr('onclick');
+        $('#relatorio').attr('data-toggle', 'popover');
+        $('#relatorio').attr('data-trigger', 'hover');
+        $('#relatorio').attr('data-placement', 'bottom');
+        $('#relatorio').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#cadastrousuario').removeAttr('onclick');
+        $('#cadastrousuario').attr('data-toggle', 'popover');
+        $('#cadastrousuario').attr('data-trigger', 'hover');
+        $('#cadastrousuario').attr('data-placement', 'bottom');
+        $('#cadastrousuario').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#excluirusuario').removeAttr('onclick');
+        $('#excluirusuario').attr('data-toggle', 'popover');
+        $('#excluirusuario').attr('data-trigger', 'hover');
+        $('#excluirusuario').attr('data-placement', 'bottom');
+        $('#excluirusuario').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+    }
+    if(tipo_usu == 'eng'){
+        $('#cadastropredial').removeAttr('onclick');
+        $('#cadastropredial').attr('data-toggle', 'popover');
+        $('#cadastropredial').attr('data-trigger', 'hover');
+        $('#cadastropredial').attr('data-placement', 'bottom');
+        $('#cadastropredial').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#administracao').removeAttr('onclick');
+        $('#administracao').attr('data-toggle', 'popover');
+        $('#administracao').attr('data-trigger', 'hover');
+        $('#administracao').attr('data-placement', 'bottom');
+        $('#administracao').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#checklist').removeAttr('onclick');
+        $('#checklist').attr('data-toggle', 'popover');
+        $('#checklist').attr('data-trigger', 'hover');
+        $('#checklist').attr('data-placement', 'bottom');
+        $('#checklist').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#cadastrousuario').removeAttr('onclick');
+        $('#cadastrousuario').attr('data-toggle', 'popover');
+        $('#cadastrousuario').attr('data-trigger', 'hover');
+        $('#cadastrousuario').attr('data-placement', 'bottom');
+        $('#cadastrousuario').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#excluirusuario').removeAttr('onclick');
+        $('#excluirusuario').attr('data-toggle', 'popover');
+        $('#excluirusuario').attr('data-trigger', 'hover');
+        $('#excluirusuario').attr('data-placement', 'bottom');
+        $('#excluirusuario').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+    }
+}
 
 function Tutorial(id) {
     var idLogin = document.getElementById('idLogin').value;
