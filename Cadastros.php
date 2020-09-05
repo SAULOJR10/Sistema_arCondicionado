@@ -74,8 +74,8 @@ if (isset($_SESSION['numLogin'])) {
                                     <h4 style="margin-bottom: 20px;">Dados usuário:</h4>
                                     <h5 style="margin: 1% 0% 1% 0%;"><b>Tipo de usuário:</b></h5>
                                     <div class="form_group" style="margin-bottom: 10px;">
-                                        <select id="tipo_usuario" onchange="tipoEng()">
-                                            <option value="nd">Selecione</option>
+                                        <select id="tipo_usuarioNovo" onchange="tipoEng()">
+                                            <option value="nd" selected>Selecione</option>
                                             <option value="adm">Administrador</option>
                                             <option value="eng">Engenheiro</option>
                                             <option value="manutencionista">Manutencionista</option>
@@ -126,6 +126,29 @@ if (isset($_SESSION['numLogin'])) {
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="Avisos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" overflow:auto;">
+            <div class="modal-dialog" role="document" style="width: 40%;">
+                <div class="modal-content" style="border-radius: 15px;">
+                    <div class="modal-header header" id="cor">
+                        <h3 class="modal-title" id="tituloModal" style="text-align:center;"></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6">
+                                <div id="MSG"></div>
+                            </div>
+                            <div class="col-sm-3"></div>
+                        </div>
+                        <div class="footer">
+                            <div id="dv_relat"><input data-dismiss="modal" readonly="readonly" id="btao_relat" value="ok" class="fourth " style="width: 40%; float:right;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="bib/js/menu.js"></script>
         <script src="bib/js/Cadastros.js"></script>
 </body>

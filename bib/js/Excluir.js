@@ -36,8 +36,9 @@ function RemoverUsu(idLogin){
             contentype: false,
         },
         success: function (data) {
-            alert(data);
-            location.reload();
+            $('#MSG').empty();
+            $('#MSG').append(data);
+            $('#Avisos').modal('show');
         },
         error: function (msg) {
             alert(msg.responseText);

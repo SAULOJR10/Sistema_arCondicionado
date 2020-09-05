@@ -19,17 +19,13 @@ function SalvarUsuario()
 
     /* Verifica extensao do arquivo */
     if (!in_array(strtolower($imageFileType), array("jpg", "jpeg", "png"))) {
-        $return['erro'] = 'Arquivo não é JPG ou PNG';
-        $uploadOk = 0;
-    }else{
         $resultado = "Erro ao Enviar imagem, tenta outra nas extenções JPG ou PNG";
+        $uploadOk = 0;
     }
     // verifica para carregar arquivo menor que 1 MB
     if ($_FILES["arquivo"]["size"] > (1024 * 1025)) {
-        $return['erro'] .= ' Arquivo é muito grande.' . $_FILES["arquivo"]["size"];
-        $uploadOk = 0;
-    }else{
         $resultado = "Erro ao Enviar imagem, tenta outra nas extenções JPG ou PNG";
+        $uploadOk = 0;
     }
     $location = getNomeArquivo($imageFileType);
     if (move_uploaded_file($_FILES['arquivo']['tmp_name'], '../' . $location)) {

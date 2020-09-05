@@ -62,6 +62,10 @@ function Pesquisar(){
     var idUH = document.getElementById('idUH').value;
     var idEnt = document.getElementById('idEnt').value;
     var num = document.getElementById('num').value;
+    $('#SelectBloco').empty();
+    $('#SelectUH').empty();
+    $('#btao_relat').removeAttr('onclick');
+    document.getElementById('EntidadeGer').value = '';
     window.open("RT.php?num1="+num+"&Ent="+idEnt+"&idUH="+idUH+"");
 }
 

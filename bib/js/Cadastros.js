@@ -3,9 +3,9 @@ $(document).ready(function () {
     Funcionalidades();
 });
 
-function Funcionalidades(){
+function Funcionalidades() {
     var tipo_usu = document.getElementById('tipo_usuario').value;
-    if(tipo_usu == 'manutencionista'){
+    if (tipo_usu == 'manutencionista') {
         $('#cadastropredial').removeAttr('onclick');
         $('#cadastropredial').attr('data-toggle', 'popover');
         $('#cadastropredial').attr('data-trigger', 'hover');
@@ -90,7 +90,7 @@ function SelectEnt(acao) {
 }
 
 function tipoEng() {
-    var tipo_usu = document.getElementById('tipo_usuario').value;
+    var tipo_usu = document.getElementById('tipo_usuarioNovo').value;
     if (tipo_usu == 'eng') {
         $('#nomeUsu').attr('onkeyup', 'AutoComplete()');
     } else {
@@ -160,22 +160,38 @@ function Entidades() {
 }
 
 function SalvarUsuario() {
-    var tipo_usu = document.getElementById('tipo_usuario').value;
+    $('#cor').attr('style', 'background-color:red;');
+    $('#tituloModal').empty();
+    $('#tituloModal').append('Erro !!!');
+    var tipo_usu = document.getElementById('tipo_usuarioNovo').value;
     if (tipo_usu == 'nd') {
-        $('#erro').append('Selecione o tipo de usuario');
+        $('#MSG').empty();
+        $('#MSG').append('Selecione o tipo de usuario !!!');
+        $('#Avisos').modal('show');
         return;
     }
     var nomeUsu = document.getElementById('nomeUsu').value;
     if (nomeUsu == '') {
-        $('#erro').append('Insira um nome ao usuario');
+        $('#MSG').empty();
+        $('#MSG').append('Insira um nome ao usuario !!!');
+        $('#Avisos').modal('show');
         return;
     }
     var teste = document.getElementById('senha').value;
     var confirmSenha = document.getElementById('confirmSenha').value;
-    if (teste == confirmSenha) {
-        var senha = teste
+    if (teste != '') {
+        if (teste == confirmSenha) {
+            var senha = teste
+        } else {
+            $('#MSG').empty();
+            $('#MSG').append('Senhas não conhecidem !!!');
+            $('#Avisos').modal('show');
+            return;
+        }
     } else {
-        $('#erro').append('Senhas não Conhecidem !!!');
+        $('#MSG').empty();
+        $('#MSG').append('Senha não pode ser vazia !!!');
+        $('#Avisos').modal('show');
         return;
     }
     var quantEnt = document.getElementsByName('allEntidades').length;
@@ -185,12 +201,19 @@ function SalvarUsuario() {
             var entidades = entidades + document.getElementById('ch_entidade' + i).value + ',';
         }
     }
-    alert(entidades);
     if (entidades == '') {
-        $('#erro').append('Selecione quais entidade esse usuario participa');
+        $('#MSG').empty();
+        $('#MSG').append('Selecione quais entidade esse usuario participa !!!');
+        $('#Avisos').modal('show');
         return;
     }
     var arquivo = document.getElementById('ftusu').files[0];
+    if (arquivo == undefined || arquivo == '') {
+        $('#MSG').empty();
+        $('#MSG').append('Selecione uma foto para o usuario !!!');
+        $('#Avisos').modal('show');
+        return;
+    }
     var fd = new FormData();
     fd.append('acao', 'salvarUsuario');
     fd.append('arquivo', arquivo);
@@ -201,16 +224,38 @@ function SalvarUsuario() {
     $.ajax({
         url: 'bib/ajax/Cadastros.json.php',
         type: 'post',
-            dataType: "json",
-            data: fd,
-            contentType: false,
-            processData: false,
+        dataType: "json",
+        data: fd,
+        contentType: false,
+        processData: false,
         success: function (data) {
-            $('#Entidades').append(data);
+            $('#MSG').empty();
+            $('#MSG').append('Usuario cadastrado com sucesso !!!');
+            $('#cor').attr('style', 'background-color: green;');
+            $('#tituloModal').empty();
+            $('#tituloModal').append('Sucesso !!!');
+            $('#Avisos').modal('show');
+            document.getElementById('tipo_usuarioNovo').value = 'nd';
+            document.getElementById('nomeUsu').value = '';
+            document.getElementById('senha').value = '';
+            document.getElementById('confirmSenha').value = '';
+            document.getElementById('ftusu').value = null;
+            $('#senha').removeAttr('style');
+            $('#confirmSenha').removeAttr('style');
+            $('#imagemPre').removeAttr('src');
+            $('#imagemPre').attr('src', 'bib/img/i.png');
+            var quant = document.getElementsByName('allEntidades').length -1;
+            for(i = 0; i <= quant; i++){
+                $('#ch_entidade'+i).prop('checked', false);
+            }
         },
         error: function (msg) {
-            alert(msg.responseText);
-            $('#Entidades').append('ERRO' + msg.responseText);
+            $('#MSG').empty();
+            $('#MSG').append(msg.responseText);
+            $('#cor').attr('style', 'background-color: red;');
+            $('#tituloModal').empty();
+            $('#tituloModal').append('Erro !!!');
+            $('#Avisos').modal('show');
         }
     });
 }
