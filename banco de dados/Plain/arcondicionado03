@@ -5,7 +5,7 @@
 -- Dumped from database version 12.1
 -- Dumped by pg_dump version 12.1
 
--- Started on 2020-08-15 11:20:31
+-- Started on 2020-09-05 11:39:51
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -54,7 +54,7 @@ CREATE SEQUENCE public.agendamentos_id_seq
 ALTER TABLE public.agendamentos_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3022 (class 0 OID 0)
+-- TOC entry 3018 (class 0 OID 0)
 -- Dependencies: 234
 -- Name: agendamentos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -95,7 +95,7 @@ CREATE SEQUENCE public.bloco_id_seq
 ALTER TABLE public.bloco_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3023 (class 0 OID 0)
+-- TOC entry 3019 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: bloco_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -143,7 +143,7 @@ CREATE SEQUENCE public.check_list_id_seq
 ALTER TABLE public.check_list_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3024 (class 0 OID 0)
+-- TOC entry 3020 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: check_list_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -194,7 +194,7 @@ CREATE SEQUENCE public.dados_engenheiro_id_seq
 ALTER TABLE public.dados_engenheiro_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3025 (class 0 OID 0)
+-- TOC entry 3021 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: dados_engenheiro_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -241,7 +241,7 @@ CREATE SEQUENCE public.dados_entidade_id_seq
 ALTER TABLE public.dados_entidade_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3026 (class 0 OID 0)
+-- TOC entry 3022 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: dados_entidade_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -280,7 +280,7 @@ CREATE SEQUENCE public.entidade_login_id_seq
 ALTER TABLE public.entidade_login_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3027 (class 0 OID 0)
+-- TOC entry 3023 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: entidade_login_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -327,7 +327,7 @@ CREATE SEQUENCE public.equipamento_id_seq
 ALTER TABLE public.equipamento_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3028 (class 0 OID 0)
+-- TOC entry 3024 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: equipamento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -385,7 +385,7 @@ CREATE SEQUENCE public.item_check_id_seq
 ALTER TABLE public.item_check_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3029 (class 0 OID 0)
+-- TOC entry 3025 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: item_check_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -410,7 +410,7 @@ CREATE SEQUENCE public.item_id_seq
 ALTER TABLE public.item_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3030 (class 0 OID 0)
+-- TOC entry 3026 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -448,7 +448,7 @@ CREATE SEQUENCE public.localizacao_id_seq
 ALTER TABLE public.localizacao_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3031 (class 0 OID 0)
+-- TOC entry 3027 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: localizacao_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -469,8 +469,8 @@ CREATE TABLE public.login (
     data_cadastro date,
     data_alteracao date,
     status boolean,
-    hotel character varying(80),
-    imagem character varying(80)
+    imagem character varying(80),
+    fk_engenheiro integer
 );
 
 
@@ -493,7 +493,7 @@ CREATE SEQUENCE public.login_id_seq
 ALTER TABLE public.login_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3032 (class 0 OID 0)
+-- TOC entry 3028 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: login_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -531,7 +531,7 @@ CREATE SEQUENCE public.marca_id_seq
 ALTER TABLE public.marca_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3033 (class 0 OID 0)
+-- TOC entry 3029 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: marca_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -569,7 +569,7 @@ CREATE SEQUENCE public.modelo_id_seq
 ALTER TABLE public.modelo_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3034 (class 0 OID 0)
+-- TOC entry 3030 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: modelo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -607,7 +607,7 @@ CREATE SEQUENCE public.potencia_id_seq
 ALTER TABLE public.potencia_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3035 (class 0 OID 0)
+-- TOC entry 3031 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: potencia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -656,24 +656,13 @@ CREATE SEQUENCE public.proprietarios_id_seq
 ALTER TABLE public.proprietarios_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3036 (class 0 OID 0)
+-- TOC entry 3032 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: proprietarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.proprietarios_id_seq OWNED BY public.proprietarios.id;
 
-
---
--- TOC entry 236 (class 1259 OID 41218)
--- Name: sislog; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.sislog (
-);
-
-
-ALTER TABLE public.sislog OWNER TO postgres;
 
 --
 -- TOC entry 220 (class 1259 OID 17160)
@@ -705,7 +694,7 @@ CREATE SEQUENCE public.tipo_equipamento_id_seq
 ALTER TABLE public.tipo_equipamento_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3037 (class 0 OID 0)
+-- TOC entry 3033 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: tipo_equipamento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -751,7 +740,7 @@ CREATE SEQUENCE public.uhs_id_seq
 ALTER TABLE public.uhs_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3038 (class 0 OID 0)
+-- TOC entry 3034 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: uhs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -760,7 +749,7 @@ ALTER SEQUENCE public.uhs_id_seq OWNED BY public.uhs.id;
 
 
 --
--- TOC entry 2805 (class 2604 OID 41210)
+-- TOC entry 2801 (class 2604 OID 41210)
 -- Name: agendamentos id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -768,7 +757,7 @@ ALTER TABLE ONLY public.agendamentos ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 2789 (class 2604 OID 17170)
+-- TOC entry 2785 (class 2604 OID 17170)
 -- Name: bloco id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -776,7 +765,7 @@ ALTER TABLE ONLY public.bloco ALTER COLUMN id SET DEFAULT nextval('public.bloco_
 
 
 --
--- TOC entry 2790 (class 2604 OID 17171)
+-- TOC entry 2786 (class 2604 OID 17171)
 -- Name: check_list id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -784,7 +773,7 @@ ALTER TABLE ONLY public.check_list ALTER COLUMN id SET DEFAULT nextval('public.c
 
 
 --
--- TOC entry 2791 (class 2604 OID 17172)
+-- TOC entry 2787 (class 2604 OID 17172)
 -- Name: dados_engenheiro id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -792,7 +781,7 @@ ALTER TABLE ONLY public.dados_engenheiro ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 2792 (class 2604 OID 17173)
+-- TOC entry 2788 (class 2604 OID 17173)
 -- Name: dados_entidade id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -800,7 +789,7 @@ ALTER TABLE ONLY public.dados_entidade ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 2800 (class 2604 OID 17288)
+-- TOC entry 2796 (class 2604 OID 17288)
 -- Name: entidade_login id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -808,7 +797,7 @@ ALTER TABLE ONLY public.entidade_login ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 2793 (class 2604 OID 17174)
+-- TOC entry 2789 (class 2604 OID 17174)
 -- Name: equipamento id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -816,7 +805,7 @@ ALTER TABLE ONLY public.equipamento ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 2794 (class 2604 OID 17175)
+-- TOC entry 2790 (class 2604 OID 17175)
 -- Name: item id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -824,7 +813,7 @@ ALTER TABLE ONLY public.item ALTER COLUMN id SET DEFAULT nextval('public.item_id
 
 
 --
--- TOC entry 2795 (class 2604 OID 17176)
+-- TOC entry 2791 (class 2604 OID 17176)
 -- Name: item_check id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -832,7 +821,7 @@ ALTER TABLE ONLY public.item_check ALTER COLUMN id SET DEFAULT nextval('public.i
 
 
 --
--- TOC entry 2801 (class 2604 OID 33014)
+-- TOC entry 2797 (class 2604 OID 33014)
 -- Name: localizacao id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -840,7 +829,7 @@ ALTER TABLE ONLY public.localizacao ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 2796 (class 2604 OID 17177)
+-- TOC entry 2792 (class 2604 OID 17177)
 -- Name: login id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -848,7 +837,7 @@ ALTER TABLE ONLY public.login ALTER COLUMN id SET DEFAULT nextval('public.login_
 
 
 --
--- TOC entry 2802 (class 2604 OID 33022)
+-- TOC entry 2798 (class 2604 OID 33022)
 -- Name: marca id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -856,7 +845,7 @@ ALTER TABLE ONLY public.marca ALTER COLUMN id SET DEFAULT nextval('public.marca_
 
 
 --
--- TOC entry 2803 (class 2604 OID 33030)
+-- TOC entry 2799 (class 2604 OID 33030)
 -- Name: modelo id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -864,7 +853,7 @@ ALTER TABLE ONLY public.modelo ALTER COLUMN id SET DEFAULT nextval('public.model
 
 
 --
--- TOC entry 2804 (class 2604 OID 33038)
+-- TOC entry 2800 (class 2604 OID 33038)
 -- Name: potencia id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -872,7 +861,7 @@ ALTER TABLE ONLY public.potencia ALTER COLUMN id SET DEFAULT nextval('public.pot
 
 
 --
--- TOC entry 2797 (class 2604 OID 17178)
+-- TOC entry 2793 (class 2604 OID 17178)
 -- Name: proprietarios id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -880,7 +869,7 @@ ALTER TABLE ONLY public.proprietarios ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 2798 (class 2604 OID 17179)
+-- TOC entry 2794 (class 2604 OID 17179)
 -- Name: tipo_equipamento id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -888,7 +877,7 @@ ALTER TABLE ONLY public.tipo_equipamento ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 2799 (class 2604 OID 17180)
+-- TOC entry 2795 (class 2604 OID 17180)
 -- Name: uhs id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -896,18 +885,23 @@ ALTER TABLE ONLY public.uhs ALTER COLUMN id SET DEFAULT nextval('public.uhs_id_s
 
 
 --
--- TOC entry 3015 (class 0 OID 41207)
+-- TOC entry 3012 (class 0 OID 41207)
 -- Dependencies: 235
 -- Data for Name: agendamentos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.agendamentos (id, data, observacao, fk_uh) FROM stdin;
 1	2020-08-18	Trocar todo circuito elétrico	2936
+2	2020-08-05	UH 201, problema no ar condicionado da sala	2936
+3	2020-08-06	Trocar todo circuito elétrico	2936
+4	2020-07-31	H1N1	2936
+5	2020-08-05	çlhhkj	2936
+6	2020-08-13	Servidor ESolution	2936
 \.
 
 
 --
--- TOC entry 2982 (class 0 OID 17112)
+-- TOC entry 2979 (class 0 OID 17112)
 -- Dependencies: 202
 -- Data for Name: bloco; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -929,29 +923,34 @@ COPY public.bloco (id, nome, fk_entidade, quant_andar, quant_subsolo) FROM stdin
 
 
 --
--- TOC entry 2984 (class 0 OID 17117)
+-- TOC entry 2981 (class 0 OID 17117)
 -- Dependencies: 204
 -- Data for Name: check_list; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.check_list (id, data_check, funcionario, fk_uh, fk_andar, fk_bloco, fk_equipamento, fk_engenheiro, data_asssinatura, status, periodo, vencimento) FROM stdin;
-63	2020-08-11	1	2936	0	211	14	1	\N	f	Quinzenal                                                                       	2020-08-26
-64	2020-08-11	1	2936	0	211	15	1	\N	f	Quinzenal                                                                       	2020-08-26
-66	2020-08-13	2	3151	0	220	20	1	\N	f	Quinzenal                                                                       	2020-08-28
-67	2020-08-13	2	3151	0	220	20	1	\N	t	Mensal                                                                          	2020-09-12
-68	2020-08-13	2	3151	0	220	20	1	\N	t	Quinzenal                                                                       	2020-08-28
-69	2020-08-13	2	3151	0	220	20	1	\N	f	Trimestral                                                                      	2020-11-11
-70	2020-08-13	2	3151	0	220	20	1	\N	f	Trimestral                                                                      	2020-11-11
-71	2020-08-13	2	3171	1	220	22	1	\N	t	Quinzenal                                                                       	2020-08-28
-72	2020-08-13	2	3173	1	220	23	1	\N	t	Mensal                                                                          	2020-09-12
-73	2020-08-13	2	3173	1	220	23	1	\N	f	Trimestral                                                                      	2020-11-11
-74	2020-08-13	2	3151	0	220	20	1	\N	f	Anual                                                                           	2021-08-13
-65	2020-08-13	2	3151	0	220	20	1	\N	t	Quinzenal                                                                       	2020-08-28
+96	2020-08-21	1	2936	0	211	14	1	\N	f	Trimestral                                                                      	2020-11-19
+97	2020-08-21	1	2936	0	211	14	1	\N	f	Anual                                                                           	2021-08-21
+94	2020-08-21	1	2936	0	211	14	1	\N	f	Quinzenal                                                                       	2020-09-05
+95	2020-08-21	1	2936	0	211	14	1	\N	t	Mensal                                                                          	2020-09-20
+98	2020-08-28	1	2944	2	211	17	1	\N	f	Mensal                                                                          	2020-09-27
+100	2020-09-01	1	2940	1	211	27	1	\N	t	Mensal                                                                          	2020-10-01
+101	2020-09-01	1	2940	1	211	27	1	\N	f	Trimestral                                                                      	2020-11-30
+102	2020-09-01	1	2940	1	211	27	1	\N	f	Anual                                                                           	2021-09-01
+103	2020-09-01	1	2977	2	212	29	1	\N	t	Quinzenal                                                                       	2020-09-16
+104	2020-09-01	1	2977	2	212	29	1	\N	f	Mensal                                                                          	2020-10-01
+105	2020-09-01	1	2977	2	212	29	1	\N	f	Trimestral                                                                      	2020-11-30
+106	2020-09-01	1	2977	2	212	29	1	\N	f	Anual                                                                           	2021-09-01
+107	2020-09-01	1	2935	0	211	25	1	\N	f	Quinzenal                                                                       	2020-09-16
+99	2020-09-01	1	2940	1	211	27	1	\N	f	Quinzenal                                                                       	2020-09-16
+91	2018-07-19	1	2936	0	211	14	1	\N	f	Quinzenal                                                                       	2018-08-03
+92	2018-07-19	1	2936	0	211	14	1	\N	f	Mensal                                                                          	2018-08-18
+93	2018-07-19	1	2936	0	211	14	1	\N	f	Trimestral                                                                      	2018-10-17
 \.
 
 
 --
--- TOC entry 2986 (class 0 OID 17122)
+-- TOC entry 2983 (class 0 OID 17122)
 -- Dependencies: 206
 -- Data for Name: dados_engenheiro; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -962,25 +961,26 @@ COPY public.dados_engenheiro (id, nome, crea, telefone, email, estado, cidade, e
 42	SAULO COELHO DA COSTA JUNIOR	646546	(56) 46498-7465	ksaulojr10@gmail.com	GO	Caldas Novas	Rua 6 Quadra 46 Lote 5 Setor Aeroporto	C:\\fakepath\\agua com gas.png	2020-08-13	2020-08-13	t	97	546.546.546-54	75690-000
 43	SAULO COELHO DA COSTA JUNIOR	646546	(64) 99365-4654	ksaulojr10@gmail.com	GO	Caldas Novas	Rua 6 Quadra 46 Lote 5 Setor Aeroporto	C:\\fakepath\\agua com gas.png	2020-08-13	2020-08-13	t	99	546.546.546-54	75690-000
 44	SAULO COELHO DA COSTA JUNIOR	646546	(64) 99365-4654	ksaulojr10@gmail.com	GO	Caldas Novas	Rua 6 Quadra 46 Lote 5 Setor Aeroporto	bib/imgProd/prod12042.png	2020-08-14	2020-08-14	t	96	546.546.546-54	75690-000
+45	SAULO COELHO DA COSTA JUNIOR	646546	(64) 99365-4654	ksaulojr10@gmail.com	GO	Caldas Novas	Rua 6 Quadra 46 Lote 5 Setor Aeroporto	bib/imgProd/prod99112.png	2020-08-20	2020-08-20	t	99	546.546.546-54	75690-000
 \.
 
 
 --
--- TOC entry 2988 (class 0 OID 17127)
+-- TOC entry 2985 (class 0 OID 17127)
 -- Dependencies: 208
 -- Data for Name: dados_entidade; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.dados_entidade (id, razao_social, nome_fantasia, cnpj, telefone, estado, cidade, cep, endereco, data_cadatro, data_alteracao) FROM stdin;
 96	Fornecer segurança de rede	Viale Tower	65.464.654/6546-54	(56) 54654-5646	GO	Caldas Novas	75690-000	Rua 3 Quadra 98 lote 3 Setor São José	2020-07-28	2020-07-28
-97	Fornecer segurança de rede	SAULO COELHO DA COSTA JUNIOR	65.464.654/6546-54	(56) 54654-5646	GO	Caldas Novas	75690-000	Rua 3 Quadra 98 lote 3 Setor São José	2020-08-13	2020-08-13
-98	fornecimento de comida	SAULO COELHO DA COSTA JUNIOR	11.111.111/1111-11	(11) 11111-1111	GO	Caldas Novas	75690-000	1111111111111111111111111111111111111	2020-08-13	2020-08-13
-99	Fornecer segurança de rede	SAULO COELHO DA COSTA JUNIOR	65.464.654/6546-54	(56) 54654-5646	GO	Caldas Novas	75690-000	Rua 3 Quadra 98 lote 3 Setor São José	2020-08-13	2020-08-13
+97	Fornecer segurança de rede	Viale Tower	65.464.654/6546-54	(56) 54654-5646	GO	Caldas Novas	75690-000	Rua 3 Quadra 98 lote 3 Setor São José	2020-08-13	2020-08-13
+98	fornecimento de comida	Viale Tower	11.111.111/1111-11	(11) 11111-1111	GO	Caldas Novas	75690-000	1111111111111111111111111111111111111	2020-08-13	2020-08-13
+99	Fornecer segurança de rede	Viale Tower	65.464.654/6546-54	(56) 54654-5646	GO	Caldas Novas	75690-000	Rua 3 Quadra 98 lote 3 Setor São José	2020-08-13	2020-08-13
 \.
 
 
 --
--- TOC entry 3005 (class 0 OID 17285)
+-- TOC entry 3002 (class 0 OID 17285)
 -- Dependencies: 225
 -- Data for Name: entidade_login; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -988,22 +988,29 @@ COPY public.dados_entidade (id, razao_social, nome_fantasia, cnpj, telefone, est
 COPY public.entidade_login (id, fk_login, fk_entidade) FROM stdin;
 93	1	96
 96	2	99
+99	8	96
+100	9	96
+101	10	96
+102	11	96
+103	12	96
+104	13	96
+105	14	96
+106	15	96
+107	16	96
+108	17	96
 \.
 
 
 --
--- TOC entry 2990 (class 0 OID 17132)
+-- TOC entry 2987 (class 0 OID 17132)
 -- Dependencies: 210
 -- Data for Name: equipamento; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.equipamento (id, localizacao, marca, modelo, potencia, tempo_de_uso, uh, tipo_equipamento, data_cadastro, data_alteracao, observacao) FROM stdin;
 7	Sala	Consul	BP900X-S	9.000 BTUs	6 meses	2935	1	2020-07-30	2020-07-30	6 meses parada
-8						2935	1	2020-07-30	2020-07-30	
 9	Sala	Consul	BP900X-S	9.000 BTUs	6 meses	2935	1	2020-07-30	2020-07-30	6 meses parada
-10						2935	1	2020-07-30	2020-07-30	
 11	Quarto	Samsung	CQ1000Y-T	11.000 BTUs	1 ano e 6 meses	2935	1	2020-07-30	2020-07-30	1 ano e 6 meses encostado
-12						2935	1	2020-07-30	2020-07-30	
 13	Quarto	Samsung	CQ1000Y-T	11.000 BTUs	1 ano e 6 meses	2935	1	2020-07-30	2020-07-30	1 ano e 6 meses encostado
 14	Cozinha	Consul	BP900X-S	9.000 BTUs	6 meses	2936	1	2020-07-30	2020-07-30	6  meses parado
 15	Quarto	Samsung	CQ1000Y-T	11.000 BTUs	1 ano e 6 meses	2936	1	2020-07-30	2020-07-30	filtro quebrado
@@ -1016,171 +1023,297 @@ COPY public.equipamento (id, localizacao, marca, modelo, potencia, tempo_de_uso,
 22	Quarto	Philips	BP900X-S	9.000 BTUs	0	3171	1	2020-08-13	2020-08-13	
 23	Lazer	LG	ES1200A-V	12.000 BTUs	0	3173	1	2020-08-13	2020-08-13	
 24	Toalete	Philips	DR1100Z-U	11.000 BTUs	1 ano	3174	1	2020-08-13	2020-08-13	6  meses parado
+25	Cozinha	Samsung	CQ1000Y-T	10.000 BTUs	6 meses	2935	1	2020-09-01	2020-09-01	6  meses parado
+26	Quarto	Philips	BP900X-S	11.000 BTUs	1 ano e 6 meses	2935	1	2020-09-01	2020-09-01	filtro quebrado
+27	Sala de Jantar	Consul	ES1200A-V	9.000 BTUs	6 meses	2940	1	2020-09-01	2020-09-01	6  meses parado
+28	Sala de Jantar	Samsung	CQ1000Y-T	10.000 BTUs	1 ano e 6 meses	2940	1	2020-09-01	2020-09-01	filtro quebrado
+29	Cozinha	Consul	BP900X-S	9.000 BTUs	6 meses	2977	1	2020-09-01	2020-09-01	6  meses parado
+30	Quarto	Philips	CQ1000Y-T	10.000 BTUs	1 ano e 6 meses	2977	1	2020-09-01	2020-09-01	filtro quebrado
 \.
 
 
 --
--- TOC entry 2992 (class 0 OID 17137)
+-- TOC entry 2989 (class 0 OID 17137)
 -- Dependencies: 212
 -- Data for Name: item; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.item (id, titulo, descricao, periodo, tipo_equipamento) FROM stdin;
-1	Filtros de ar	Limpar o elemento filtrante ou substituir em casos de avarias	Mensal	1
-2	Filtros de ar	Verificar danos e corrosão do suporte e existência de frestas	Mensal	1
-3	Filtros de ar	Verificar e corrigir o ajuste da moldura do filtro na estrutura	Mensal	1
-4	bandejas	Verificar a operação de drenagem do condensador da bandeja	Quinzenal	1
-5	bandejas	Lavar e remover biofilme com produto biodegradável	Trimestral	1
-6	bandejas	Verificar danos e corrosão	Mesal	1
-7	bandejas	Verificar vazamentos e corrigir, se necessário	Mensal	1
-8	Evaporador e Condensador	Lavar e remover biofilme com produto biodegradável(serpentina)	Trimestral	1
-9	Evaporador e Condensador	Verificar a existência de danos e corrosão no aletado e moldura	Mensal	1
-10	Evaporador e Condensador	Lavar e remover incrustações(serpentina)	Trimestral	1
-11	Evaporador e Condensador	Verificar a existência de danos e corrosão no aletado e moldura	Mensal	1
-12	Gabinetes	Verificar as obstruções nas entradas e saídas de ar	Mensal	1
-13	Gabinetes	Lavar externamente	Trimestral	1
-14	Gabinetes	Lavar internamente	Trimestral	1
-15	Gabinetes	Verificar e eliminar danos e corrosão	Trimestral	1
-16	Gabinetes	Verificar a vedação dos painéis de fechamento, fixação e danos, substituindo, se necessário	Trimestral	1
-17	Gabinetes	Verificar o estado de conservação do isolamento termoacústico e substituir na existência do bolor	Trimestral	1
-18	Gabinetes	Verificar e eliminar ruídos anormais e/ou vibrações	Mensal	1
-19	Gabinetes	Verificar o mecanismo de renovação de ar	Mensal	1
-20	Gabinetes	Verificar atuação do termostato e chave seletora	Mensal	1
-21	Ventiladores	Verificar e eliminar sujeira, danos e corrosão	Quinzenal	1
-22	Ventiladores	Verificar fixação e amortecedores de vibração	Quinzenal	1
-23	Ventiladores	Verificar ruído e vibrações e lubrificar, se necessário	Mensal	1
-24	Motores eletricos	Verificar e corrigir fixação e amortecedores de vibração	Trimestral	1
-25	Motores eletricos	Limpar e verificar danos e corrosão	Mensal	1
-26	Motores eletricos	Verificar o aterramento	Mensal	1
-27	Compressores	Verificar e eliminar sujeiras, danos e corrosão	Trimestral	1
-28	Compressores	Verificar fixação e vibrações ou ruídos anormais	Mensal	1
-29	Compressores	Verificar o aterramento	Mensal	1
-30	Circuito refrigerante	Verificar a quantidade de gás refrigerante no sistema	Mensal	1
-31	Circuito refrigerante	Verificar e corrigir fixação, danos e corrosão das tubulações	Mensal	1
-32	Circuito refrigerante	Verificar isolamento térmico e substituir, se necessário	Trimestral	1
-33	Circuito refrigerante	Verificar e corrigir vazamento de gás, se necessário	Mensal	1
-34	Medições	Medir diferencial de pressão	Mensal	1
-35	Medições	Tensão, comparar com a nominal	Mensal	1
-36	Medições	Corrente, comparar com a nominal	Mensal	1
-37	Medições	Vazões de ar	Anual	1
-38	Medições	Temperatura de retorno do ar	Mensal	1
-39	Medições	Temperatura de insuflamento	Mensal	1
-40	Medições	Isolamento entre fases e para carcaça do compressor e motor ventilador	Mensal	1
-41	Circuito Elétrico	Fios mal encapados	Mensal	1
-42	Circuito Elétrico	Verificar disjuntores, tomadas, plugs e rabichos	Mensal	1
-43	Circuito Elétrico	Verificar todos os contatos (terminais) elétricos, quanto ao aperto e corrosão	Trimestral	1
-44	Unidade evaporadora	Remover e transportar até oficina para abertura, verificação, limpeza e revisão geral de todo o conjunto	Anual	1
-45	Unidade evaporadora	Tratamento anticorrosivo da base do chassi e demais componentes necessários	Anual	1
-46	Unidade evaporadora	Lubrificação e ajustes	Anual	1
-47	Unidade evaporadora	Testes e medições em bancada	Anual	1
+47	Unidade evaporadora	Lubrificação e ajustes	Anual	1
+46	Unidade evaporadora	Tratamento anticorrosivo da base do chassi e demais componentes necessários	Anual	1
+45	Unidade evaporadora	Remover e transportar até oficina para abertura, verificação, limpeza e revisão geral de todo o conjunto	Anual	1
+44	Medições	Vazões de ar	Anual	1
+43	Unidade evaporadora	Testes e medições em bancada	Anual	1
+42	Gabinetes	Verificar e eliminar danos e corrosão	Trimestral	1
+41	Compressores	Verificar e eliminar sujeiras, danos e corrosão	Trimestral	1
+40	Motores eletricos	Verificar e corrigir fixação e amortecedores de vibração	Trimestral	1
+39	Gabinetes	Verificar o estado de conservação do isolamento termoacústico e substituir na existência do bolor	Trimestral	1
+38	Gabinetes	Verificar a vedação dos painéis de fechamento, fixação e danos, substituindo, se necessário	Trimestral	1
+37	Gabinetes	Lavar internamente	Trimestral	1
+36	Gabinetes	Lavar externamente	Trimestral	1
+35	Evaporador e Condensador	Lavar e remover incrustações(serpentina)	Trimestral	1
+34	Evaporador e Condensador	Lavar e remover biofilme com produto biodegradável(serpentina)	Trimestral	1
+33	bandejas	Lavar e remover biofilme com produto biodegradável	Trimestral	1
+32	Circuito Elétrico	Verificar todos os contatos (terminais) elétricos, quanto ao aperto e corrosão	Trimestral	1
+31	Circuito refrigerante	Verificar isolamento térmico e substituir, se necessário	Trimestral	1
+30	bandejas	Verificar danos e corrosão	Mensal	1
+1	bandejas	Verificar a operação de drenagem do condensador da bandeja	Quinzenal	1
+2	Ventiladores	Verificar e eliminar sujeira, danos e corrosão	Quinzenal	1
+3	Ventiladores	Verificar fixação e amortecedores de vibração	Quinzenal	1
+4	bandejas	Verificar vazamentos e corrigir, se necessário	Mensal	1
+5	Evaporador e Condensador	Verificar a existência de danos e corrosão no aletado e moldura	Mensal	1
+6	Evaporador e Condensador	Verificar a existência de danos e corrosão no aletado e moldura	Mensal	1
+7	Gabinetes	Verificar as obstruções nas entradas e saídas de ar	Mensal	1
+8	Gabinetes	Verificar e eliminar ruídos anormais e/ou vibrações	Mensal	1
+9	Gabinetes	Verificar o mecanismo de renovação de ar	Mensal	1
+10	Gabinetes	Verificar atuação do termostato e chave seletora	Mensal	1
+11	Ventiladores	Verificar ruído e vibrações e lubrificar, se necessário	Mensal	1
+12	Motores eletricos	Limpar e verificar danos e corrosão	Mensal	1
+13	Motores eletricos	Verificar o aterramento	Mensal	1
+14	Compressores	Verificar fixação e vibrações ou ruídos anormais	Mensal	1
+15	Compressores	Verificar o aterramento	Mensal	1
+16	Circuito refrigerante	Verificar a quantidade de gás refrigerante no sistema	Mensal	1
+17	Circuito refrigerante	Verificar e corrigir fixação, danos e corrosão das tubulações	Mensal	1
+18	Circuito refrigerante	Verificar e corrigir vazamento de gás, se necessário	Mensal	1
+19	Medições	Medir diferencial de pressão	Mensal	1
+20	Medições	Tensão, comparar com a nominal	Mensal	1
+21	Medições	Corrente, comparar com a nominal	Mensal	1
+22	Medições	Temperatura de retorno do ar	Mensal	1
+23	Medições	Temperatura de insuflamento	Mensal	1
+24	Medições	Isolamento entre fases e para carcaça do compressor e motor ventilador	Mensal	1
+25	Circuito Elétrico	Fios mal encapados	Mensal	1
+26	Circuito Elétrico	Verificar disjuntores, tomadas, plugs e rabichos	Mensal	1
+27	Filtros de ar	Limpar o elemento filtrante ou substituir em casos de avarias	Mensal	1
+28	Filtros de ar	Verificar danos e corrosão do suporte e existência de frestas	Mensal	1
+29	Filtros de ar	Verificar e corrigir o ajuste da moldura do filtro na estrutura	Mensal	1
 \.
 
 
 --
--- TOC entry 2993 (class 0 OID 17140)
+-- TOC entry 2990 (class 0 OID 17140)
 -- Dependencies: 213
 -- Data for Name: item_check; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.item_check (id, fk_item, fk_check_list, data, observacao, status) FROM stdin;
-645	4	64	2020-08-15	TESTE	t
-648	4	65	2020-08-15	TESTE	t
-642	4	63	2020-08-15	TESTE	t
-689	4	71	2020-08-15	TESTE	t
-646	21	64	2020-08-15	OBS	t
-649	21	65	2020-08-15	OBS	t
-643	21	63	2020-08-15	OBS	t
-690	21	71	2020-08-15	OBS	t
-647	22	64	2020-08-15		t
-651	7	67	2020-08-13		t
-650	22	65	2020-08-15		t
-644	22	63	2020-08-15		t
-691	22	71	2020-08-15		t
-677	5	69	2020-08-15		t
-718	5	73	2020-08-15		t
-692	7	72	2020-08-13		t
-681	43	69	2020-08-15		t
-719	43	73	2020-08-15		t
-678	32	69	2020-08-15	OBS	t
-722	32	73	2020-08-15	OBS	t
-679	10	69	2020-08-15	TESTE	t
-720	10	73	2020-08-15	TESTE	t
-680	8	69	2020-08-15		t
-721	8	73	2020-08-15		t
-730	37	74	2020-08-13		t
-731	44	74	2020-08-13	TESTE	t
-732	45	74	2020-08-13	OBSERVACAO	f
-733	46	74	2020-08-13		f
-734	47	74	2020-08-13		f
-652	42	67	2020-08-15		t
-693	42	72	2020-08-15		t
-653	41	67	2020-08-15		t
-694	41	72	2020-08-15		t
-682	27	70	2020-08-15		f
-723	27	73	2020-08-15		f
-683	16	70	2020-08-15		f
-724	16	73	2020-08-15		f
-684	17	70	2020-08-15		f
-725	17	73	2020-08-15		f
-685	14	70	2020-08-15		f
-726	14	73	2020-08-15		f
-686	13	70	2020-08-15		f
-727	13	73	2020-08-15		f
-687	15	70	2020-08-15		f
-654	30	67	2020-08-15		t
-695	30	72	2020-08-15		t
-655	33	67	2020-08-15		t
-696	33	72	2020-08-15		t
-663	3	67	2020-08-15		t
-704	3	72	2020-08-15		t
-664	18	67	2020-08-15		t
-705	18	72	2020-08-15		t
-665	20	67	2020-08-15		t
-706	20	72	2020-08-15		t
-666	12	67	2020-08-15		t
-707	12	72	2020-08-15		t
-728	15	73	2020-08-15		f
-688	24	70	2020-08-15		f
-729	24	73	2020-08-15		f
-667	19	67	2020-08-15		t
-708	19	72	2020-08-15		t
-668	40	67	2020-08-15		t
-709	40	72	2020-08-15		t
-669	34	67	2020-08-15		t
-710	34	72	2020-08-15		t
-670	35	67	2020-08-15		t
-711	35	72	2020-08-15		t
-671	36	67	2020-08-15		t
-712	36	72	2020-08-15		t
-672	38	67	2020-08-15		t
-713	38	72	2020-08-15		t
-673	39	67	2020-08-15		t
-714	39	72	2020-08-15		t
-674	26	67	2020-08-15		t
-715	26	72	2020-08-15		t
-675	25	67	2020-08-15		t
-716	25	72	2020-08-15		t
-676	23	67	2020-08-15		t
-717	23	72	2020-08-15		t
-656	31	67	2020-08-15		t
-697	31	72	2020-08-15		t
-657	28	67	2020-08-15		t
-698	28	72	2020-08-15		t
-658	29	67	2020-08-15		t
-699	29	72	2020-08-15		t
-659	9	67	2020-08-15		t
-700	9	72	2020-08-15		t
-660	11	67	2020-08-15		t
-701	11	72	2020-08-15		t
-661	1	67	2020-08-15		t
-702	1	72	2020-08-15		t
-662	2	67	2020-08-15		t
-703	2	72	2020-08-15		t
+965	33	93	2018-07-19		t
+966	32	93	2018-07-19		t
+967	31	93	2018-07-19		t
+968	41	93	2018-07-19		t
+969	36	93	2018-07-19		t
+970	38	93	2018-07-19		t
+971	35	93	2018-07-19		f
+972	34	93	2018-07-19		f
+973	39	93	2018-07-19		f
+974	37	93	2018-07-19		f
+975	42	93	2018-07-19		f
+976	40	93	2018-07-19		f
+963	23	92	2020-08-28		t
+992	23	95	2020-08-28		t
+947	24	92	2020-08-28		t
+1007	31	96	2020-08-21		t
+1008	39	96	2020-08-21		t
+1009	38	96	2020-08-21		t
+1010	37	96	2020-08-21		t
+1011	40	96	2020-08-21		t
+1012	33	96	2020-08-21		f
+1013	32	96	2020-08-21		f
+1014	41	96	2020-08-21		f
+1015	35	96	2020-08-21		f
+1016	34	96	2020-08-21		f
+1017	36	96	2020-08-21		f
+1018	42	96	2020-08-21		f
+1019	44	97	2020-08-21		t
+1020	46	97	2020-08-21		t
+1021	47	97	2020-08-21		f
+1022	45	97	2020-08-21		f
+1023	43	97	2020-08-21		f
+937	3	91	2020-09-05		f
+979	3	94	2020-09-05		f
+936	2	91	2020-09-05		f
+977	2	94	2020-09-05		f
+952	30	92	2020-08-28		t
+980	30	95	2020-08-28		t
+938	4	92	2020-08-28		t
+994	4	95	2020-08-28		t
+953	26	92	2020-08-28		t
+981	26	95	2020-08-28		t
+939	25	92	2020-08-28		t
+995	25	95	2020-08-28		t
+954	16	92	2020-08-28		t
+982	16	95	2020-08-28		t
+996	17	95	2020-08-28		t
+955	17	92	2020-08-28		t
+940	18	92	2020-08-28		t
+997	18	95	2020-08-28		t
+941	15	92	2020-08-28		t
+983	15	95	2020-08-28		t
+942	14	92	2020-08-28		t
+984	14	95	2020-08-28		t
+985	6	95	2020-08-28		t
+956	6	92	2020-08-28		t
+943	5	92	2020-08-28		t
+998	5	95	2020-08-28		t
+986	28	95	2020-08-28		t
+957	28	92	2020-08-28		t
+944	29	92	2020-08-28		t
+987	29	95	2020-08-28		t
+945	27	92	2020-08-28		t
+988	27	95	2020-08-28		t
+958	10	92	2020-08-28		t
+989	10	95	2020-08-28		t
+959	7	92	2020-08-28		t
+999	7	95	2020-08-28		t
+960	8	92	2020-08-28		t
+1000	8	95	2020-08-28		t
+946	9	92	2020-08-28		t
+1001	9	95	2020-08-28		t
+961	21	92	2020-08-28		t
+990	21	95	2020-08-28		t
+962	22	92	2020-08-28		t
+991	22	95	2020-08-28		t
+1002	24	95	2020-08-28		t
+948	19	92	2020-08-28		t
+1003	19	95	2020-08-28		t
+949	20	92	2020-08-28		t
+1004	20	95	2020-08-28		t
+964	13	92	2020-08-28		t
+993	13	95	2020-08-28		t
+950	12	92	2020-08-28		t
+1005	12	95	2020-08-28		t
+951	11	92	2020-08-28		t
+1006	11	95	2020-08-28		t
+1024	30	98	2020-08-28		t
+1025	26	98	2020-08-28		t
+1026	25	98	2020-08-28		t
+1027	16	98	2020-08-28		t
+1028	17	98	2020-08-28		t
+1029	18	98	2020-08-28		t
+1030	15	98	2020-08-28		t
+1031	14	98	2020-08-28		t
+1032	6	98	2020-08-28		t
+1033	5	98	2020-08-28		t
+1034	28	98	2020-08-28		t
+1035	29	98	2020-08-28		t
+1036	27	98	2020-08-28		t
+1037	10	98	2020-08-28		t
+1038	7	98	2020-08-28		t
+1039	8	98	2020-08-28		t
+1040	9	98	2020-08-28		t
+1041	21	98	2020-08-28		t
+1042	22	98	2020-08-28		t
+1043	23	98	2020-08-28		t
+1044	24	98	2020-08-28		t
+1045	19	98	2020-08-28		t
+1046	20	98	2020-08-28		t
+1047	13	98	2020-08-28		t
+1048	12	98	2020-08-28		t
+1049	11	98	2020-08-28		t
+1050	4	98	2020-08-28		f
+1054	30	100	2020-09-01		t
+1055	4	100	2020-09-01		t
+1056	26	100	2020-09-01		t
+1057	25	100	2020-09-01		t
+1058	16	100	2020-09-01		t
+1059	17	100	2020-09-01		t
+1060	18	100	2020-09-01		t
+1061	15	100	2020-09-01		t
+1062	14	100	2020-09-01		t
+1063	6	100	2020-09-01		t
+1064	5	100	2020-09-01		t
+1065	28	100	2020-09-01		t
+1066	29	100	2020-09-01		t
+1067	27	100	2020-09-01		t
+1068	10	100	2020-09-01		t
+1069	7	100	2020-09-01		t
+1070	8	100	2020-09-01		t
+1071	9	100	2020-09-01		t
+1072	21	100	2020-09-01		t
+1073	22	100	2020-09-01		t
+1074	23	100	2020-09-01		t
+1075	24	100	2020-09-01		t
+1076	19	100	2020-09-01		t
+1077	20	100	2020-09-01		t
+1078	13	100	2020-09-01		t
+1079	12	100	2020-09-01		t
+1080	11	100	2020-09-01		t
+1081	33	101	2020-09-01		t
+1082	32	101	2020-09-01		t
+1083	35	101	2020-09-01		t
+1084	39	101	2020-09-01		t
+1085	37	101	2020-09-01		t
+1052	2	99	2020-09-05		f
+1053	3	99	2020-09-05		f
+1086	31	101	2020-09-01		f
+1087	41	101	2020-09-01		f
+1088	34	101	2020-09-01		f
+1089	36	101	2020-09-01		f
+1090	38	101	2020-09-01		f
+1091	42	101	2020-09-01		f
+1092	40	101	2020-09-01		f
+1093	44	102	2020-09-01		t
+1094	46	102	2020-09-01		t
+1095	45	102	2020-09-01		t
+1096	47	102	2020-09-01		f
+1097	43	102	2020-09-01		f
+1101	30	104	2020-09-01		t
+1102	26	104	2020-09-01		t
+1103	25	104	2020-09-01		t
+1104	16	104	2020-09-01		t
+1105	15	104	2020-09-01		t
+1106	14	104	2020-09-01		t
+1107	29	104	2020-09-01		t
+1108	27	104	2020-09-01		t
+1109	8	104	2020-09-01		t
+1110	22	104	2020-09-01		t
+1111	23	104	2020-09-01		t
+1112	20	104	2020-09-01		t
+1113	12	104	2020-09-01		t
+1114	4	104	2020-09-01		f
+1115	17	104	2020-09-01		f
+1116	18	104	2020-09-01		f
+1117	6	104	2020-09-01		f
+1118	5	104	2020-09-01		f
+1119	28	104	2020-09-01		f
+1120	10	104	2020-09-01		f
+1121	7	104	2020-09-01		f
+1122	9	104	2020-09-01		f
+1123	21	104	2020-09-01		f
+1124	24	104	2020-09-01		f
+1125	19	104	2020-09-01		f
+1126	13	104	2020-09-01		f
+1127	11	104	2020-09-01		f
+1128	33	105	2020-09-01		t
+1129	32	105	2020-09-01		t
+1130	41	105	2020-09-01		t
+1131	34	105	2020-09-01		t
+1132	39	105	2020-09-01		t
+1133	38	105	2020-09-01		t
+1134	31	105	2020-09-01		f
+1135	35	105	2020-09-01		f
+1136	36	105	2020-09-01		f
+1137	37	105	2020-09-01		f
+1138	42	105	2020-09-01		f
+1139	40	105	2020-09-01		f
+1140	44	106	2020-09-01		f
+1141	47	106	2020-09-01		f
+1142	46	106	2020-09-01		f
+1143	45	106	2020-09-01		f
+1144	43	106	2020-09-01		f
+935	1	91	2020-09-05		t
+978	1	94	2020-09-05		t
+1051	1	99	2020-09-05		t
+1098	1	103	2020-09-05		t
+1145	1	107	2020-09-05		t
+1099	2	103	2020-09-05		f
+1146	2	107	2020-09-05		f
+1100	3	103	2020-09-05		f
+1147	3	107	2020-09-05		f
 \.
 
 
 --
--- TOC entry 3007 (class 0 OID 33011)
+-- TOC entry 3004 (class 0 OID 33011)
 -- Dependencies: 227
 -- Data for Name: localizacao; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1197,20 +1330,30 @@ COPY public.localizacao (id, nome) FROM stdin;
 
 
 --
--- TOC entry 2996 (class 0 OID 17147)
+-- TOC entry 2993 (class 0 OID 17147)
 -- Dependencies: 216
 -- Data for Name: login; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.login (id, usuario, senha, tipo_usuario, data_cadastro, data_alteracao, status, hotel, imagem) FROM stdin;
-3	Gil	123	manutencionista	2020-07-09	2020-07-09	t	Viale	
-2	Nei	123	manutencionista	2020-07-06	2020-07-06	t	Viale Tower	bib/perfil.png
-1	Saulo	123	adm	2020-06-25	2020-06-25	t	Prive	\N
+COPY public.login (id, usuario, senha, tipo_usuario, data_cadastro, data_alteracao, status, imagem, fk_engenheiro) FROM stdin;
+3	Gil	123	manutencionista	2020-07-09	2020-07-09	t		1
+1	Saulo	123	adm	2020-06-25	2020-06-25	t	\N	1
+2	Nei	123	eng	2020-07-06	2020-07-06	t	bib/perfil.png	1
+8	Paulo	Paulo123	adm	2020-09-04	2020-09-04	t	bib/imgUsu/usuario79259.jpg	1
+9	Brian	Brian123	eng	2020-09-04	2020-09-04	t	bib/imgUsu/usuario34465.jpg	1
+10	João	Joao123	manutencionista	2020-09-04	2020-09-04	f	bib/imgUsu/usuario89289.jpg	1
+11	Mateus	Mateus123	eng	2020-09-05	2020-09-05	t	bib/imgUsu/usuario43637.jpg	1
+12	Jonatas	Jonatas123	manutencionista	2020-09-05	2020-09-05	t	bib/imgUsu/usuario47066.jpg	1
+17	s	s	adm	2020-09-05	2020-09-05	f	bib/imgUsu/usuario54109.jpg	1
+14	dsad	dsa	eng	2020-09-05	2020-09-05	f	bib/imgUsu/usuario72513.jpg	1
+13	sdasdsa	dsdsds	adm	2020-09-05	2020-09-05	f	bib/imgUsu/usuario61599.jpg	1
+15	s	s	eng	2020-09-05	2020-09-05	f	bib/imgUsu/usuario73760.jpg	1
+16	s	s	eng	2020-09-05	2020-09-05	f	bib/imgUsu/usuario3873.jfif	1
 \.
 
 
 --
--- TOC entry 3009 (class 0 OID 33019)
+-- TOC entry 3006 (class 0 OID 33019)
 -- Dependencies: 229
 -- Data for Name: marca; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1224,7 +1367,7 @@ COPY public.marca (id, nome) FROM stdin;
 
 
 --
--- TOC entry 3011 (class 0 OID 33027)
+-- TOC entry 3008 (class 0 OID 33027)
 -- Dependencies: 231
 -- Data for Name: modelo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1238,7 +1381,7 @@ COPY public.modelo (id, nome) FROM stdin;
 
 
 --
--- TOC entry 3013 (class 0 OID 33035)
+-- TOC entry 3010 (class 0 OID 33035)
 -- Dependencies: 233
 -- Data for Name: potencia; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1252,7 +1395,7 @@ COPY public.potencia (id, nome) FROM stdin;
 
 
 --
--- TOC entry 2998 (class 0 OID 17152)
+-- TOC entry 2995 (class 0 OID 17152)
 -- Dependencies: 218
 -- Data for Name: proprietarios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1270,21 +1413,14 @@ COPY public.proprietarios (id, nome, documento, email, telefone, estado, cidade,
 21	Gilberto Reali	858.888.888-88	8888888888@gmail.com	(88) 88888-8888	RJ	Rio de Janeiro	88888-888	Rua 3 Quadra 59 Lote 2 Setor São José		2020-08-13	2020-08-13	Fisica
 22	Neimar Neitze	111.111.111-11	111111111@gmail.com	(11) 11111-1111	SP	São Paulo	11111-111	Rua 3 Quadra 59 Lote 2 Setor São José		2020-08-13	2020-08-13	Fisica
 23	Camila Silva Coelho da Costa	222.222.222-22	2222222222@gmail.com	(22) 22222-2222	MG	Araguari	22222-222	Rua 3 Quadra 59 Lote 2 Setor São José		2020-08-13	2020-08-13	Fisica
+24	Saulo Coelho da Costa Junior	703.484.031-86	ksaulojr10@gmail.com	64993007836	GO	Caldas Novas	75680262	Rua 3 Quadra 59 Lote 2 Setor São José		2020-08-25	2020-08-25	Fisica
+25	Saulo 	777.777.777-77	7777777@gmail.com	(77) 77777-7777	GO	Caldas Novas	77777-777	Rua 7 Quadra 7 Lote 7 Setor Sete		2020-09-01	2020-09-01	Fisica
+26	SAULO COELHO DA COSTA JUNIOR - 703.484.031-86									2020-09-01	2020-09-01	Fisica
 \.
 
 
 --
--- TOC entry 3016 (class 0 OID 41218)
--- Dependencies: 236
--- Data for Name: sislog; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.sislog  FROM stdin;
-\.
-
-
---
--- TOC entry 3000 (class 0 OID 17160)
+-- TOC entry 2997 (class 0 OID 17160)
 -- Dependencies: 220
 -- Data for Name: tipo_equipamento; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1295,7 +1431,7 @@ COPY public.tipo_equipamento (id, nome) FROM stdin;
 
 
 --
--- TOC entry 3002 (class 0 OID 17165)
+-- TOC entry 2999 (class 0 OID 17165)
 -- Dependencies: 222
 -- Data for Name: uhs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1312,10 +1448,17 @@ COPY public.uhs (id, nome, andar, fk_bloco, proprietario, tipo_local, status, pr
 3148	Sala 6	6	219	1	Sala	f	B	f	Sem Proprietário
 3153	003	0	220	1	UH	t	A	t	Sem Proprietário
 3154	004	0	220	1	UH	t	A	f	Sem Proprietário
+2935	001	0	211	25	UH	t	A	t	Unica
+2936	002	0	211	24	UH	t	A	f	Unica
 3155	005	0	220	1	UH	t	A	f	Sem Proprietário
 3170	Sala 2	2	221	1	Sala	t		f	Sem Proprietário
+2937	003	0	211	16	UH	t	A	f	Unica
+2938	004	0	211	1	UH	t	A	f	Sem Proprietário
+2940	101	1	211	26	UH	t	A	t	Unica
+2941	102	1	211	1	UH	t	A	f	Sem Proprietário
 3156	006	0	220	1	UH	t	A	f	Sem Proprietário
 3031	Sala 1	1	213	1	Sala	t		f	Sem Proprietário
+2942	103	1	211	1	UH	t	A	f	Sem Proprietário
 3071	001	0	218	1	UH	t	A	f	Sem Proprietário
 3072	002	0	218	1	UH	t	A	f	Sem Proprietário
 3073	003	0	218	1	UH	t	A	f	Sem Proprietário
@@ -1323,9 +1466,6 @@ COPY public.uhs (id, nome, andar, fk_bloco, proprietario, tipo_local, status, pr
 3075	005	0	218	1	UH	t	A	f	Sem Proprietário
 3076	006	0	218	1	UH	t	A	f	Sem Proprietário
 3077	101	1	218	1	UH	t	A	f	Sem Proprietário
-2940	101	1	211	1	UH	t	A	f	Sem Proprietário
-2941	102	1	211	1	UH	t	A	f	Sem Proprietário
-2942	103	1	211	1	UH	t	A	f	Sem Proprietário
 2943	104	1	211	1	UH	t	A	f	Sem Proprietário
 2949	301	3	211	1	UH	t	A	f	Sem Proprietário
 2950	302	3	211	1	UH	t	A	f	Sem Proprietário
@@ -1340,12 +1480,8 @@ COPY public.uhs (id, nome, andar, fk_bloco, proprietario, tipo_local, status, pr
 2959	502	5	211	1	UH	t	A	f	Sem Proprietário
 2960	503	5	211	1	UH	t	A	f	Sem Proprietário
 2961	504	5	211	1	UH	t	A	f	Sem Proprietário
-2936	002	0	211	1	UH	t	A	t	Sem Proprietário
-2938	004	0	211	1	UH	t	A	f	Sem Proprietário
 2945	202	2	211	1	UH	t	A	f	Sem Proprietário
 2939	005	0	211	1	UH	t	A	f	Sem Proprietário
-2937	003	0	211	16	UH	t	A	t	Unica
-2935	001	0	211	15	UH	t	A	t	Unica
 2944	201	2	211	17	UH	t	A	t	Unica
 2946	203	2	211	1	UH	t	A	f	Sem Proprietário
 2962	001	0	212	1	UH	t	B	f	Sem Proprietário
@@ -1476,13 +1612,6 @@ COPY public.uhs (id, nome, andar, fk_bloco, proprietario, tipo_local, status, pr
 2974	105	1	212	1	UH	t	B	f	Sem Proprietário
 2975	106	1	212	1	UH	t	B	f	Sem Proprietário
 2976	107	1	212	1	UH	t	B	f	Sem Proprietário
-2977	201	2	212	1	UH	t	B	f	Sem Proprietário
-2978	202	2	212	1	UH	t	B	f	Sem Proprietário
-2979	203	2	212	1	UH	t	B	f	Sem Proprietário
-2980	204	2	212	1	UH	t	B	f	Sem Proprietário
-2981	205	2	212	1	UH	t	B	f	Sem Proprietário
-2982	206	2	212	1	UH	t	B	f	Sem Proprietário
-2983	207	2	212	1	UH	t	B	f	Sem Proprietário
 2984	208	2	212	1	UH	t	B	f	Sem Proprietário
 2985	301	3	212	1	UH	t	B	f	Sem Proprietário
 2986	302	3	212	1	UH	t	B	f	Sem Proprietário
@@ -1534,6 +1663,13 @@ COPY public.uhs (id, nome, andar, fk_bloco, proprietario, tipo_local, status, pr
 3164	Sala -1	-1	224	1	Sala	t		f	Sem Proprietário
 3165	Sala 0	0	224	1	Sala	t		f	Sem Proprietário
 3166	Sala 1	1	224	1	Sala	t		f	Sem Proprietário
+2977	201	2	212	23	UH	t	B	t	Unica
+2978	202	2	212	1	UH	t	B	f	Sem Proprietário
+2979	203	2	212	1	UH	t	B	f	Sem Proprietário
+2980	204	2	212	1	UH	t	B	f	Sem Proprietário
+2981	205	2	212	1	UH	t	B	f	Sem Proprietário
+2982	206	2	212	1	UH	t	B	f	Sem Proprietário
+2983	207	2	212	1	UH	t	B	f	Sem Proprietário
 3134	404	4	219	1	UH	t	B	f	Sem Proprietário
 3135	405	4	219	1	UH	t	B	f	Sem Proprietário
 3136	406	4	219	1	UH	t	B	f	Sem Proprietário
@@ -1547,16 +1683,16 @@ COPY public.uhs (id, nome, andar, fk_bloco, proprietario, tipo_local, status, pr
 
 
 --
--- TOC entry 3039 (class 0 OID 0)
+-- TOC entry 3035 (class 0 OID 0)
 -- Dependencies: 234
 -- Name: agendamentos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.agendamentos_id_seq', 1, true);
+SELECT pg_catalog.setval('public.agendamentos_id_seq', 34, true);
 
 
 --
--- TOC entry 3040 (class 0 OID 0)
+-- TOC entry 3036 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: bloco_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1565,25 +1701,25 @@ SELECT pg_catalog.setval('public.bloco_id_seq', 224, true);
 
 
 --
--- TOC entry 3041 (class 0 OID 0)
+-- TOC entry 3037 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: check_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.check_list_id_seq', 74, true);
+SELECT pg_catalog.setval('public.check_list_id_seq', 123, true);
 
 
 --
--- TOC entry 3042 (class 0 OID 0)
+-- TOC entry 3038 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: dados_engenheiro_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.dados_engenheiro_id_seq', 44, true);
+SELECT pg_catalog.setval('public.dados_engenheiro_id_seq', 45, true);
 
 
 --
--- TOC entry 3043 (class 0 OID 0)
+-- TOC entry 3039 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: dados_entidade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1592,34 +1728,34 @@ SELECT pg_catalog.setval('public.dados_entidade_id_seq', 99, true);
 
 
 --
--- TOC entry 3044 (class 0 OID 0)
+-- TOC entry 3040 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: entidade_login_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.entidade_login_id_seq', 96, true);
+SELECT pg_catalog.setval('public.entidade_login_id_seq', 108, true);
 
 
 --
--- TOC entry 3045 (class 0 OID 0)
+-- TOC entry 3041 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: equipamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.equipamento_id_seq', 24, true);
+SELECT pg_catalog.setval('public.equipamento_id_seq', 57, true);
 
 
 --
--- TOC entry 3046 (class 0 OID 0)
+-- TOC entry 3042 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: item_check_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.item_check_id_seq', 734, true);
+SELECT pg_catalog.setval('public.item_check_id_seq', 1165, true);
 
 
 --
--- TOC entry 3047 (class 0 OID 0)
+-- TOC entry 3043 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1628,7 +1764,7 @@ SELECT pg_catalog.setval('public.item_id_seq', 47, true);
 
 
 --
--- TOC entry 3048 (class 0 OID 0)
+-- TOC entry 3044 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: localizacao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1637,16 +1773,16 @@ SELECT pg_catalog.setval('public.localizacao_id_seq', 10, true);
 
 
 --
--- TOC entry 3049 (class 0 OID 0)
+-- TOC entry 3045 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: login_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.login_id_seq', 3, true);
+SELECT pg_catalog.setval('public.login_id_seq', 17, true);
 
 
 --
--- TOC entry 3050 (class 0 OID 0)
+-- TOC entry 3046 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: marca_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1655,7 +1791,7 @@ SELECT pg_catalog.setval('public.marca_id_seq', 4, true);
 
 
 --
--- TOC entry 3051 (class 0 OID 0)
+-- TOC entry 3047 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: modelo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1664,7 +1800,7 @@ SELECT pg_catalog.setval('public.modelo_id_seq', 4, true);
 
 
 --
--- TOC entry 3052 (class 0 OID 0)
+-- TOC entry 3048 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: potencia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1673,16 +1809,16 @@ SELECT pg_catalog.setval('public.potencia_id_seq', 4, true);
 
 
 --
--- TOC entry 3053 (class 0 OID 0)
+-- TOC entry 3049 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: proprietarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.proprietarios_id_seq', 23, true);
+SELECT pg_catalog.setval('public.proprietarios_id_seq', 56, true);
 
 
 --
--- TOC entry 3054 (class 0 OID 0)
+-- TOC entry 3050 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: tipo_equipamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1691,7 +1827,7 @@ SELECT pg_catalog.setval('public.tipo_equipamento_id_seq', 1, true);
 
 
 --
--- TOC entry 3055 (class 0 OID 0)
+-- TOC entry 3051 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: uhs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1700,7 +1836,7 @@ SELECT pg_catalog.setval('public.uhs_id_seq', 3176, true);
 
 
 --
--- TOC entry 2839 (class 2606 OID 41212)
+-- TOC entry 2835 (class 2606 OID 41212)
 -- Name: agendamentos agendamentos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1709,7 +1845,7 @@ ALTER TABLE ONLY public.agendamentos
 
 
 --
--- TOC entry 2807 (class 2606 OID 17182)
+-- TOC entry 2803 (class 2606 OID 17182)
 -- Name: bloco bloco_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1718,7 +1854,7 @@ ALTER TABLE ONLY public.bloco
 
 
 --
--- TOC entry 2809 (class 2606 OID 17184)
+-- TOC entry 2805 (class 2606 OID 17184)
 -- Name: check_list check_list_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1727,7 +1863,7 @@ ALTER TABLE ONLY public.check_list
 
 
 --
--- TOC entry 2811 (class 2606 OID 17186)
+-- TOC entry 2807 (class 2606 OID 17186)
 -- Name: dados_engenheiro dados_engenheiro_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1736,7 +1872,7 @@ ALTER TABLE ONLY public.dados_engenheiro
 
 
 --
--- TOC entry 2813 (class 2606 OID 17188)
+-- TOC entry 2809 (class 2606 OID 17188)
 -- Name: dados_entidade dados_entidade_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1745,7 +1881,7 @@ ALTER TABLE ONLY public.dados_entidade
 
 
 --
--- TOC entry 2829 (class 2606 OID 17290)
+-- TOC entry 2825 (class 2606 OID 17290)
 -- Name: entidade_login entidade_login_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1754,7 +1890,7 @@ ALTER TABLE ONLY public.entidade_login
 
 
 --
--- TOC entry 2815 (class 2606 OID 17190)
+-- TOC entry 2811 (class 2606 OID 17190)
 -- Name: equipamento equipamento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1763,7 +1899,7 @@ ALTER TABLE ONLY public.equipamento
 
 
 --
--- TOC entry 2819 (class 2606 OID 17192)
+-- TOC entry 2815 (class 2606 OID 17192)
 -- Name: item_check item_check_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1772,7 +1908,7 @@ ALTER TABLE ONLY public.item_check
 
 
 --
--- TOC entry 2817 (class 2606 OID 17194)
+-- TOC entry 2813 (class 2606 OID 17194)
 -- Name: item item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1781,7 +1917,7 @@ ALTER TABLE ONLY public.item
 
 
 --
--- TOC entry 2831 (class 2606 OID 33016)
+-- TOC entry 2827 (class 2606 OID 33016)
 -- Name: localizacao localizacao_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1790,7 +1926,7 @@ ALTER TABLE ONLY public.localizacao
 
 
 --
--- TOC entry 2821 (class 2606 OID 17196)
+-- TOC entry 2817 (class 2606 OID 17196)
 -- Name: login login_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1799,7 +1935,7 @@ ALTER TABLE ONLY public.login
 
 
 --
--- TOC entry 2833 (class 2606 OID 33024)
+-- TOC entry 2829 (class 2606 OID 33024)
 -- Name: marca marca_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1808,7 +1944,7 @@ ALTER TABLE ONLY public.marca
 
 
 --
--- TOC entry 2835 (class 2606 OID 33032)
+-- TOC entry 2831 (class 2606 OID 33032)
 -- Name: modelo modelo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1817,7 +1953,7 @@ ALTER TABLE ONLY public.modelo
 
 
 --
--- TOC entry 2837 (class 2606 OID 33040)
+-- TOC entry 2833 (class 2606 OID 33040)
 -- Name: potencia potencia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1826,7 +1962,7 @@ ALTER TABLE ONLY public.potencia
 
 
 --
--- TOC entry 2823 (class 2606 OID 17198)
+-- TOC entry 2819 (class 2606 OID 17198)
 -- Name: proprietarios proprietarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1835,7 +1971,7 @@ ALTER TABLE ONLY public.proprietarios
 
 
 --
--- TOC entry 2825 (class 2606 OID 17200)
+-- TOC entry 2821 (class 2606 OID 17200)
 -- Name: tipo_equipamento tipo_equipamento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1844,7 +1980,7 @@ ALTER TABLE ONLY public.tipo_equipamento
 
 
 --
--- TOC entry 2827 (class 2606 OID 17202)
+-- TOC entry 2823 (class 2606 OID 17202)
 -- Name: uhs uhs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1853,7 +1989,7 @@ ALTER TABLE ONLY public.uhs
 
 
 --
--- TOC entry 2855 (class 2606 OID 41213)
+-- TOC entry 2852 (class 2606 OID 41213)
 -- Name: agendamentos ct_agendamentos; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1862,7 +1998,7 @@ ALTER TABLE ONLY public.agendamentos
 
 
 --
--- TOC entry 2841 (class 2606 OID 17203)
+-- TOC entry 2837 (class 2606 OID 17203)
 -- Name: check_list ct_bloco; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1871,7 +2007,7 @@ ALTER TABLE ONLY public.check_list
 
 
 --
--- TOC entry 2851 (class 2606 OID 17208)
+-- TOC entry 2848 (class 2606 OID 17208)
 -- Name: uhs ct_bloco; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1880,7 +2016,7 @@ ALTER TABLE ONLY public.uhs
 
 
 --
--- TOC entry 2849 (class 2606 OID 17213)
+-- TOC entry 2845 (class 2606 OID 17213)
 -- Name: item_check ct_check_list; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1889,7 +2025,7 @@ ALTER TABLE ONLY public.item_check
 
 
 --
--- TOC entry 2842 (class 2606 OID 17218)
+-- TOC entry 2838 (class 2606 OID 17218)
 -- Name: check_list ct_engenheiro; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1898,7 +2034,16 @@ ALTER TABLE ONLY public.check_list
 
 
 --
--- TOC entry 2840 (class 2606 OID 17223)
+-- TOC entry 2847 (class 2606 OID 41221)
+-- Name: login ct_engenheiro; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.login
+    ADD CONSTRAINT ct_engenheiro FOREIGN KEY (fk_engenheiro) REFERENCES public.dados_engenheiro(id) NOT VALID;
+
+
+--
+-- TOC entry 2836 (class 2606 OID 17223)
 -- Name: bloco ct_entidade; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1907,7 +2052,7 @@ ALTER TABLE ONLY public.bloco
 
 
 --
--- TOC entry 2853 (class 2606 OID 17291)
+-- TOC entry 2850 (class 2606 OID 17291)
 -- Name: entidade_login ct_entidade; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1916,7 +2061,7 @@ ALTER TABLE ONLY public.entidade_login
 
 
 --
--- TOC entry 2843 (class 2606 OID 17228)
+-- TOC entry 2839 (class 2606 OID 17228)
 -- Name: check_list ct_equipamento; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1925,7 +2070,7 @@ ALTER TABLE ONLY public.check_list
 
 
 --
--- TOC entry 2844 (class 2606 OID 17233)
+-- TOC entry 2840 (class 2606 OID 17233)
 -- Name: check_list ct_funcionario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1934,7 +2079,7 @@ ALTER TABLE ONLY public.check_list
 
 
 --
--- TOC entry 2850 (class 2606 OID 17238)
+-- TOC entry 2846 (class 2606 OID 17238)
 -- Name: item_check ct_item; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1943,7 +2088,7 @@ ALTER TABLE ONLY public.item_check
 
 
 --
--- TOC entry 2854 (class 2606 OID 17296)
+-- TOC entry 2851 (class 2606 OID 17296)
 -- Name: entidade_login ct_login; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1952,7 +2097,7 @@ ALTER TABLE ONLY public.entidade_login
 
 
 --
--- TOC entry 2852 (class 2606 OID 17243)
+-- TOC entry 2849 (class 2606 OID 17243)
 -- Name: uhs ct_proprietario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1961,7 +2106,7 @@ ALTER TABLE ONLY public.uhs
 
 
 --
--- TOC entry 2846 (class 2606 OID 17248)
+-- TOC entry 2842 (class 2606 OID 17248)
 -- Name: equipamento ct_tipo_equipamento; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1970,7 +2115,7 @@ ALTER TABLE ONLY public.equipamento
 
 
 --
--- TOC entry 2848 (class 2606 OID 41197)
+-- TOC entry 2844 (class 2606 OID 41197)
 -- Name: item ct_tipo_equipamento; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1979,7 +2124,7 @@ ALTER TABLE ONLY public.item
 
 
 --
--- TOC entry 2845 (class 2606 OID 17253)
+-- TOC entry 2841 (class 2606 OID 17253)
 -- Name: check_list ct_uh; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1988,7 +2133,7 @@ ALTER TABLE ONLY public.check_list
 
 
 --
--- TOC entry 2847 (class 2606 OID 17258)
+-- TOC entry 2843 (class 2606 OID 17258)
 -- Name: equipamento ct_uh; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1996,7 +2141,7 @@ ALTER TABLE ONLY public.equipamento
     ADD CONSTRAINT ct_uh FOREIGN KEY (uh) REFERENCES public.uhs(id) NOT VALID;
 
 
--- Completed on 2020-08-15 11:20:31
+-- Completed on 2020-09-05 11:39:51
 
 --
 -- PostgreSQL database dump complete
