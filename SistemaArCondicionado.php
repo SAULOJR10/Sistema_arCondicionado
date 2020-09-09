@@ -4,9 +4,9 @@ include_once "bib/comum/conexao.php";
 session_start();
 $idLogin = $_SESSION['idUsuario'];
 
-if(isset($_GET['Ent'])){
+if (isset($_GET['Ent'])) {
     $Entidade = $_GET['Ent'];
-}else{
+} else {
     $Entidade = 'Selecione';
 }
 
@@ -299,23 +299,19 @@ if (isset($_SESSION['numLogin'])) {
                             </div>
                             <div class="col-sm-4">
                                 <p>Estado</p>
-                                <select style="width: 90%;" id="estadoEnt">
-                                    <option value="nd">(UF)</option>
-                                    <option value="GO">GO</option>
-                                    <option value="MG">MG</option>
-                                    <option value="MT">MT</option>
-                                    <option value="MS">MS</option>
-                                </select>
+                                <div class="form-group">
+                                    <select class="form-control" id="estadoEnt" style=" text-align: center;">
+                                        <option value=""></option>
+                                    </select><label id="obsestado"></label>
+                                </div>
                             </div>
                             <div class="col-sm-4">
                                 <p>Cidade</p>
-                                <select style="width: 90%;" id="cidadeEnt">
-                                    <option value="nd">Nenhuma</option>
-                                    <option value="Caldas Novas">Caldas Novas</option>
-                                    <option value="Morrinhos">Morrinhos</option>
-                                    <option value="Goiania">Goiania</option>
-                                    <option value="Catalão">Catalão</option>
-                                </select>
+                                <div class="form-group">
+                                    <select class="form-control" id="cidadeEnt" style=" text-align: center;">
+                                        <option value=""></option>
+                                    </select><label id="obscidade"></label>
+                                </div>
                             </div>
                             <div class="col-sm-4">
                                 <p>CEP</p>
@@ -377,23 +373,19 @@ if (isset($_SESSION['numLogin'])) {
                             </div>
                             <div class="col-sm-3">
                                 <p>Estado</p>
-                                <select id="estadoEng">
-                                    <option value="nd">(UF)</option>
-                                    <option>GO</option>
-                                    <option>MG</option>
-                                    <option>MT</option>
-                                    <option>MS</option>
-                                </select>
+                                <div class="form-group">
+                                    <select class="form-control" id="estadoEng" style=" text-align: center;">
+                                        <option value=""></option>
+                                    </select><label id="obsestado"></label>
+                                </div>
                             </div>
                             <div class="col-sm-5">
                                 <p>Cidade</p>
-                                <select id="cidadeEng">
-                                    <option value="nd"></option>
-                                    <option>Caldas Novas</option>
-                                    <option>Morrinhos</option>
-                                    <option>Goiania</option>
-                                    <option>Catalão</option>
-                                </select>
+                                <div class="form-group">
+                                    <select class="form-control" id="cidadeEng" style=" text-align: center;">
+                                        <option value=""></option>
+                                    </select><label id="obscidade"></label>
+                                </div>
                             </div>
                             <div class="col-sm-4">
                                 <p>CEP</p>

@@ -40,6 +40,7 @@ if (isset($_SESSION['numLogin'])) {
 <html>
 
 <head>
+<?php include_once 'bib/comum/bibi.php'; ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="SHORTCUT ICON" href="../Sistema_arCondicionado/bib/img/i.png">

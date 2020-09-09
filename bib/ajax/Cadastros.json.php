@@ -9,6 +9,28 @@ switch ($acao) {
     case 'salvarUsuario':
         SalvarUsuario();
         break;
+    case 'AutoCompleta':
+        AutoCompleta();
+        break;
+}
+
+function AutoCompleta()
+{
+    $auto = filter_input(INPUT_POST, 'auto', FILTER_SANITIZE_STRING);
+    $sql = "SELECT nome, crea FROM dados_engenheiro
+            WHERE nome LIKE '$auto%'";
+    $conexao = new ConexaoCard();
+    $result = $conexao->execQuerry($sql);
+    $conexao->fecharConexao();
+
+    $quant = count($result) - 1;
+    $resposta = array();
+    for ($i = 0; $i <= $quant; $i++) {
+        $nome = $result[$i]['nome'];
+        $documento = $result[$i]['crea'];
+        $resposta[] = $nome . " - " . $documento;
+    }
+    echo json_encode($resposta);
 }
 
 function SalvarUsuario()
@@ -41,7 +63,8 @@ function SalvarUsuario()
         if ($quantEng > 1) {
             $nomeEng = $explodeNome[0];
             $documento = $explodeNome[1];
-            $sqlEng = "SELECT * FROM dados_engenheiro WHERE nome = $nomeEng and documento = $documento";
+            $sqlEng = "SELECT * FROM dados_engenheiro WHERE nome = '$nomeEng' and crea = '$documento'";
+            $nomeUsu = explode(' ', $nomeEng)[0];
             $fk_ent = $conexao->execQuerry($sqlEng)[0]['id'];
         } else {
             $fk_ent = 1;
@@ -58,13 +81,14 @@ function SalvarUsuario()
             $conexao->execQuerry($sqlEntLogin);
         }
         $conexao->fecharConexao();
-    }else{
+    } else {
         $resultado = "Selecione uma imagem nas extenções JPG ou PNG";
     }
     echo json_encode($resultado);
 }
 
-function getNomeArquivo($extensao) {
+function getNomeArquivo($extensao)
+{
     $valor = random_int(100, 100000);
     $val = 0;
     while (file_exists("../imgUsu/usuario$valor.$extensao")) {

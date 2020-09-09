@@ -41,7 +41,7 @@ function MontarExcluir()
     for ($i = 0; $i <= $quant; $i++) {
         $idEnt = $result[$i]['fk_entidade'];
         $sql2 = "SELECT * FROM dados_entidade WHERE id = $idEnt";
-        $nome = $conexao->execQuerry($sql2)[$i]['nome_fantasia'];
+        $nome = $conexao->execQuerry($sql2)[0]['nome_fantasia'];
         $sql3 = "SELECT usuario, tipo_usuario, data_cadastro, login.id FROM login
                  INNER JOIN entidade_login ON fk_login = login.id
                  WHERE fk_entidade = $idEnt and status = true";

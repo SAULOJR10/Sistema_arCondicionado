@@ -70,7 +70,7 @@ if (session_id() == '') {
                 </ul>
             </li>
             <!------------------------------------------------------------------------------------------------------------->
-            <li><a id="relatorio" href="Relatorio.php?num1=<?php echo $n1 ?>">
+            <li><a id="relatoriomenu" href="Relatorio.php?num1=<?php echo $n1 ?>">
                     <div class="row" style="width: 100%">
                         <div class="col-xs-2 p-l-0 p-r-0"><i class="far fa-file-alt" style="font-size: 1.8rem; float:left; margin-left:10%; margin-top:1%;"></i></div>
                         <div class="col-xs-10 p-l-0 p-r-0"> <b>Impressão RT</b></div>
@@ -94,20 +94,31 @@ if (session_id() == '') {
                 </a>
             </li>
             <!------------------------------------------------------------------------------------------------------------->
-            <li><a id="cadastrousuario" onclick="ContinuarEntidade(<?php echo $n1 ?>, 'Cadastros.php')">
+            <li class="mainmenu open">
+                <a data-toggle="dropdown" aria-expanded="true">
                     <div class="row" style="width: 100%">
-                        <div class="col-xs-2 p-l-0 p-r-0"><i class="fas fa-user-plus" style="font-size: 1.8rem; float:left; margin-left:10%; margin-top:1%;"></i></div>
-                        <div class="col-xs-10 p-l-0 p-r-0"> <b>Cadastro de usuário</b></div>
+                        <div class="col-xs-2 p-l-0 p-r-0"><i class="fas fa-list-ol" style="font-size: 1.8rem; float:left; margin-left:10%; margin-top:1%;"></i></div>
+                        <div class="col-xs-10 p-l-0 p-r-0"> <b>Usuários</b> <i class="icon-arrow" style="margin-top: -7%;"></i></div>
                     </div>
                 </a>
-            </li>
-            <!------------------------------------------------------------------------------------------------------------->
-            <li><a id="excluirusuario" onclick="ContinuarEntidade(<?php echo $n1 ?>, 'ExcluirUsuario.php')">
-                    <div class="row" style="width: 100%">
-                        <div class="col-xs-2 p-l-0 p-r-0"><i class="fas fa-user-times" style="font-size: 1.8rem; float:left; margin-left:10%; margin-top:1%;"></i></div>
-                        <div class="col-xs-10 p-l-0 p-r-0"> <b>Excluir usuário</b></div>
-                    </div>
-                </a>
+                <ul id="menu_gerenciar" class="mainmenu-menu submenu hide">
+                    <li id="submenu_gerenciar_disp">
+                        <a class="usuariosmenu" onclick="ContinuarEntidade(<?php echo $n1 ?>, 'Cadastros.php')" style="padding-left: 20%">
+                            <div class="col-xs-3" style="padding: 0%;">
+                                <i class="fas fa-user-plus" style="font-size: 1.8rem; float:left; margin-top:1%;"></i>
+                            </div>
+                            <div class="col-xs-9" style="padding: 0%;">Cadastro</div>
+                        </a>
+                    </li>
+                    <li id="submenu_gerenciar_port">
+                        <a class="usuariosmenu" onclick="ContinuarEntidade(<?php echo $n1 ?>, 'ExcluirUsuario.php')" style="padding-left: 20%">
+                        <div class="col-xs-3" style="padding: 0%;">
+                            <i class="fas fa-user-times" style="font-size: 2rem; float:left; margin-top:1%;"></i>
+                        </div>
+                        <div class="col-xs-9" style="padding: 0%;">Exclusão</div>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <!------------------------------------------------------------------------------------------------------------->
             <li><a href="Sair.php">

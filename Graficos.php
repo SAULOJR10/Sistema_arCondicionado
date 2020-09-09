@@ -41,11 +41,11 @@ if (isset($_SESSION['numLogin'])) {
 <html lang="en">
 
 <head>
+    <?php include_once 'bib/comum/bibi.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar</title>
     <link rel="stylesheet" type="text/css" href="bib/css/SistemaArCondicionado.css">
-    <?php include_once 'bib/comum/bibi.php'; ?>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="bib/js/graficos.js"></script>
 
@@ -140,6 +140,7 @@ if (isset($_SESSION['numLogin'])) {
     <!----------------------------------------------------------------------------------------------------------------------------------------------->
     <script src="bib/js/menu.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="bib/js/graficos.js"></script>
 </body>
 
 </html>

@@ -16,9 +16,9 @@ urlEnt = '';
 urlAr = '';
 urlUH = '';
 
-function Funcionalidades(){
+function Funcionalidades() {
     var tipo_usu = document.getElementById('tipo_usuario').value;
-    if(tipo_usu == 'manutencionista'){
+    if (tipo_usu == 'manutencionista') {
         $('#cadastropredial').removeAttr('onclick');
         $('#cadastropredial').attr('data-toggle', 'popover');
         $('#cadastropredial').attr('data-trigger', 'hover');
@@ -29,23 +29,47 @@ function Funcionalidades(){
         $('#administracao').attr('data-trigger', 'hover');
         $('#administracao').attr('data-placement', 'bottom');
         $('#administracao').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
-        $('#relatorio').removeAttr('onclick');
-        $('#relatorio').attr('data-toggle', 'popover');
-        $('#relatorio').attr('data-trigger', 'hover');
-        $('#relatorio').attr('data-placement', 'bottom');
-        $('#relatorio').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
-        $('#cadastrousuario').removeAttr('onclick');
-        $('#cadastrousuario').attr('data-toggle', 'popover');
-        $('#cadastrousuario').attr('data-trigger', 'hover');
-        $('#cadastrousuario').attr('data-placement', 'bottom');
-        $('#cadastrousuario').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
-        $('#excluirusuario').removeAttr('onclick');
-        $('#excluirusuario').attr('data-toggle', 'popover');
-        $('#excluirusuario').attr('data-trigger', 'hover');
-        $('#excluirusuario').attr('data-placement', 'bottom');
-        $('#excluirusuario').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#relatoriomenu').removeAttr('onclick');
+        $('#relatoriomenu').attr('data-toggle', 'popover');
+        $('#relatoriomenu').attr('data-trigger', 'hover');
+        $('#relatoriomenu').attr('data-placement', 'bottom');
+        $('#relatoriomenu').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('usuariosmenu').removeAttr('onclick');
+        $('usuariosmenu').attr('data-toggle', 'popover');
+        $('usuariosmenu').attr('data-trigger', 'hover');
+        $('usuariosmenu').attr('data-placement', 'bottom');
+        $('usuariosmenu').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+    }
+    if (tipo_usu == 'eng') {
+        $('#cadastropredial').removeAttr('onclick');
+        $('#cadastropredial').attr('data-toggle', 'popover');
+        $('#cadastropredial').attr('data-trigger', 'hover');
+        $('#cadastropredial').attr('data-placement', 'bottom');
+        $('#cadastropredial').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#administracao').removeAttr('onclick');
+        $('#administracao').attr('data-toggle', 'popover');
+        $('#administracao').attr('data-trigger', 'hover');
+        $('#administracao').attr('data-placement', 'bottom');
+        $('#administracao').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('.checklist').removeAttr('onclick');
+        $('.checklist').attr('data-toggle', 'popover');
+        $('.checklist').attr('data-trigger', 'hover');
+        $('.checklist').attr('data-placement', 'bottom');
+        $('.checklist').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('usuariosmenu').removeAttr('onclick');
+        $('usuariosmenu').attr('data-toggle', 'popover');
+        $('usuariosmenu').attr('data-trigger', 'hover');
+        $('usuariosmenu').attr('data-placement', 'bottom');
+        $('usuariosmenu').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
     }
 }
+$(function () {
+    $('[data-toggle="popover"]').popover()
+})
+
+$('.popover-dismiss').popover({
+    trigger: 'focus'
+})
 
 function SelectEnt(acao) {
     $('#nome_cliente').empty();
@@ -395,10 +419,10 @@ function MontarTela() {
             $('.UHs').append(data.split(';')[1]);
             $('.Blocos').empty();
             $('.Blocos').append(data.split(';')[2]);
-            google.charts.setOnLoadCallback(drawChart1);
-            google.charts.setOnLoadCallback(drawChart2);
-            google.charts.setOnLoadCallback(drawChart3);
-            google.charts.setOnLoadCallback(drawChart4);
+            drawChart1();
+            drawChart2();
+            drawChart3();
+            drawChart4();
         },
         error: function (msg) {
             alert(msg.responseText);

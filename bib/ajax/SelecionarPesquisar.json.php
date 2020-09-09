@@ -218,21 +218,26 @@ function PesquisarAr()
     $conexao = new ConexaoCard();
     $result = $conexao->execQuerry($sql);
     $conexao->fecharConexao();
-    $quant1 = count($result) -1;
+    $quant1 = count($result) - 1;
     $anterior = '';
     $data = [array("Titulo", "Quantidade")];
     $quant2 = 0;
     for ($i = 0; $i <= $quant1; $i++) {
         $resultado = $result[$i]["$pesquisa"];
         if ($resultado != $anterior && $anterior != '' || $i == $quant1) {
-            if($i == $quant1){
-                $quant2++;
-                if($quant2 == 1){
+            if ($i == $quant1) {
+                if ($quant2 == 1) {
                     $quant2 = 1;
+                }else{
+                    $quant2++;
                 }
+                $data[] = array("$anterior", $quant2);
+                $data[] = array("$resultado", 1);
+                $quant2 = 1;
+            } else {
+                $data[] = array("$anterior", $quant2);
+                $quant2 = 1;
             }
-            $data[] = array("$anterior", $quant2);
-            $quant2 = 1;
         } else {
             $quant2 = $quant2 + 1;
         }

@@ -200,25 +200,17 @@ if (isset($_SESSION['numLogin'])) {
                             <div class="col-sm-4">
                                 <p>Estado</p>
                                 <div class="form-group">
-                                    <select class="form-control" id="EstadoProp" style="color: #444444; width:98%">
-                                        <option value="" id="selecioneEst">Selecione</option>
-                                        <option value="GO">GO</option>
-                                        <option value="MG">MG</option>
-                                        <option value="RJ">RJ</option>
-                                        <option value="SP">SP</option>
-                                    </select>
+                                    <select class="form-control" id="EstadoProp" style=" text-align: center;">
+                                        <option value=""></option>
+                                    </select><label id="obsestado"></label>
                                 </div>
                             </div>
                             <div class="col-sm-5">
                                 <p>Cidade</p>
                                 <div class="form-group">
-                                    <select class="form-control" id="CidadeProp" style="color: #444444; width:98%">
-                                        <option value="" id="selecioneCity">Selecione</option>
-                                        <option value="Caldas Novas">Caldas Novas</option>
-                                        <option value="Araguari">Araguari</option>
-                                        <option value="Rio de Janeiro">Rio de Janeiro</option>
-                                        <option value="São Paulo">São Paulo</option>
-                                    </select>
+                                    <select class="form-control" id="CidadeProp" style=" text-align: center;">
+                                        <option value=""></option>
+                                    </select><label id="obscidade"></label>
                                 </div>
                             </div>
                             <div class="col-sm-12">

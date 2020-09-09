@@ -219,6 +219,9 @@ function MontarTorresQuinzenal()
         $anterior = $mes;
     }
 
+    if($dados == '' || $dados == null){
+        $dados[] = array("", 0, 0, $quantTotal);
+    }
     echo json_encode($dados);
 }
 
@@ -306,6 +309,10 @@ function MontarTorresMensal()
             }
         }
         $anterior = $mes;
+    }
+
+    if($dados == '' || $dados == null){
+        $dados[] = array("", 0, 0, $quantTotal);
     }
 
     echo json_encode($dados);
@@ -398,6 +405,10 @@ function MontarTorresTrimestral()
         $anterior = $mes;
     }
 
+    if($dados == '' || $dados == null){
+        $dados[] = array("", 0, 0, $quantTotal);
+    }
+
     echo json_encode($dados);
 }
 
@@ -448,6 +459,10 @@ function MontarTorresAnual()
             }
         }
         $anterior = $ano;
+    }
+
+    if($dados == '' || $dados == null){
+        $dados[] = array("", 0, 0, $quantTotal);
     }
 
     echo json_encode($dados);

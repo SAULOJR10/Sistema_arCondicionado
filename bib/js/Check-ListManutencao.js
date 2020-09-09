@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    Funcionalidades();
     if (document.getElementById('idAr') != undefined) {
         $('#CheckList').modal('hide');
         MontarTela();
@@ -14,6 +15,61 @@ url = window.location.href;
 urlEnt = '';
 urlAr = '';
 urlUH = '';
+
+function Funcionalidades() {
+    var tipo_usu = document.getElementById('tipo_usuario').value;
+    if (tipo_usu == 'manutencionista') {
+        $('#cadastropredial').removeAttr('onclick');
+        $('#cadastropredial').attr('data-toggle', 'popover');
+        $('#cadastropredial').attr('data-trigger', 'hover');
+        $('#cadastropredial').attr('data-placement', 'bottom');
+        $('#cadastropredial').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#administracao').removeAttr('onclick');
+        $('#administracao').attr('data-toggle', 'popover');
+        $('#administracao').attr('data-trigger', 'hover');
+        $('#administracao').attr('data-placement', 'bottom');
+        $('#administracao').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#relatoriomenu').removeAttr('onclick');
+        $('#relatoriomenu').attr('data-toggle', 'popover');
+        $('#relatoriomenu').attr('data-trigger', 'hover');
+        $('#relatoriomenu').attr('data-placement', 'bottom');
+        $('#relatoriomenu').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('usuariosmenu').removeAttr('onclick');
+        $('usuariosmenu').attr('data-toggle', 'popover');
+        $('usuariosmenu').attr('data-trigger', 'hover');
+        $('usuariosmenu').attr('data-placement', 'bottom');
+        $('usuariosmenu').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+    }
+    if (tipo_usu == 'eng') {
+        $('#cadastropredial').removeAttr('onclick');
+        $('#cadastropredial').attr('data-toggle', 'popover');
+        $('#cadastropredial').attr('data-trigger', 'hover');
+        $('#cadastropredial').attr('data-placement', 'bottom');
+        $('#cadastropredial').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('#administracao').removeAttr('onclick');
+        $('#administracao').attr('data-toggle', 'popover');
+        $('#administracao').attr('data-trigger', 'hover');
+        $('#administracao').attr('data-placement', 'bottom');
+        $('#administracao').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('.checklist').removeAttr('onclick');
+        $('.checklist').attr('data-toggle', 'popover');
+        $('.checklist').attr('data-trigger', 'hover');
+        $('.checklist').attr('data-placement', 'bottom');
+        $('.checklist').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+        $('usuariosmenu').removeAttr('onclick');
+        $('usuariosmenu').attr('data-toggle', 'popover');
+        $('usuariosmenu').attr('data-trigger', 'hover');
+        $('usuariosmenu').attr('data-placement', 'bottom');
+        $('usuariosmenu').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
+    }
+}
+$(function () {
+    $('[data-toggle="popover"]').popover()
+})
+
+$('.popover-dismiss').popover({
+    trigger: 'focus'
+})
 
 function SelectEnt(acao) {
     $('#nome_cliente').empty();

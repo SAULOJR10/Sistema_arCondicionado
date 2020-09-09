@@ -41,10 +41,10 @@ if (isset($_SESSION['numLogin'])) {
 <html lang="en">
 
 <head>
+    <?php include_once 'bib/comum/bibi.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar</title>
-    <?php include_once 'bib/comum/bibi.php'; ?>
     <link rel="stylesheet" type="text/css" href="bib/css/SistemaArCondicionado.css">
     <link rel="stylesheet" type="text/css" href="bib/css/tabelas.css">
 </head>
@@ -77,26 +77,26 @@ if (isset($_SESSION['numLogin'])) {
     </div>
 
     <div class="modal fade" id="Avisos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style=" overflow:auto;">
-            <div class="modal-dialog" role="document" style="width: 40%;">
-                <div class="modal-content" style="border-radius: 15px;">
-                    <div class="modal-header header" id="cor" style="background-color: green;">
-                        <h3 class="modal-title" id="tituloModal" style="text-align:center;">Sucesso !!!</h3>
+        <div class="modal-dialog" role="document" style="width: 40%;">
+            <div class="modal-content" style="border-radius: 15px;">
+                <div class="modal-header header" id="cor" style="background-color: green;">
+                    <h3 class="modal-title" id="tituloModal" style="text-align:center;">Sucesso !!!</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <div id="MSG"></div>
+                        </div>
+                        <div class="col-sm-3"></div>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-6">
-                                <div id="MSG"></div>
-                            </div>
-                            <div class="col-sm-3"></div>
-                        </div>
-                        <div class="footer">
-                            <div id="dv_relat"><input data-dismiss="modal" onclick="window.location.reload()" readonly="readonly" id="btao_relat" value="ok" class="fourth " style="width: 40%; float:right;"></div>
-                        </div>
+                    <div class="footer">
+                        <div id="dv_relat"><input data-dismiss="modal" onclick="window.location.reload()" readonly="readonly" id="btao_relat" value="ok" class="fourth " style="width: 40%; float:right;"></div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
     <script src="bib/js/menu.js"></script>
     <script src="bib/js/Excluir.js"></script>

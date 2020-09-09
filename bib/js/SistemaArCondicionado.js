@@ -1,4 +1,56 @@
 $(document).ready(function () {
+
+    $.getJSON('bib/js/estados_cidades.json', function (data) {
+        var items = [];
+        var options = '<option value="nd"> Estado</option>';
+        $.each(data, function (key, val) {
+            options += '<option value="' + val.nome + '">' + val.nome + '</option>';
+        });
+        $("#estadoEng").html(options);
+        $("#estadoEng").change(function () {
+            var options_cidades = '<option value="nd"> Cidade</option>';
+            var str = "";
+            $("#estadoEng option:selected").each(function () {
+                str += $(this).text();
+            });
+
+            $.each(data, function (key, val) {
+                if (val.nome == str) {
+                    $.each(val.cidades, function (key_city, val_city) {
+                        options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
+                    });
+                }
+            });
+            $("#cidadeEng").html(options_cidades);
+
+        }).change();
+    });
+    $.getJSON('bib/js/estados_cidades.json', function (data) {
+        var items = [];
+        var options = '<option value="nd"> Estado</option>';
+        $.each(data, function (key, val) {
+            options += '<option value="' + val.nome + '">' + val.nome + '</option>';
+        });
+        $("#estadoEnt").html(options);
+        $("#estadoEnt").change(function () {
+            var options_cidades = '<option value="nd"> Cidade</option>';
+            var str = "";
+            $("#estadoEnt option:selected").each(function () {
+                str += $(this).text();
+            });
+
+            $.each(data, function (key, val) {
+                if (val.nome == str) {
+                    $.each(val.cidades, function (key_city, val_city) {
+                        options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
+                    });
+                }
+            });
+            $("#cidadeEnt").html(options_cidades);
+
+        }).change();
+    });
+
     Funcionalidades();
     $(".cnpj").mask("99.999.999/9999-99");
     $(".telefone").mask("(99) 99999-9999");
@@ -36,9 +88,9 @@ $(document).ready(function () {
     });
 });
 
-function Funcionalidades(){
+function Funcionalidades() {
     var tipo_usu = document.getElementById('tipo_usuario').value;
-    if(tipo_usu == 'manutencionista'){
+    if (tipo_usu == 'manutencionista') {
         $('#cadastropredial').removeAttr('onclick');
         $('#cadastropredial').attr('data-toggle', 'popover');
         $('#cadastropredial').attr('data-trigger', 'hover');
@@ -65,7 +117,7 @@ function Funcionalidades(){
         $('#excluirusuario').attr('data-placement', 'bottom');
         $('#excluirusuario').attr('title', 'Você não tem acesso a essa funcionalidade !!!');
     }
-    if(tipo_usu == 'eng'){
+    if (tipo_usu == 'eng') {
         $('#cadastropredial').removeAttr('onclick');
         $('#cadastropredial').attr('data-toggle', 'popover');
         $('#cadastropredial').attr('data-trigger', 'hover');
@@ -140,6 +192,7 @@ function Tutorial(id) {
         }
     });
 }
+
 
 function Title() {
     var idEnt = document.getElementById('idEnt').value;
@@ -466,18 +519,18 @@ function CadastrarEngenheiro() {
     var fd = new FormData();
     fd.append('campArquivo', arquivo);
     fd.append('acao', "cadEng");
-    fd.append('idUsuario' , document.getElementById('idLogin').value);
-    fd.append('idEnt' , document.getElementById('idEnt').value);
-    fd.append('nomeEng' , document.getElementById('nomeEng').value);
-    fd.append('CREA' , document.getElementById('CREA').value);
-    fd.append('CPF' , document.getElementById('cpfEng').value);
-    fd.append('telefoneEng' , document.getElementById('telefoneEng').value);
-    fd.append('emailEng' , document.getElementById('emailEng').value);
-    fd.append('estadoEng' , document.getElementById('estadoEng').value);
-    fd.append('cidadeEng' , document.getElementById('cidadeEng').value);
-    fd.append('cepEng' , document.getElementById('cepEng').value);
-    fd.append('enderecoEng' , document.getElementById('enderecoEng').value);
-    fd.append('assinatura' , document.getElementById('assinatura').value);
+    fd.append('idUsuario', document.getElementById('idLogin').value);
+    fd.append('idEnt', document.getElementById('idEnt').value);
+    fd.append('nomeEng', document.getElementById('nomeEng').value);
+    fd.append('CREA', document.getElementById('CREA').value);
+    fd.append('CPF', document.getElementById('cpfEng').value);
+    fd.append('telefoneEng', document.getElementById('telefoneEng').value);
+    fd.append('emailEng', document.getElementById('emailEng').value);
+    fd.append('estadoEng', document.getElementById('estadoEng').value);
+    fd.append('cidadeEng', document.getElementById('cidadeEng').value);
+    fd.append('cepEng', document.getElementById('cepEng').value);
+    fd.append('enderecoEng', document.getElementById('enderecoEng').value);
+    fd.append('assinatura', document.getElementById('assinatura').value);
     var idUsuario = document.getElementById('idLogin').value;
     var idEnt = document.getElementById('idEnt').value;
     var nomeEng = document.getElementById('nomeEng').value;
@@ -494,7 +547,7 @@ function CadastrarEngenheiro() {
         mostrarErros('Campo obrigatorio, por  favor preencha');
         if (arquivo == null) {
             $('#assinatura').attr('style', 'border: solid red 1px;border-radius: 5px; margin-bottom: 5px; width: 100%;');
-        }else{
+        } else {
             $('#assinatura').attr('style', 'border: solid green 1px;border-radius: 5px; margin-bottom: 5px; width: 100%;');
         }
         if (nomeEng == '') {
@@ -547,10 +600,10 @@ function CadastrarEngenheiro() {
     $.ajax({
         url: 'bib/ajax/Cadastrar.json.php',
         type: 'post',
-            dataType: "json",
-            data: fd,
-            contentType: false,
-            processData: false,
+        dataType: "json",
+        data: fd,
+        contentType: false,
+        processData: false,
         success: function (data) {
             $('#CadEng').modal('hide');
             Tutorial('Parte3');

@@ -5,7 +5,7 @@
 -- Dumped from database version 12.1
 -- Dumped by pg_dump version 12.1
 
--- Started on 2020-09-05 11:39:51
+-- Started on 2020-09-09 10:51:31
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -54,7 +54,7 @@ CREATE SEQUENCE public.agendamentos_id_seq
 ALTER TABLE public.agendamentos_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3018 (class 0 OID 0)
+-- TOC entry 3019 (class 0 OID 0)
 -- Dependencies: 234
 -- Name: agendamentos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -95,7 +95,7 @@ CREATE SEQUENCE public.bloco_id_seq
 ALTER TABLE public.bloco_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3019 (class 0 OID 0)
+-- TOC entry 3020 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: bloco_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -143,7 +143,7 @@ CREATE SEQUENCE public.check_list_id_seq
 ALTER TABLE public.check_list_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3020 (class 0 OID 0)
+-- TOC entry 3021 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: check_list_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -162,7 +162,7 @@ CREATE TABLE public.dados_engenheiro (
     crea character varying(30),
     telefone character varying(15),
     email character varying(80),
-    estado character varying(2),
+    estado character varying(80),
     cidade character varying(80),
     endereco character varying(80),
     assinatura character varying(80),
@@ -194,7 +194,7 @@ CREATE SEQUENCE public.dados_engenheiro_id_seq
 ALTER TABLE public.dados_engenheiro_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3021 (class 0 OID 0)
+-- TOC entry 3022 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: dados_engenheiro_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -241,7 +241,7 @@ CREATE SEQUENCE public.dados_entidade_id_seq
 ALTER TABLE public.dados_entidade_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3022 (class 0 OID 0)
+-- TOC entry 3023 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: dados_entidade_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -280,7 +280,7 @@ CREATE SEQUENCE public.entidade_login_id_seq
 ALTER TABLE public.entidade_login_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3023 (class 0 OID 0)
+-- TOC entry 3024 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: entidade_login_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -327,7 +327,7 @@ CREATE SEQUENCE public.equipamento_id_seq
 ALTER TABLE public.equipamento_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3024 (class 0 OID 0)
+-- TOC entry 3025 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: equipamento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -385,7 +385,7 @@ CREATE SEQUENCE public.item_check_id_seq
 ALTER TABLE public.item_check_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3025 (class 0 OID 0)
+-- TOC entry 3026 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: item_check_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -410,7 +410,7 @@ CREATE SEQUENCE public.item_id_seq
 ALTER TABLE public.item_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3026 (class 0 OID 0)
+-- TOC entry 3027 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -448,7 +448,7 @@ CREATE SEQUENCE public.localizacao_id_seq
 ALTER TABLE public.localizacao_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3027 (class 0 OID 0)
+-- TOC entry 3028 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: localizacao_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -493,7 +493,7 @@ CREATE SEQUENCE public.login_id_seq
 ALTER TABLE public.login_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3028 (class 0 OID 0)
+-- TOC entry 3029 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: login_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -531,7 +531,7 @@ CREATE SEQUENCE public.marca_id_seq
 ALTER TABLE public.marca_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3029 (class 0 OID 0)
+-- TOC entry 3030 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: marca_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -569,7 +569,7 @@ CREATE SEQUENCE public.modelo_id_seq
 ALTER TABLE public.modelo_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3030 (class 0 OID 0)
+-- TOC entry 3031 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: modelo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -607,7 +607,7 @@ CREATE SEQUENCE public.potencia_id_seq
 ALTER TABLE public.potencia_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3031 (class 0 OID 0)
+-- TOC entry 3032 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: potencia_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -656,7 +656,7 @@ CREATE SEQUENCE public.proprietarios_id_seq
 ALTER TABLE public.proprietarios_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3032 (class 0 OID 0)
+-- TOC entry 3033 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: proprietarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -694,7 +694,7 @@ CREATE SEQUENCE public.tipo_equipamento_id_seq
 ALTER TABLE public.tipo_equipamento_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3033 (class 0 OID 0)
+-- TOC entry 3034 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: tipo_equipamento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -740,7 +740,7 @@ CREATE SEQUENCE public.uhs_id_seq
 ALTER TABLE public.uhs_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3034 (class 0 OID 0)
+-- TOC entry 3035 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: uhs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -749,7 +749,7 @@ ALTER SEQUENCE public.uhs_id_seq OWNED BY public.uhs.id;
 
 
 --
--- TOC entry 2801 (class 2604 OID 41210)
+-- TOC entry 2802 (class 2604 OID 41210)
 -- Name: agendamentos id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -757,7 +757,7 @@ ALTER TABLE ONLY public.agendamentos ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 2785 (class 2604 OID 17170)
+-- TOC entry 2786 (class 2604 OID 17170)
 -- Name: bloco id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -765,7 +765,7 @@ ALTER TABLE ONLY public.bloco ALTER COLUMN id SET DEFAULT nextval('public.bloco_
 
 
 --
--- TOC entry 2786 (class 2604 OID 17171)
+-- TOC entry 2787 (class 2604 OID 17171)
 -- Name: check_list id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -773,7 +773,7 @@ ALTER TABLE ONLY public.check_list ALTER COLUMN id SET DEFAULT nextval('public.c
 
 
 --
--- TOC entry 2787 (class 2604 OID 17172)
+-- TOC entry 2788 (class 2604 OID 17172)
 -- Name: dados_engenheiro id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -781,7 +781,7 @@ ALTER TABLE ONLY public.dados_engenheiro ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 2788 (class 2604 OID 17173)
+-- TOC entry 2789 (class 2604 OID 17173)
 -- Name: dados_entidade id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -789,7 +789,7 @@ ALTER TABLE ONLY public.dados_entidade ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 2796 (class 2604 OID 17288)
+-- TOC entry 2797 (class 2604 OID 17288)
 -- Name: entidade_login id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -797,7 +797,7 @@ ALTER TABLE ONLY public.entidade_login ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 2789 (class 2604 OID 17174)
+-- TOC entry 2790 (class 2604 OID 17174)
 -- Name: equipamento id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -805,7 +805,7 @@ ALTER TABLE ONLY public.equipamento ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 2790 (class 2604 OID 17175)
+-- TOC entry 2791 (class 2604 OID 17175)
 -- Name: item id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -813,7 +813,7 @@ ALTER TABLE ONLY public.item ALTER COLUMN id SET DEFAULT nextval('public.item_id
 
 
 --
--- TOC entry 2791 (class 2604 OID 17176)
+-- TOC entry 2792 (class 2604 OID 17176)
 -- Name: item_check id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -821,7 +821,7 @@ ALTER TABLE ONLY public.item_check ALTER COLUMN id SET DEFAULT nextval('public.i
 
 
 --
--- TOC entry 2797 (class 2604 OID 33014)
+-- TOC entry 2798 (class 2604 OID 33014)
 -- Name: localizacao id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -829,7 +829,7 @@ ALTER TABLE ONLY public.localizacao ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 2792 (class 2604 OID 17177)
+-- TOC entry 2793 (class 2604 OID 17177)
 -- Name: login id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -837,7 +837,7 @@ ALTER TABLE ONLY public.login ALTER COLUMN id SET DEFAULT nextval('public.login_
 
 
 --
--- TOC entry 2798 (class 2604 OID 33022)
+-- TOC entry 2799 (class 2604 OID 33022)
 -- Name: marca id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -845,7 +845,7 @@ ALTER TABLE ONLY public.marca ALTER COLUMN id SET DEFAULT nextval('public.marca_
 
 
 --
--- TOC entry 2799 (class 2604 OID 33030)
+-- TOC entry 2800 (class 2604 OID 33030)
 -- Name: modelo id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -853,7 +853,7 @@ ALTER TABLE ONLY public.modelo ALTER COLUMN id SET DEFAULT nextval('public.model
 
 
 --
--- TOC entry 2800 (class 2604 OID 33038)
+-- TOC entry 2801 (class 2604 OID 33038)
 -- Name: potencia id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -861,7 +861,7 @@ ALTER TABLE ONLY public.potencia ALTER COLUMN id SET DEFAULT nextval('public.pot
 
 
 --
--- TOC entry 2793 (class 2604 OID 17178)
+-- TOC entry 2794 (class 2604 OID 17178)
 -- Name: proprietarios id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -869,7 +869,7 @@ ALTER TABLE ONLY public.proprietarios ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 2794 (class 2604 OID 17179)
+-- TOC entry 2795 (class 2604 OID 17179)
 -- Name: tipo_equipamento id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -877,7 +877,7 @@ ALTER TABLE ONLY public.tipo_equipamento ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 2795 (class 2604 OID 17180)
+-- TOC entry 2796 (class 2604 OID 17180)
 -- Name: uhs id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -885,155 +885,149 @@ ALTER TABLE ONLY public.uhs ALTER COLUMN id SET DEFAULT nextval('public.uhs_id_s
 
 
 --
--- TOC entry 3012 (class 0 OID 41207)
+-- TOC entry 3013 (class 0 OID 41207)
 -- Dependencies: 235
 -- Data for Name: agendamentos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.agendamentos (id, data, observacao, fk_uh) FROM stdin;
-1	2020-08-18	Trocar todo circuito elétrico	2936
-2	2020-08-05	UH 201, problema no ar condicionado da sala	2936
-3	2020-08-06	Trocar todo circuito elétrico	2936
-4	2020-07-31	H1N1	2936
-5	2020-08-05	çlhhkj	2936
-6	2020-08-13	Servidor ESolution	2936
 \.
 
 
 --
--- TOC entry 2979 (class 0 OID 17112)
+-- TOC entry 2980 (class 0 OID 17112)
 -- Dependencies: 202
 -- Data for Name: bloco; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.bloco (id, nome, fk_entidade, quant_andar, quant_subsolo) FROM stdin;
-211	Bloco A	96	5	2
-213	Bloco ADM	96	4	0
-216	Bloco ADM 2	96	5	2
-217	Bloco C	96	5	1
-212	Bloco B	96	8	1
-218	Bloco A	97	5	1
-219	Bloco B	99	6	0
-220	Bloco A	99	5	1
-221	Bloco Adm	99	5	1
-222	Bloco administrativo	99	5	2
-223	Bloco adm2	99	5	2
-224	Bloco adm2	99	5	2
+225	Bloco A	100	8	1
+226	Bloco B	100	6	2
+227	Bloco A	101	5	1
+228	Bloco B	101	6	1
+229	Bloco A	102	4	1
+230	Bloco B	102	4	1
 \.
 
 
 --
--- TOC entry 2981 (class 0 OID 17117)
+-- TOC entry 2982 (class 0 OID 17117)
 -- Dependencies: 204
 -- Data for Name: check_list; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.check_list (id, data_check, funcionario, fk_uh, fk_andar, fk_bloco, fk_equipamento, fk_engenheiro, data_asssinatura, status, periodo, vencimento) FROM stdin;
-96	2020-08-21	1	2936	0	211	14	1	\N	f	Trimestral                                                                      	2020-11-19
-97	2020-08-21	1	2936	0	211	14	1	\N	f	Anual                                                                           	2021-08-21
-94	2020-08-21	1	2936	0	211	14	1	\N	f	Quinzenal                                                                       	2020-09-05
-95	2020-08-21	1	2936	0	211	14	1	\N	t	Mensal                                                                          	2020-09-20
-98	2020-08-28	1	2944	2	211	17	1	\N	f	Mensal                                                                          	2020-09-27
-100	2020-09-01	1	2940	1	211	27	1	\N	t	Mensal                                                                          	2020-10-01
-101	2020-09-01	1	2940	1	211	27	1	\N	f	Trimestral                                                                      	2020-11-30
-102	2020-09-01	1	2940	1	211	27	1	\N	f	Anual                                                                           	2021-09-01
-103	2020-09-01	1	2977	2	212	29	1	\N	t	Quinzenal                                                                       	2020-09-16
-104	2020-09-01	1	2977	2	212	29	1	\N	f	Mensal                                                                          	2020-10-01
-105	2020-09-01	1	2977	2	212	29	1	\N	f	Trimestral                                                                      	2020-11-30
-106	2020-09-01	1	2977	2	212	29	1	\N	f	Anual                                                                           	2021-09-01
-107	2020-09-01	1	2935	0	211	25	1	\N	f	Quinzenal                                                                       	2020-09-16
-99	2020-09-01	1	2940	1	211	27	1	\N	f	Quinzenal                                                                       	2020-09-16
-91	2018-07-19	1	2936	0	211	14	1	\N	f	Quinzenal                                                                       	2018-08-03
-92	2018-07-19	1	2936	0	211	14	1	\N	f	Mensal                                                                          	2018-08-18
-93	2018-07-19	1	2936	0	211	14	1	\N	f	Trimestral                                                                      	2018-10-17
+131	2019-09-09	24	3177	0	225	58	1	\N	t	Quinzenal                                                                       	2019-09-24
+145	2019-12-09	25	3177	0	225	58	1	\N	t	Quinzenal                                                                       	2019-12-24
+142	2019-11-09	25	3177	0	225	58	1	\N	f	Mensal                                                                          	2019-12-09
+135	2019-09-09	25	3177	0	225	59	1	\N	f	Quinzenal                                                                       	2019-09-24
+146	2019-12-09	25	3177	0	225	58	1	\N	f	Trimestral                                                                      	2020-03-08
+134	2019-09-09	24	3177	0	225	58	1	\N	t	Anual                                                                           	2020-09-08
+124	2019-09-09	26	3321	1	228	60	1	\N	f	Quinzenal                                                                       	2019-09-24
+125	2019-09-09	26	3321	1	228	60	1	\N	f	Mensal                                                                          	2019-10-09
+126	2019-09-09	26	3321	1	228	60	1	\N	t	Trimestral                                                                      	2019-12-08
+127	2019-09-09	26	3321	1	228	60	1	\N	f	Anual                                                                           	2020-09-08
+128	2019-09-09	26	3321	1	228	61	1	\N	f	Quinzenal                                                                       	2019-09-24
+129	2019-09-09	26	3321	1	228	61	1	\N	t	Trimestral                                                                      	2019-12-08
+130	2019-09-09	26	3321	1	228	61	1	\N	f	Anual                                                                           	2020-09-08
+139	2019-10-09	25	3177	0	225	59	1	\N	f	Quinzenal                                                                       	2019-10-24
+136	2019-09-09	25	3177	0	225	59	1	\N	t	Mensal                                                                          	2019-10-09
+147	2019-12-09	25	3177	0	225	59	1	\N	t	Quinzenal                                                                       	2019-12-24
+140	2019-10-09	25	3177	0	225	58	1	\N	f	Quinzenal                                                                       	2019-10-24
+132	2019-09-09	24	3177	0	225	58	1	\N	f	Mensal                                                                          	2019-10-09
+144	2019-11-09	25	3177	0	225	59	1	\N	f	Mensal                                                                          	2019-12-09
+141	2019-11-09	25	3177	0	225	58	1	\N	f	Quinzenal                                                                       	2019-11-24
+156	2020-09-09	25	3177	0	225	59	1	\N	t	Mensal                                                                          	2020-10-09
+133	2019-09-09	24	3177	0	225	58	1	\N	t	Trimestral                                                                      	2019-12-08
+143	2019-11-09	25	3177	0	225	59	1	\N	f	Quinzenal                                                                       	2019-11-24
+157	2020-09-09	25	3177	0	225	59	1	\N	f	Trimestral                                                                      	2020-12-08
+137	2019-09-09	25	3177	0	225	59	1	\N	f	Trimestral                                                                      	2019-12-08
+138	2019-09-09	25	3177	0	225	59	1	\N	f	Anual                                                                           	2020-09-08
+148	2019-12-09	25	3177	0	225	59	1	\N	f	Trimestral                                                                      	2020-03-08
+149	2020-01-09	25	3177	0	225	59	1	\N	f	Quinzenal                                                                       	2020-01-24
+150	2020-01-09	25	3177	0	225	59	1	\N	f	Mensal                                                                          	2020-02-08
+151	2020-01-09	25	3177	0	225	58	1	\N	t	Quinzenal                                                                       	2020-01-24
+152	2020-01-09	25	3177	0	225	58	1	\N	t	Mensal                                                                          	2020-02-08
+153	2020-02-09	25	3177	0	225	58	1	\N	f	Quinzenal                                                                       	2020-02-24
+154	2020-02-09	25	3177	0	225	58	1	\N	f	Mensal                                                                          	2020-03-10
+155	2020-02-09	25	3177	0	225	59	1	\N	f	Quinzenal                                                                       	2020-02-24
+158	2020-09-09	24	3177	0	225	58	1	\N	f	Quinzenal                                                                       	2020-09-24
+159	2020-09-09	24	3177	0	225	58	1	\N	f	Mensal                                                                          	2020-10-09
+160	2020-09-09	24	3177	0	225	58	1	\N	f	Trimestral                                                                      	2020-12-08
+161	2020-09-09	24	3177	0	225	58	1	\N	t	Anual                                                                           	2021-09-09
 \.
 
 
 --
--- TOC entry 2983 (class 0 OID 17122)
+-- TOC entry 2984 (class 0 OID 17122)
 -- Dependencies: 206
 -- Data for Name: dados_engenheiro; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.dados_engenheiro (id, nome, crea, telefone, email, estado, cidade, endereco, assinatura, data_cadatro, data_alteracao, status, fk_entidade, cpf, cep) FROM stdin;
-41	SAULO COELHO DA COSTA JUNIOR	646546	(64) 99365-4654	ksaulojr10@gmail.com	GO	Caldas Novas	Rua 6 Quadra 46 Lote 5 Setor Aeroporto	C:\\fakepath\\71763708_503473953841656_328059729777568188_n.png	2020-07-28	2020-07-28	t	96	546.546.546-54	75690-000
-1									2020-08-05	2020-08-05	f	0		
-42	SAULO COELHO DA COSTA JUNIOR	646546	(56) 46498-7465	ksaulojr10@gmail.com	GO	Caldas Novas	Rua 6 Quadra 46 Lote 5 Setor Aeroporto	C:\\fakepath\\agua com gas.png	2020-08-13	2020-08-13	t	97	546.546.546-54	75690-000
-43	SAULO COELHO DA COSTA JUNIOR	646546	(64) 99365-4654	ksaulojr10@gmail.com	GO	Caldas Novas	Rua 6 Quadra 46 Lote 5 Setor Aeroporto	C:\\fakepath\\agua com gas.png	2020-08-13	2020-08-13	t	99	546.546.546-54	75690-000
-44	SAULO COELHO DA COSTA JUNIOR	646546	(64) 99365-4654	ksaulojr10@gmail.com	GO	Caldas Novas	Rua 6 Quadra 46 Lote 5 Setor Aeroporto	bib/imgProd/prod12042.png	2020-08-14	2020-08-14	t	96	546.546.546-54	75690-000
-45	SAULO COELHO DA COSTA JUNIOR	646546	(64) 99365-4654	ksaulojr10@gmail.com	GO	Caldas Novas	Rua 6 Quadra 46 Lote 5 Setor Aeroporto	bib/imgProd/prod99112.png	2020-08-20	2020-08-20	t	99	546.546.546-54	75690-000
+1									2020-09-05	2020-09-05	t	1		
+46	SAULO COELHO DA COSTA JUNIOR	1111111111	(11) 11111-1111	ksaulojr10@gmail.com	GO	Caldas Novas	Rua eng1 Quadra eng1 Lote eng1 Setor Eng1	bib/imgAss/assinatura65586.jpg	2020-09-05	2020-09-05	t	100	111.111.111-11	75690-000
+47	SAULO COELHO DA COSTA JUNIOR	2222222	(22) 22222-2222	ksaulojr10@gmail.com	GO	Caldas Novas	Rua eng2 Quadra eng2 Lote eng2 Setor engDois	bib/imgAss/assinatura90202.jpg	2020-09-08	2020-09-08	t	101	222.222.222-22	75690-000
+48	SAULO COELHO DA COSTA JUNIOR	333333	(33) 33333-3333	ksaulojr10@gmail.com	GO	Caldas Novas	Rua eng3 Quadra eng3 Lote eng3 Setor engTrês	bib/imgAss/assinatura25228.jpg	2020-09-08	2020-09-08	t	102	333.333.333-33	75690000
+49	Mateus Augusto da Silva	5555	(55) 55555-5555	555555555@gmail.com	Mato Grosso do Sul	Bonito	Rua 5 Quadra 5 Lote 5 Setor Cinco	bib/imgAss/assinatura76584.jpg	2020-09-09	2020-09-09	t	100	555.555.555-55	55555-555
 \.
 
 
 --
--- TOC entry 2985 (class 0 OID 17127)
+-- TOC entry 2986 (class 0 OID 17127)
 -- Dependencies: 208
 -- Data for Name: dados_entidade; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.dados_entidade (id, razao_social, nome_fantasia, cnpj, telefone, estado, cidade, cep, endereco, data_cadatro, data_alteracao) FROM stdin;
-96	Fornecer segurança de rede	Viale Tower	65.464.654/6546-54	(56) 54654-5646	GO	Caldas Novas	75690-000	Rua 3 Quadra 98 lote 3 Setor São José	2020-07-28	2020-07-28
-97	Fornecer segurança de rede	Viale Tower	65.464.654/6546-54	(56) 54654-5646	GO	Caldas Novas	75690-000	Rua 3 Quadra 98 lote 3 Setor São José	2020-08-13	2020-08-13
-98	fornecimento de comida	Viale Tower	11.111.111/1111-11	(11) 11111-1111	GO	Caldas Novas	75690-000	1111111111111111111111111111111111111	2020-08-13	2020-08-13
-99	Fornecer segurança de rede	Viale Tower	65.464.654/6546-54	(56) 54654-5646	GO	Caldas Novas	75690-000	Rua 3 Quadra 98 lote 3 Setor São José	2020-08-13	2020-08-13
+1									2020-09-05	2020-09-05
+100	Fornecer segurança de rede	InfoSoft	11.111.111/1111-11	(11) 11111-1111	GO	Caldas Novas	11111-111	Rua 1 Quadra 1 Lote 1 Setor1	2020-09-05	2020-09-05
+101	Fornecer alimento	Padaria do Chico	22.222.222/2222-22	(22) 22222-2222	MG	Morrinhos	22222-222	Rua 2 Quadra 2 Lote 2 Setor Dois	2020-09-08	2020-09-08
+102	Fornecer macarrão	Nissin Miojo	33.333.333/3333-33	(33) 33333-3333	MT	Goiania	33333-333	Rua 3 Quadra 3 Lote 3 Setor Três	2020-09-08	2020-09-08
 \.
 
 
 --
--- TOC entry 3002 (class 0 OID 17285)
+-- TOC entry 3003 (class 0 OID 17285)
 -- Dependencies: 225
 -- Data for Name: entidade_login; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.entidade_login (id, fk_login, fk_entidade) FROM stdin;
-93	1	96
-96	2	99
-99	8	96
-100	9	96
-101	10	96
-102	11	96
-103	12	96
-104	13	96
-105	14	96
-106	15	96
-107	16	96
-108	17	96
+109	18	100
+110	18	101
+111	18	102
+112	19	100
+113	19	101
+114	20	102
+115	21	100
+116	22	100
+117	23	100
+118	24	100
+119	25	100
+120	26	101
 \.
 
 
 --
--- TOC entry 2987 (class 0 OID 17132)
+-- TOC entry 2988 (class 0 OID 17132)
 -- Dependencies: 210
 -- Data for Name: equipamento; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.equipamento (id, localizacao, marca, modelo, potencia, tempo_de_uso, uh, tipo_equipamento, data_cadastro, data_alteracao, observacao) FROM stdin;
-7	Sala	Consul	BP900X-S	9.000 BTUs	6 meses	2935	1	2020-07-30	2020-07-30	6 meses parada
-9	Sala	Consul	BP900X-S	9.000 BTUs	6 meses	2935	1	2020-07-30	2020-07-30	6 meses parada
-11	Quarto	Samsung	CQ1000Y-T	11.000 BTUs	1 ano e 6 meses	2935	1	2020-07-30	2020-07-30	1 ano e 6 meses encostado
-13	Quarto	Samsung	CQ1000Y-T	11.000 BTUs	1 ano e 6 meses	2935	1	2020-07-30	2020-07-30	1 ano e 6 meses encostado
-14	Cozinha	Consul	BP900X-S	9.000 BTUs	6 meses	2936	1	2020-07-30	2020-07-30	6  meses parado
-15	Quarto	Samsung	CQ1000Y-T	11.000 BTUs	1 ano e 6 meses	2936	1	2020-07-30	2020-07-30	filtro quebrado
-16	Cozinha	Samsung	CQ1000Y-T	12.000 BTUs	6 meses	2944	1	2020-07-30	2020-07-30	6  meses parado
-17	Sala de Jantar	Consul	ES1200A-V	9.000 BTUs	1 ano	2944	1	2020-07-30	2020-07-30	filtro quebrado
-18	Parquim	LG	ES1200A-V	12.000 BTUs	1 ano e 6 meses	3044	1	2020-07-30	2020-07-30	6  meses parado
-19	Sala de Estar	Philips	CQ1000Y-T	11.000 BTUs	0	3044	1	2020-07-30	2020-07-30	
-20	Quarto	Consul	BP900X-S	12.000 BTUs	6 meses	3151	1	2020-08-13	2020-08-13	6  meses parado
-21	Sala de Jantar	Philips	BP900X-S	10.000 BTUs	0	3151	1	2020-08-13	2020-08-13	
-22	Quarto	Philips	BP900X-S	9.000 BTUs	0	3171	1	2020-08-13	2020-08-13	
-23	Lazer	LG	ES1200A-V	12.000 BTUs	0	3173	1	2020-08-13	2020-08-13	
-24	Toalete	Philips	DR1100Z-U	11.000 BTUs	1 ano	3174	1	2020-08-13	2020-08-13	6  meses parado
-25	Cozinha	Samsung	CQ1000Y-T	10.000 BTUs	6 meses	2935	1	2020-09-01	2020-09-01	6  meses parado
-26	Quarto	Philips	BP900X-S	11.000 BTUs	1 ano e 6 meses	2935	1	2020-09-01	2020-09-01	filtro quebrado
-27	Sala de Jantar	Consul	ES1200A-V	9.000 BTUs	6 meses	2940	1	2020-09-01	2020-09-01	6  meses parado
-28	Sala de Jantar	Samsung	CQ1000Y-T	10.000 BTUs	1 ano e 6 meses	2940	1	2020-09-01	2020-09-01	filtro quebrado
-29	Cozinha	Consul	BP900X-S	9.000 BTUs	6 meses	2977	1	2020-09-01	2020-09-01	6  meses parado
-30	Quarto	Philips	CQ1000Y-T	10.000 BTUs	1 ano e 6 meses	2977	1	2020-09-01	2020-09-01	filtro quebrado
+58	Cozinha	Consul	BP900X-S	9.000 BTUs	6 meses	3177	1	2020-09-08	2020-09-08	6  meses parado
+59	Quarto	Samsung	CQ1000Y-T	10.000 BTUs	1 ano e 6 meses	3177	1	2020-09-08	2020-09-08	filtro quebrado
+60	Cozinha	Consul	BP900X-S	9.000 BTUs	6 meses	3321	1	2020-09-08	2020-09-08	6  meses parado
+61	Toalete	LG	ES1200A-V	12.000 BTUs	1 ano e 6 meses	3321	1	2020-09-08	2020-09-08	filtro quebrado
+62	Cozinha	Consul	BP900X-S	9.000 BTUs	6 meses	3399	1	2020-09-08	2020-09-08	6  meses parado
+63	Quarto	Samsung	CQ1000Y-T	10.000 BTUs	1 ano	3399	1	2020-09-08	2020-09-08	filtro quebrado
+64	Sala de Jantar	Philips	DR1100Z-U	11.000 BTUs	1 ano e 6 meses	3399	1	2020-09-08	2020-09-08	Sei la
 \.
 
 
 --
--- TOC entry 2989 (class 0 OID 17137)
+-- TOC entry 2990 (class 0 OID 17137)
 -- Dependencies: 212
 -- Data for Name: item; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1090,230 +1084,453 @@ COPY public.item (id, titulo, descricao, periodo, tipo_equipamento) FROM stdin;
 
 
 --
--- TOC entry 2990 (class 0 OID 17140)
+-- TOC entry 2991 (class 0 OID 17140)
 -- Dependencies: 213
 -- Data for Name: item_check; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.item_check (id, fk_item, fk_check_list, data, observacao, status) FROM stdin;
-965	33	93	2018-07-19		t
-966	32	93	2018-07-19		t
-967	31	93	2018-07-19		t
-968	41	93	2018-07-19		t
-969	36	93	2018-07-19		t
-970	38	93	2018-07-19		t
-971	35	93	2018-07-19		f
-972	34	93	2018-07-19		f
-973	39	93	2018-07-19		f
-974	37	93	2018-07-19		f
-975	42	93	2018-07-19		f
-976	40	93	2018-07-19		f
-963	23	92	2020-08-28		t
-992	23	95	2020-08-28		t
-947	24	92	2020-08-28		t
-1007	31	96	2020-08-21		t
-1008	39	96	2020-08-21		t
-1009	38	96	2020-08-21		t
-1010	37	96	2020-08-21		t
-1011	40	96	2020-08-21		t
-1012	33	96	2020-08-21		f
-1013	32	96	2020-08-21		f
-1014	41	96	2020-08-21		f
-1015	35	96	2020-08-21		f
-1016	34	96	2020-08-21		f
-1017	36	96	2020-08-21		f
-1018	42	96	2020-08-21		f
-1019	44	97	2020-08-21		t
-1020	46	97	2020-08-21		t
-1021	47	97	2020-08-21		f
-1022	45	97	2020-08-21		f
-1023	43	97	2020-08-21		f
-937	3	91	2020-09-05		f
-979	3	94	2020-09-05		f
-936	2	91	2020-09-05		f
-977	2	94	2020-09-05		f
-952	30	92	2020-08-28		t
-980	30	95	2020-08-28		t
-938	4	92	2020-08-28		t
-994	4	95	2020-08-28		t
-953	26	92	2020-08-28		t
-981	26	95	2020-08-28		t
-939	25	92	2020-08-28		t
-995	25	95	2020-08-28		t
-954	16	92	2020-08-28		t
-982	16	95	2020-08-28		t
-996	17	95	2020-08-28		t
-955	17	92	2020-08-28		t
-940	18	92	2020-08-28		t
-997	18	95	2020-08-28		t
-941	15	92	2020-08-28		t
-983	15	95	2020-08-28		t
-942	14	92	2020-08-28		t
-984	14	95	2020-08-28		t
-985	6	95	2020-08-28		t
-956	6	92	2020-08-28		t
-943	5	92	2020-08-28		t
-998	5	95	2020-08-28		t
-986	28	95	2020-08-28		t
-957	28	92	2020-08-28		t
-944	29	92	2020-08-28		t
-987	29	95	2020-08-28		t
-945	27	92	2020-08-28		t
-988	27	95	2020-08-28		t
-958	10	92	2020-08-28		t
-989	10	95	2020-08-28		t
-959	7	92	2020-08-28		t
-999	7	95	2020-08-28		t
-960	8	92	2020-08-28		t
-1000	8	95	2020-08-28		t
-946	9	92	2020-08-28		t
-1001	9	95	2020-08-28		t
-961	21	92	2020-08-28		t
-990	21	95	2020-08-28		t
-962	22	92	2020-08-28		t
-991	22	95	2020-08-28		t
-1002	24	95	2020-08-28		t
-948	19	92	2020-08-28		t
-1003	19	95	2020-08-28		t
-949	20	92	2020-08-28		t
-1004	20	95	2020-08-28		t
-964	13	92	2020-08-28		t
-993	13	95	2020-08-28		t
-950	12	92	2020-08-28		t
-1005	12	95	2020-08-28		t
-951	11	92	2020-08-28		t
-1006	11	95	2020-08-28		t
-1024	30	98	2020-08-28		t
-1025	26	98	2020-08-28		t
-1026	25	98	2020-08-28		t
-1027	16	98	2020-08-28		t
-1028	17	98	2020-08-28		t
-1029	18	98	2020-08-28		t
-1030	15	98	2020-08-28		t
-1031	14	98	2020-08-28		t
-1032	6	98	2020-08-28		t
-1033	5	98	2020-08-28		t
-1034	28	98	2020-08-28		t
-1035	29	98	2020-08-28		t
-1036	27	98	2020-08-28		t
-1037	10	98	2020-08-28		t
-1038	7	98	2020-08-28		t
-1039	8	98	2020-08-28		t
-1040	9	98	2020-08-28		t
-1041	21	98	2020-08-28		t
-1042	22	98	2020-08-28		t
-1043	23	98	2020-08-28		t
-1044	24	98	2020-08-28		t
-1045	19	98	2020-08-28		t
-1046	20	98	2020-08-28		t
-1047	13	98	2020-08-28		t
-1048	12	98	2020-08-28		t
-1049	11	98	2020-08-28		t
-1050	4	98	2020-08-28		f
-1054	30	100	2020-09-01		t
-1055	4	100	2020-09-01		t
-1056	26	100	2020-09-01		t
-1057	25	100	2020-09-01		t
-1058	16	100	2020-09-01		t
-1059	17	100	2020-09-01		t
-1060	18	100	2020-09-01		t
-1061	15	100	2020-09-01		t
-1062	14	100	2020-09-01		t
-1063	6	100	2020-09-01		t
-1064	5	100	2020-09-01		t
-1065	28	100	2020-09-01		t
-1066	29	100	2020-09-01		t
-1067	27	100	2020-09-01		t
-1068	10	100	2020-09-01		t
-1069	7	100	2020-09-01		t
-1070	8	100	2020-09-01		t
-1071	9	100	2020-09-01		t
-1072	21	100	2020-09-01		t
-1073	22	100	2020-09-01		t
-1074	23	100	2020-09-01		t
-1075	24	100	2020-09-01		t
-1076	19	100	2020-09-01		t
-1077	20	100	2020-09-01		t
-1078	13	100	2020-09-01		t
-1079	12	100	2020-09-01		t
-1080	11	100	2020-09-01		t
-1081	33	101	2020-09-01		t
-1082	32	101	2020-09-01		t
-1083	35	101	2020-09-01		t
-1084	39	101	2020-09-01		t
-1085	37	101	2020-09-01		t
-1052	2	99	2020-09-05		f
-1053	3	99	2020-09-05		f
-1086	31	101	2020-09-01		f
-1087	41	101	2020-09-01		f
-1088	34	101	2020-09-01		f
-1089	36	101	2020-09-01		f
-1090	38	101	2020-09-01		f
-1091	42	101	2020-09-01		f
-1092	40	101	2020-09-01		f
-1093	44	102	2020-09-01		t
-1094	46	102	2020-09-01		t
-1095	45	102	2020-09-01		t
-1096	47	102	2020-09-01		f
-1097	43	102	2020-09-01		f
-1101	30	104	2020-09-01		t
-1102	26	104	2020-09-01		t
-1103	25	104	2020-09-01		t
-1104	16	104	2020-09-01		t
-1105	15	104	2020-09-01		t
-1106	14	104	2020-09-01		t
-1107	29	104	2020-09-01		t
-1108	27	104	2020-09-01		t
-1109	8	104	2020-09-01		t
-1110	22	104	2020-09-01		t
-1111	23	104	2020-09-01		t
-1112	20	104	2020-09-01		t
-1113	12	104	2020-09-01		t
-1114	4	104	2020-09-01		f
-1115	17	104	2020-09-01		f
-1116	18	104	2020-09-01		f
-1117	6	104	2020-09-01		f
-1118	5	104	2020-09-01		f
-1119	28	104	2020-09-01		f
-1120	10	104	2020-09-01		f
-1121	7	104	2020-09-01		f
-1122	9	104	2020-09-01		f
-1123	21	104	2020-09-01		f
-1124	24	104	2020-09-01		f
-1125	19	104	2020-09-01		f
-1126	13	104	2020-09-01		f
-1127	11	104	2020-09-01		f
-1128	33	105	2020-09-01		t
-1129	32	105	2020-09-01		t
-1130	41	105	2020-09-01		t
-1131	34	105	2020-09-01		t
-1132	39	105	2020-09-01		t
-1133	38	105	2020-09-01		t
-1134	31	105	2020-09-01		f
-1135	35	105	2020-09-01		f
-1136	36	105	2020-09-01		f
-1137	37	105	2020-09-01		f
-1138	42	105	2020-09-01		f
-1139	40	105	2020-09-01		f
-1140	44	106	2020-09-01		f
-1141	47	106	2020-09-01		f
-1142	46	106	2020-09-01		f
-1143	45	106	2020-09-01		f
-1144	43	106	2020-09-01		f
-935	1	91	2020-09-05		t
-978	1	94	2020-09-05		t
-1051	1	99	2020-09-05		t
-1098	1	103	2020-09-05		t
-1145	1	107	2020-09-05		t
-1099	2	103	2020-09-05		f
-1146	2	107	2020-09-05		f
-1100	3	103	2020-09-05		f
-1147	3	107	2020-09-05		f
+1171	17	125	2019-12-09		t
+1240	17	132	2019-12-09		t
+1183	15	125	2019-12-09		t
+1253	15	132	2019-12-09		t
+1172	14	125	2019-12-09		t
+1254	14	132	2019-12-09		t
+1288	14	136	2019-12-09		t
+1184	6	125	2019-12-09		t
+1241	6	132	2019-12-09		t
+1300	6	136	2019-12-09		t
+1173	28	125	2019-12-09		t
+1255	28	132	2019-12-09		t
+1186	29	125	2019-12-09		t
+1185	5	125	2019-12-09		t
+1242	5	132	2019-12-09		t
+1289	28	136	2019-12-09		t
+1243	29	132	2019-12-09		t
+1290	29	136	2019-12-09		t
+1187	27	125	2019-12-09		t
+1244	27	132	2019-12-09		t
+1302	27	136	2019-12-09		t
+1189	8	125	2019-12-09		t
+1188	10	125	2019-12-09		t
+1256	10	132	2019-12-09		t
+1174	7	125	2019-12-09		t
+1245	8	132	2019-12-09		t
+1191	21	125	2019-12-09		t
+1198	31	126	2019-11-09		t
+1218	31	129	2019-11-09		t
+1199	41	126	2019-11-09		t
+1193	24	125	2019-12-09		f
+1247	24	132	2019-12-09		f
+1294	24	136	2019-12-09		f
+1258	21	132	2019-12-09		t
+1192	22	125	2019-12-09		t
+1259	22	132	2019-12-09		t
+1306	22	136	2019-12-09		t
+1176	19	125	2019-12-09		t
+1248	19	132	2019-12-09		t
+1307	19	136	2019-12-09		t
+1194	20	125	2019-12-09		t
+1177	13	125	2019-12-09		f
+1249	13	132	2019-12-09		f
+1295	13	136	2019-12-09		f
+1261	20	132	2019-12-09		t
+1178	12	125	2019-12-09		t
+1262	12	132	2019-12-09		t
+1296	12	136	2019-12-09		t
+1195	11	125	2019-12-09		t
+1180	25	125	2019-12-09		t
+1239	25	132	2019-12-09		t
+1181	16	125	2019-12-09		t
+1250	11	132	2019-12-09		t
+1309	11	136	2019-12-09		t
+1179	4	125	2019-12-09		f
+1237	4	132	2019-12-09		f
+1182	18	125	2019-12-09		f
+1208	44	127	2019-12-09		t
+1231	44	130	2019-12-09		t
+1275	44	134	2019-12-09		t
+1252	18	132	2019-12-09		f
+1299	18	136	2019-12-09		f
+1190	9	125	2019-12-09		f
+1246	9	132	2019-12-09		f
+1304	9	136	2019-12-09		f
+1175	23	125	2019-12-09		f
+1257	7	132	2019-12-09		t
+1291	7	136	2019-12-09		t
+1292	8	136	2019-12-09		t
+1219	41	129	2019-11-09		t
+1265	41	133	2019-11-09		t
+1200	35	126	2019-11-09		t
+1220	35	129	2019-11-09		t
+1266	35	133	2019-11-09		t
+1314	35	137	2019-11-09		t
+1207	40	126	2019-11-09		t
+1227	40	129	2019-11-09		t
+1273	40	133	2019-11-09		t
+1203	39	126	2019-11-09		t
+1223	39	129	2019-11-09		t
+1269	39	133	2019-11-09		t
+1204	38	126	2019-11-09		t
+1201	34	126	2019-11-09		t
+1221	34	129	2019-11-09		t
+1267	34	133	2019-11-09		t
+1202	36	126	2019-11-09		t
+1222	36	129	2019-11-09		t
+1268	36	133	2019-11-09		t
+1316	36	137	2019-11-09		t
+1317	39	137	2019-11-09		t
+1206	42	126	2019-11-09		t
+1226	42	129	2019-11-09		t
+1272	42	133	2019-11-09		t
+1196	33	126	2019-11-09		f
+1224	38	129	2019-11-09		t
+1270	38	133	2019-11-09		t
+1318	38	137	2019-11-09		t
+1205	37	126	2019-11-09		t
+1225	37	129	2019-11-09		t
+1271	37	133	2019-11-09		t
+1321	40	137	2019-11-09		t
+1216	33	129	2019-11-09		f
+1210	46	127	2019-12-09		t
+1229	46	130	2019-12-09		t
+1211	45	127	2019-12-09		t
+1230	45	130	2019-12-09		t
+1278	45	134	2019-12-09		t
+1166	1	124	2019-12-09		t
+1213	1	128	2019-12-09		t
+1233	1	131	2019-12-09		t
+1280	1	135	2019-12-09		t
+1251	16	132	2019-12-09		t
+1277	46	134	2019-12-09		t
+1212	43	127	2019-12-09		t
+1264	31	133	2019-11-09		t
+1313	41	137	2019-11-09		t
+1297	16	136	2019-12-09		t
+1287	15	136	2019-12-09		t
+1209	47	127	2019-12-09		t
+1228	47	130	2019-12-09		t
+1276	47	134	2019-12-09		t
+1197	32	126	2019-11-09		t
+1217	32	129	2019-11-09		t
+1263	32	133	2019-11-09		t
+1232	43	130	2019-12-09		t
+1279	43	134	2019-12-09		t
+1260	23	132	2019-12-09		f
+1312	31	137	2019-11-09		t
+1293	23	136	2019-12-09		f
+1167	2	124	2019-12-09		t
+1168	3	124	2019-12-09		t
+1215	3	128	2019-12-09		t
+1235	3	131	2019-12-09		t
+1282	3	135	2019-12-09		t
+1322	44	138	2019-12-09		t
+1323	47	138	2019-12-09		t
+1324	46	138	2019-12-09		t
+1325	45	138	2019-12-09		t
+1418	36	148	2019-12-09		f
+1419	39	148	2019-12-09		f
+1420	37	148	2019-12-09		f
+1421	42	148	2019-12-09		f
+1422	40	148	2019-12-09		f
+1329	3	139	2019-12-09		t
+1332	3	140	2019-12-09		t
+1335	3	141	2019-12-09		t
+1365	3	143	2019-12-09		t
+1395	3	145	2019-12-09		t
+1352	8	142	2019-12-09		t
+1382	8	144	2019-12-09		t
+1305	21	136	2019-12-09		t
+1354	21	142	2019-12-09		t
+1384	21	144	2019-12-09		t
+1355	22	142	2019-12-09		t
+1385	22	144	2019-12-09		t
+1358	19	142	2019-12-09		t
+1388	19	144	2019-12-09		t
+1308	20	136	2019-12-09		t
+1359	20	142	2019-12-09		t
+1311	32	137	2019-11-09		t
+1315	34	137	2019-11-09		t
+1319	37	137	2019-11-09		t
+1320	42	137	2019-11-09		t
+1274	33	133	2019-11-09		f
+1310	33	137	2019-11-09		f
+1389	20	144	2019-12-09		t
+1361	12	142	2019-12-09		t
+1391	12	144	2019-12-09		t
+1362	11	142	2019-12-09		t
+1327	1	139	2019-12-09		t
+1330	1	140	2019-12-09		t
+1333	1	141	2019-12-09		t
+1363	1	143	2019-12-09		t
+1394	1	145	2019-12-09		t
+1214	2	128	2019-12-09		t
+1234	2	131	2019-12-09		t
+1281	2	135	2019-12-09		t
+1328	2	139	2019-12-09		t
+1331	2	140	2019-12-09		t
+1334	2	141	2019-12-09		t
+1364	2	143	2019-12-09		t
+1393	2	145	2019-12-09		t
+1392	11	144	2019-12-09		t
+1284	4	136	2019-12-09		f
+1337	4	142	2019-12-09		f
+1367	4	144	2019-12-09		f
+1342	18	142	2019-12-09		f
+1372	18	144	2019-12-09		f
+1353	9	142	2019-12-09		f
+1383	9	144	2019-12-09		f
+1356	23	142	2019-12-09		f
+1386	23	144	2019-12-09		f
+1357	24	142	2019-12-09		f
+1387	24	144	2019-12-09		f
+1360	13	142	2019-12-09		f
+1390	13	144	2019-12-09		f
+1411	33	148	2019-12-09		t
+1412	31	148	2019-12-09		t
+1413	41	148	2019-12-09		t
+1414	34	148	2019-12-09		t
+1415	38	148	2019-12-09		t
+1423	1	149	2020-01-09		t
+1424	2	149	2020-01-09		f
+1425	3	149	2020-01-09		f
+1426	30	150	2020-01-09		t
+1170	26	125	2019-12-09		t
+1238	26	132	2019-12-09		t
+1285	26	136	2019-12-09		t
+1338	26	142	2019-12-09		t
+1368	26	144	2019-12-09		t
+1286	25	136	2019-12-09		t
+1339	25	142	2019-12-09		t
+1369	25	144	2019-12-09		t
+1340	16	142	2019-12-09		t
+1370	16	144	2019-12-09		t
+1298	17	136	2019-12-09		t
+1341	17	142	2019-12-09		t
+1371	17	144	2019-12-09		t
+1427	26	150	2020-01-09		t
+1428	16	150	2020-01-09		t
+1429	17	150	2020-01-09		t
+1430	18	150	2020-01-09		t
+1343	15	142	2019-12-09		t
+1373	15	144	2019-12-09		t
+1344	14	142	2019-12-09		t
+1374	14	144	2019-12-09		t
+1345	6	142	2019-12-09		t
+1375	6	144	2019-12-09		t
+1301	5	136	2019-12-09		t
+1346	5	142	2019-12-09		t
+1396	33	146	2019-12-09		t
+1397	31	146	2019-12-09		t
+1398	41	146	2019-12-09		t
+1399	36	146	2019-12-09		t
+1400	32	146	2019-12-09		f
+1401	35	146	2019-12-09		f
+1402	34	146	2019-12-09		f
+1403	39	146	2019-12-09		f
+1404	38	146	2019-12-09		f
+1405	37	146	2019-12-09		f
+1406	42	146	2019-12-09		f
+1407	40	146	2019-12-09		f
+1326	43	138	2019-12-09		t
+1408	1	147	2019-12-09		t
+1409	2	147	2019-12-09		t
+1410	3	147	2019-12-09		t
+1376	5	144	2019-12-09		t
+1347	28	142	2019-12-09		t
+1377	28	144	2019-12-09		t
+1348	29	142	2019-12-09		t
+1378	29	144	2019-12-09		t
+1349	27	142	2019-12-09		t
+1379	27	144	2019-12-09		t
+1303	10	136	2019-12-09		t
+1350	10	142	2019-12-09		t
+1380	10	144	2019-12-09		t
+1351	7	142	2019-12-09		t
+1381	7	144	2019-12-09		t
+1169	30	125	2019-12-09		f
+1236	30	132	2019-12-09		f
+1283	30	136	2019-12-09		f
+1336	30	142	2019-12-09		f
+1366	30	144	2019-12-09		f
+1416	32	148	2019-12-09		f
+1417	35	148	2019-12-09		f
+1431	14	150	2020-01-09		t
+1432	28	150	2020-01-09		t
+1433	29	150	2020-01-09		t
+1434	8	150	2020-01-09		t
+1435	9	150	2020-01-09		t
+1436	22	150	2020-01-09		t
+1437	23	150	2020-01-09		t
+1438	4	150	2020-01-09		f
+1439	25	150	2020-01-09		f
+1440	15	150	2020-01-09		f
+1441	6	150	2020-01-09		f
+1442	5	150	2020-01-09		f
+1443	27	150	2020-01-09		f
+1444	10	150	2020-01-09		f
+1445	7	150	2020-01-09		f
+1446	21	150	2020-01-09		f
+1447	24	150	2020-01-09		f
+1448	19	150	2020-01-09		f
+1449	20	150	2020-01-09		f
+1450	13	150	2020-01-09		f
+1451	12	150	2020-01-09		f
+1452	11	150	2020-01-09		f
+1453	1	151	2020-01-09		t
+1454	2	151	2020-01-09		t
+1455	3	151	2020-01-09		t
+1456	30	152	2020-01-09		t
+1457	4	152	2020-01-09		t
+1458	26	152	2020-01-09		t
+1459	25	152	2020-01-09		t
+1460	16	152	2020-01-09		t
+1461	17	152	2020-01-09		t
+1462	18	152	2020-01-09		t
+1463	15	152	2020-01-09		t
+1464	14	152	2020-01-09		t
+1465	6	152	2020-01-09		t
+1466	5	152	2020-01-09		t
+1467	28	152	2020-01-09		t
+1468	29	152	2020-01-09		t
+1469	27	152	2020-01-09		t
+1470	10	152	2020-01-09		t
+1471	7	152	2020-01-09		t
+1472	8	152	2020-01-09		t
+1473	9	152	2020-01-09		t
+1474	21	152	2020-01-09		t
+1475	22	152	2020-01-09		t
+1476	23	152	2020-01-09		t
+1477	24	152	2020-01-09		t
+1478	19	152	2020-01-09		t
+1479	20	152	2020-01-09		t
+1480	13	152	2020-01-09		t
+1481	12	152	2020-01-09		t
+1482	11	152	2020-01-09		t
+1483	2	153	2020-02-09		t
+1484	3	153	2020-02-09		t
+1485	1	153	2020-02-09		f
+1486	30	154	2020-02-09		t
+1487	4	154	2020-02-09		t
+1488	16	154	2020-02-09		t
+1489	17	154	2020-02-09		t
+1490	18	154	2020-02-09		t
+1491	15	154	2020-02-09		t
+1492	5	154	2020-02-09		t
+1493	28	154	2020-02-09		t
+1494	26	154	2020-02-09		f
+1495	25	154	2020-02-09		f
+1496	14	154	2020-02-09		f
+1497	6	154	2020-02-09		f
+1498	29	154	2020-02-09		f
+1499	27	154	2020-02-09		f
+1500	10	154	2020-02-09		f
+1501	7	154	2020-02-09		f
+1502	8	154	2020-02-09		f
+1503	9	154	2020-02-09		f
+1504	21	154	2020-02-09		f
+1505	22	154	2020-02-09		f
+1506	23	154	2020-02-09		f
+1507	24	154	2020-02-09		f
+1508	19	154	2020-02-09		f
+1509	20	154	2020-02-09		f
+1510	13	154	2020-02-09		f
+1511	12	154	2020-02-09		f
+1512	11	154	2020-02-09		f
+1513	1	155	2020-02-09		t
+1514	2	155	2020-02-09		t
+1515	3	155	2020-02-09		f
+1516	30	156	2020-09-09		t
+1517	4	156	2020-09-09		t
+1518	26	156	2020-09-09		t
+1519	25	156	2020-09-09		t
+1520	16	156	2020-09-09		t
+1521	17	156	2020-09-09		t
+1522	18	156	2020-09-09		t
+1523	15	156	2020-09-09		t
+1524	14	156	2020-09-09		t
+1525	6	156	2020-09-09		t
+1526	5	156	2020-09-09		t
+1527	28	156	2020-09-09		t
+1528	29	156	2020-09-09		t
+1529	27	156	2020-09-09		t
+1530	10	156	2020-09-09		t
+1531	7	156	2020-09-09		t
+1532	8	156	2020-09-09		t
+1533	9	156	2020-09-09		t
+1534	21	156	2020-09-09		t
+1535	22	156	2020-09-09		t
+1536	23	156	2020-09-09		t
+1537	24	156	2020-09-09		t
+1538	19	156	2020-09-09		t
+1539	20	156	2020-09-09		t
+1540	13	156	2020-09-09		t
+1541	12	156	2020-09-09		t
+1542	11	156	2020-09-09		t
+1543	33	157	2020-09-09		t
+1544	32	157	2020-09-09		t
+1545	31	157	2020-09-09		t
+1546	36	157	2020-09-09		t
+1547	38	157	2020-09-09		t
+1548	40	157	2020-09-09		t
+1549	41	157	2020-09-09		f
+1550	35	157	2020-09-09		f
+1551	34	157	2020-09-09		f
+1552	39	157	2020-09-09		f
+1553	37	157	2020-09-09		f
+1554	42	157	2020-09-09		f
+1555	1	158	2020-09-09		t
+1556	2	158	2020-09-09		t
+1557	3	158	2020-09-09		f
+1558	4	159	2020-09-09		t
+1559	26	159	2020-09-09		t
+1560	16	159	2020-09-09		t
+1561	17	159	2020-09-09		t
+1562	14	159	2020-09-09		t
+1563	6	159	2020-09-09		t
+1564	29	159	2020-09-09		t
+1565	27	159	2020-09-09		t
+1566	7	159	2020-09-09		t
+1567	9	159	2020-09-09		t
+1568	22	159	2020-09-09		t
+1569	23	159	2020-09-09		t
+1570	20	159	2020-09-09		t
+1571	13	159	2020-09-09		t
+1572	12	159	2020-09-09		t
+1573	11	159	2020-09-09		t
+1574	30	159	2020-09-09		f
+1575	25	159	2020-09-09		f
+1576	18	159	2020-09-09		f
+1577	15	159	2020-09-09		f
+1578	5	159	2020-09-09		f
+1579	28	159	2020-09-09		f
+1580	10	159	2020-09-09		f
+1581	8	159	2020-09-09		f
+1582	21	159	2020-09-09		f
+1583	24	159	2020-09-09		f
+1584	19	159	2020-09-09		f
+1585	33	160	2020-09-09		t
+1586	32	160	2020-09-09		t
+1587	41	160	2020-09-09		t
+1588	34	160	2020-09-09		t
+1589	36	160	2020-09-09		t
+1590	39	160	2020-09-09		t
+1591	31	160	2020-09-09		f
+1592	35	160	2020-09-09		f
+1593	38	160	2020-09-09		f
+1594	37	160	2020-09-09		f
+1595	42	160	2020-09-09		f
+1596	40	160	2020-09-09		f
+1597	44	161	2020-09-09		t
+1598	47	161	2020-09-09		t
+1599	46	161	2020-09-09		t
+1600	45	161	2020-09-09		t
+1601	43	161	2020-09-09		t
 \.
 
 
 --
--- TOC entry 3004 (class 0 OID 33011)
+-- TOC entry 3005 (class 0 OID 33011)
 -- Dependencies: 227
 -- Data for Name: localizacao; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1330,30 +1547,26 @@ COPY public.localizacao (id, nome) FROM stdin;
 
 
 --
--- TOC entry 2993 (class 0 OID 17147)
+-- TOC entry 2994 (class 0 OID 17147)
 -- Dependencies: 216
 -- Data for Name: login; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.login (id, usuario, senha, tipo_usuario, data_cadastro, data_alteracao, status, imagem, fk_engenheiro) FROM stdin;
-3	Gil	123	manutencionista	2020-07-09	2020-07-09	t		1
-1	Saulo	123	adm	2020-06-25	2020-06-25	t	\N	1
-2	Nei	123	eng	2020-07-06	2020-07-06	t	bib/perfil.png	1
-8	Paulo	Paulo123	adm	2020-09-04	2020-09-04	t	bib/imgUsu/usuario79259.jpg	1
-9	Brian	Brian123	eng	2020-09-04	2020-09-04	t	bib/imgUsu/usuario34465.jpg	1
-10	João	Joao123	manutencionista	2020-09-04	2020-09-04	f	bib/imgUsu/usuario89289.jpg	1
-11	Mateus	Mateus123	eng	2020-09-05	2020-09-05	t	bib/imgUsu/usuario43637.jpg	1
-12	Jonatas	Jonatas123	manutencionista	2020-09-05	2020-09-05	t	bib/imgUsu/usuario47066.jpg	1
-17	s	s	adm	2020-09-05	2020-09-05	f	bib/imgUsu/usuario54109.jpg	1
-14	dsad	dsa	eng	2020-09-05	2020-09-05	f	bib/imgUsu/usuario72513.jpg	1
-13	sdasdsa	dsdsds	adm	2020-09-05	2020-09-05	f	bib/imgUsu/usuario61599.jpg	1
-15	s	s	eng	2020-09-05	2020-09-05	f	bib/imgUsu/usuario73760.jpg	1
-16	s	s	eng	2020-09-05	2020-09-05	f	bib/imgUsu/usuario3873.jfif	1
+18	Saulo	Saulo123	adm	2020-09-05	2020-09-05	t	bib/img/i.png	1
+19	Gilberto	Gil123	adm	2020-09-08	2020-09-08	t	bib/imgUsu/usuario53622.png	1
+20	João	J123	manutencionista	2020-09-08	2020-09-08	t	bib/imgUsu/usuario49076.png	1
+21	SAULO COELHO DA COSTA JUNIOR - 1111111111	Saulo1234	eng	2020-09-08	2020-09-08	f	bib/imgUsu/usuario53525.png	46
+22	SAULO COELHO DA COSTA JUNIOR - 1111111111	Saulo1234	eng	2020-09-08	2020-09-08	f	bib/imgUsu/usuario54027.png	46
+23	SAULO	Saulo1234	eng	2020-09-08	2020-09-08	t	bib/imgUsu/usuario74387.png	46
+24	Mateus	Mateus123	manutencionista	2019-09-09	2019-09-09	t	bib/imgUsu/usuario10254.png	1
+25	Pedro	Pedro123	manutencionista	2019-09-09	2019-09-09	t	bib/imgUsu/usuario16773.png	1
+26	Paulo	Paulo123	manutencionista	2019-09-09	2019-09-09	t	bib/imgUsu/usuario21535.png	1
 \.
 
 
 --
--- TOC entry 3006 (class 0 OID 33019)
+-- TOC entry 3007 (class 0 OID 33019)
 -- Dependencies: 229
 -- Data for Name: marca; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1367,7 +1580,7 @@ COPY public.marca (id, nome) FROM stdin;
 
 
 --
--- TOC entry 3008 (class 0 OID 33027)
+-- TOC entry 3009 (class 0 OID 33027)
 -- Dependencies: 231
 -- Data for Name: modelo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1381,7 +1594,7 @@ COPY public.modelo (id, nome) FROM stdin;
 
 
 --
--- TOC entry 3010 (class 0 OID 33035)
+-- TOC entry 3011 (class 0 OID 33035)
 -- Dependencies: 233
 -- Data for Name: potencia; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1395,32 +1608,20 @@ COPY public.potencia (id, nome) FROM stdin;
 
 
 --
--- TOC entry 2995 (class 0 OID 17152)
+-- TOC entry 2996 (class 0 OID 17152)
 -- Dependencies: 218
 -- Data for Name: proprietarios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.proprietarios (id, nome, documento, email, telefone, estado, cidade, cep, endereco, razao_social, data_cadastro, data_alteracao, tipo_pessoa) FROM stdin;
-1										2020-06-25	2020-06-25	\N
-13	SAULO COELHO DA COSTA JUNIOR	703.484.031-86	ksaulojr10@gmail.com	64993007836	MG	Araguari	75680262	Rua 3 Quadra 59 Lote 2 Setor São José		2020-07-29	2020-07-29	Fisica
-14	SAULO COELHO DA COSTA JUNIOR	703.484.031-86	ksaulojr10@gmail.com	64993007836	GO	Caldas Novas	75680262	Rua 3 Quadra 59 Lote 2 Setor São José		2020-07-29	2020-07-29	Fisica
-15	SAULO COELHO DA COSTA JUNIOR	703.484.031-86	ksaulojr10@gmail.com	64993007836	GO	Caldas Novas	75680262	Rua 3 Quadra 59 Lote 2 Setor São José		2020-07-29	2020-07-29	Fisica
-16	SAULO COELHO DA COSTA JUNIOR	703.484.031-86	ksaulojr10@gmail.com	64993007836	MG	Araguari	75680262	Rua 3 Quadra 59 Lote 2 Setor São José		2020-07-30	2020-07-30	Fisica
-17	SAULO COELHO DA COSTA JUNIOR	703.484.031-86	ksaulojr10@gmail.com	64993007836	SP	São Paulo	75680262	Rua 3 Quadra 59 Lote 2 Setor São José		2020-07-30	2020-07-30	Fisica
-18	SAULO COELHO DA COSTA JUNIOR	703.484.031-86	ksaulojr10@gmail.com	64993007836	MG	Caldas Novas	75680262	Rua 3 Quadra 59 Lote 2 Setor São José		2020-07-30	2020-07-30	Fisica
-19	SAULO COELHO DA COSTA JUNIOR	703.484.031-86	ksaulojr10@gmail.com	64993007836	GO	Caldas Novas	75680262	Rua 3 Quadra 59 Lote 2 Setor São José		2020-07-30	2020-07-30	Fisica
-20	Saulo Coelho da Costa	703.484.031-86	ksaulojr10@gmail.com	64993007836	MG	Araguari	75680262	Rua 3 Quadra 59 Lote 2 Setor São José		2020-08-13	2020-08-13	Fisica
-21	Gilberto Reali	858.888.888-88	8888888888@gmail.com	(88) 88888-8888	RJ	Rio de Janeiro	88888-888	Rua 3 Quadra 59 Lote 2 Setor São José		2020-08-13	2020-08-13	Fisica
-22	Neimar Neitze	111.111.111-11	111111111@gmail.com	(11) 11111-1111	SP	São Paulo	11111-111	Rua 3 Quadra 59 Lote 2 Setor São José		2020-08-13	2020-08-13	Fisica
-23	Camila Silva Coelho da Costa	222.222.222-22	2222222222@gmail.com	(22) 22222-2222	MG	Araguari	22222-222	Rua 3 Quadra 59 Lote 2 Setor São José		2020-08-13	2020-08-13	Fisica
-24	Saulo Coelho da Costa Junior	703.484.031-86	ksaulojr10@gmail.com	64993007836	GO	Caldas Novas	75680262	Rua 3 Quadra 59 Lote 2 Setor São José		2020-08-25	2020-08-25	Fisica
-25	Saulo 	777.777.777-77	7777777@gmail.com	(77) 77777-7777	GO	Caldas Novas	77777-777	Rua 7 Quadra 7 Lote 7 Setor Sete		2020-09-01	2020-09-01	Fisica
-26	SAULO COELHO DA COSTA JUNIOR - 703.484.031-86									2020-09-01	2020-09-01	Fisica
+1										2020-09-05	2020-09-05	
+58	Saulo Coelho da Costa Junior	111.111.111-11	111111111@gmail.com	(11) 11111-1111	GO	Caldas Novas	11111-111	Rua 1 Quadra 1 Lote 1 Setor Um		2020-09-08	2020-09-08	Fisica
+59	Camila Silva Coelho da Costa	222.222.222-22	22222222@gmail.com	(22) 22222-2222	RJ	Rio de Janeiro	22222-222	Rua 2 Quadra 2 Lote 2 Setor Dois		2020-09-08	2020-09-08	Fisica
 \.
 
 
 --
--- TOC entry 2997 (class 0 OID 17160)
+-- TOC entry 2998 (class 0 OID 17160)
 -- Dependencies: 220
 -- Data for Name: tipo_equipamento; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1431,259 +1632,254 @@ COPY public.tipo_equipamento (id, nome) FROM stdin;
 
 
 --
--- TOC entry 2999 (class 0 OID 17165)
+-- TOC entry 3000 (class 0 OID 17165)
 -- Dependencies: 222
 -- Data for Name: uhs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.uhs (id, nome, andar, fk_bloco, proprietario, tipo_local, status, prefixo, gerenciada, tipo_proprietario) FROM stdin;
-3143	601	6	219	1	UH	t	B	f	Sem Proprietário
-3144	602	6	219	1	UH	t	B	f	Sem Proprietário
-3145	603	6	219	1	UH	t	B	f	Sem Proprietário
-3146	604	6	219	1	UH	t	B	f	Sem Proprietário
-3147	605	6	219	1	UH	t	B	f	Sem Proprietário
-3167	Sala 0	0	220	1	Sala	f		f	Sem Proprietário
-3168	Sala 0	0	221	1	Sala	f		f	Sem Proprietário
-3169	Sala 1	1	221	1	Sala	f		f	Sem Proprietário
-3148	Sala 6	6	219	1	Sala	f	B	f	Sem Proprietário
-3153	003	0	220	1	UH	t	A	t	Sem Proprietário
-3154	004	0	220	1	UH	t	A	f	Sem Proprietário
-2935	001	0	211	25	UH	t	A	t	Unica
-2936	002	0	211	24	UH	t	A	f	Unica
-3155	005	0	220	1	UH	t	A	f	Sem Proprietário
-3170	Sala 2	2	221	1	Sala	t		f	Sem Proprietário
-2937	003	0	211	16	UH	t	A	f	Unica
-2938	004	0	211	1	UH	t	A	f	Sem Proprietário
-2940	101	1	211	26	UH	t	A	t	Unica
-2941	102	1	211	1	UH	t	A	f	Sem Proprietário
-3156	006	0	220	1	UH	t	A	f	Sem Proprietário
-3031	Sala 1	1	213	1	Sala	t		f	Sem Proprietário
-2942	103	1	211	1	UH	t	A	f	Sem Proprietário
-3071	001	0	218	1	UH	t	A	f	Sem Proprietário
-3072	002	0	218	1	UH	t	A	f	Sem Proprietário
-3073	003	0	218	1	UH	t	A	f	Sem Proprietário
-3074	004	0	218	1	UH	t	A	f	Sem Proprietário
-3075	005	0	218	1	UH	t	A	f	Sem Proprietário
-3076	006	0	218	1	UH	t	A	f	Sem Proprietário
-3077	101	1	218	1	UH	t	A	f	Sem Proprietário
-2943	104	1	211	1	UH	t	A	f	Sem Proprietário
-2949	301	3	211	1	UH	t	A	f	Sem Proprietário
-2950	302	3	211	1	UH	t	A	f	Sem Proprietário
-2951	303	3	211	1	UH	t	A	f	Sem Proprietário
-2952	304	3	211	1	UH	t	A	f	Sem Proprietário
-2953	401	4	211	1	UH	t	A	f	Sem Proprietário
-2954	402	4	211	1	UH	t	A	f	Sem Proprietário
-2955	403	4	211	1	UH	t	A	f	Sem Proprietário
-2956	404	4	211	1	UH	t	A	f	Sem Proprietário
-2957	405	4	211	1	UH	t	A	f	Sem Proprietário
-2958	501	5	211	1	UH	t	A	f	Sem Proprietário
-2959	502	5	211	1	UH	t	A	f	Sem Proprietário
-2960	503	5	211	1	UH	t	A	f	Sem Proprietário
-2961	504	5	211	1	UH	t	A	f	Sem Proprietário
-2945	202	2	211	1	UH	t	A	f	Sem Proprietário
-2939	005	0	211	1	UH	t	A	f	Sem Proprietário
-2944	201	2	211	17	UH	t	A	t	Unica
-2946	203	2	211	1	UH	t	A	f	Sem Proprietário
-2962	001	0	212	1	UH	t	B	f	Sem Proprietário
-2948	205	2	211	1	UH	t	A	f	Sem Proprietário
-2947	204	2	211	18	UH	t	A	f	Unica
-3078	102	1	218	1	UH	t	A	f	Sem Proprietário
-3079	103	1	218	1	UH	t	A	f	Sem Proprietário
-3080	104	1	218	1	UH	t	A	f	Sem Proprietário
-3081	105	1	218	1	UH	t	A	f	Sem Proprietário
-3082	106	1	218	1	UH	t	A	f	Sem Proprietário
-3083	201	2	218	1	UH	t	A	f	Sem Proprietário
-3084	202	2	218	1	UH	t	A	f	Sem Proprietário
-3085	203	2	218	1	UH	t	A	f	Sem Proprietário
-3086	204	2	218	1	UH	t	A	f	Sem Proprietário
-3087	205	2	218	1	UH	t	A	f	Sem Proprietário
-3088	206	2	218	1	UH	t	A	f	Sem Proprietário
-3089	301	3	218	1	UH	t	A	f	Sem Proprietário
-3090	302	3	218	1	UH	t	A	f	Sem Proprietário
-3091	303	3	218	1	UH	t	A	f	Sem Proprietário
-3092	304	3	218	1	UH	t	A	f	Sem Proprietário
-3093	305	3	218	1	UH	t	A	f	Sem Proprietário
-3094	306	3	218	1	UH	t	A	f	Sem Proprietário
-3095	401	4	218	1	UH	t	A	f	Sem Proprietário
-3096	402	4	218	1	UH	t	A	f	Sem Proprietário
-3097	403	4	218	1	UH	t	A	f	Sem Proprietário
-3098	404	4	218	1	UH	t	A	f	Sem Proprietário
-3099	405	4	218	1	UH	t	A	f	Sem Proprietário
-3100	406	4	218	1	UH	t	A	f	Sem Proprietário
-3101	501	5	218	1	UH	t	A	f	Sem Proprietário
-3102	502	5	218	1	UH	t	A	f	Sem Proprietário
-3103	503	5	218	1	UH	t	A	f	Sem Proprietário
-3104	504	5	218	1	UH	t	A	f	Sem Proprietário
-3105	505	5	218	1	UH	t	A	f	Sem Proprietário
-3106	506	5	218	1	UH	t	A	f	Sem Proprietário
-3151	001	0	220	20	UH	t	A	t	Unica
-3152	002	0	220	1	UH	t	A	t	Sem Proprietário
-3032	Sala 2	2	213	1	Sala	t		f	Sem Proprietário
-3033	Sala 3	3	213	1	Sala	t		f	Sem Proprietário
-3034	Sala 4	4	213	1	Sala	t		f	Sem Proprietário
-3049	101	1	217	1	UH	t	C	f	Sem Proprietário
-3050	102	1	217	1	UH	t	C	f	Sem Proprietário
-3051	103	1	217	1	UH	t	C	f	Sem Proprietário
-3052	104	1	217	1	UH	t	C	f	Sem Proprietário
-3053	201	2	217	1	UH	t	C	f	Sem Proprietário
-3054	202	2	217	1	UH	t	C	f	Sem Proprietário
-3055	203	2	217	1	UH	t	C	f	Sem Proprietário
-3056	204	2	217	1	UH	t	C	f	Sem Proprietário
-3035	Sala -1	-1	216	1	Sala	t		f	Sem Proprietário
-3057	205	2	217	1	UH	t	C	f	Sem Proprietário
-3037	Sala 0	0	216	1	Sala	t		f	Sem Proprietário
-3038	Sala 1	1	216	1	Sala	t		f	Sem Proprietário
-3039	Sala 2	2	216	1	Sala	t		f	Sem Proprietário
-3040	Sala 3	3	216	1	Sala	t		f	Sem Proprietário
-3041	Sala 4	4	216	1	Sala	t		f	Sem Proprietário
-3042	Sala 5	5	216	1	Sala	t		f	Sem Proprietário
-3058	301	3	217	1	UH	t	C	f	Sem Proprietário
-3030	Sala 0	-2	213	1	Sala	t		f	Sem Proprietário
-3059	302	3	217	1	UH	t	C	f	Sem Proprietário
-3036	Sala -2	-2	216	1	Sala	t		f	Sem Proprietário
-3043	Sala 0	0	213	1	Sala	t		f	Sem Proprietário
-3060	303	3	217	1	UH	t	C	f	Sem Proprietário
-3061	304	3	217	1	UH	t	C	f	Sem Proprietário
-3062	401	4	217	1	UH	t	C	f	Sem Proprietário
-3063	402	4	217	1	UH	t	C	f	Sem Proprietário
-3064	403	4	217	1	UH	t	C	f	Sem Proprietário
-3065	404	4	217	1	UH	t	C	f	Sem Proprietário
-3066	405	4	217	1	UH	t	C	f	Sem Proprietário
-3067	501	5	217	1	UH	t	C	f	Sem Proprietário
-3068	502	5	217	1	UH	t	C	f	Sem Proprietário
-3069	503	5	217	1	UH	t	C	f	Sem Proprietário
-3070	504	5	217	1	UH	t	C	f	Sem Proprietário
-3044	001	0	217	19	UH	t	C	t	Unica
-3045	002	0	217	1	UH	t	C	f	Sem Proprietário
-3046	003	0	217	1	UH	t	C	f	Sem Proprietário
-3047	004	0	217	1	UH	t	C	f	Sem Proprietário
-3048	005	0	217	1	UH	t	C	f	Sem Proprietário
-2963	002	0	212	1	UH	t	B	f	Sem Proprietário
-3149	606	6	219	1	UH	t	B	f	Sem Proprietário
-3176	106	1	220	1	UH	t	A	f	Sem Proprietário
-3171	101	1	220	21	UH	t	A	t	Unica
-3173	103	1	220	22	UH	t	A	t	Unica
-3174	104	1	220	23	UH	t	A	t	Unica
-3161	011	0	220	1	Sala	f	A	f	Sem Proprietário
-3157	007	0	220	1	Sala	f	A	f	Sem Proprietário
-3162	012	0	220	1	Sala	f	A	f	Sem Proprietário
-3160	010	0	220	1	Sala	f	A	f	Sem Proprietário
-3158	008	0	220	1	Sala	f	A	f	Sem Proprietário
-3159	009	0	220	1	Sala	f	A	f	Sem Proprietário
-3172	102	1	220	1	UH	t	A	f	Sem Proprietário
-3175	105	1	220	1	UH	t	A	f	Sem Proprietário
-3107	001	0	219	1	UH	t	B	f	Sem Proprietário
-3108	002	0	219	1	UH	t	B	f	Sem Proprietário
-3109	003	0	219	1	UH	t	B	f	Sem Proprietário
-3110	004	0	219	1	UH	t	B	f	Sem Proprietário
-3111	005	0	219	1	UH	t	B	f	Sem Proprietário
-3112	006	0	219	1	UH	t	B	f	Sem Proprietário
-3113	101	1	219	1	UH	t	B	f	Sem Proprietário
-3114	102	1	219	1	UH	t	B	f	Sem Proprietário
-3115	103	1	219	1	UH	t	B	f	Sem Proprietário
-3116	104	1	219	1	UH	t	B	f	Sem Proprietário
-3117	105	1	219	1	UH	t	B	f	Sem Proprietário
-3118	106	1	219	1	UH	t	B	f	Sem Proprietário
-3119	201	2	219	1	UH	t	B	f	Sem Proprietário
-3120	202	2	219	1	UH	t	B	f	Sem Proprietário
-3121	203	2	219	1	UH	t	B	f	Sem Proprietário
-3122	204	2	219	1	UH	t	B	f	Sem Proprietário
-3123	205	2	219	1	UH	t	B	f	Sem Proprietário
-3124	206	2	219	1	UH	t	B	f	Sem Proprietário
-3125	301	3	219	1	UH	t	B	f	Sem Proprietário
-3126	302	3	219	1	UH	t	B	f	Sem Proprietário
-3127	303	3	219	1	UH	t	B	f	Sem Proprietário
-3128	304	3	219	1	UH	t	B	f	Sem Proprietário
-3129	305	3	219	1	UH	t	B	f	Sem Proprietário
-3130	306	3	219	1	UH	t	B	f	Sem Proprietário
-3131	401	4	219	1	UH	t	B	f	Sem Proprietário
-3132	402	4	219	1	UH	t	B	f	Sem Proprietário
-3133	403	4	219	1	UH	t	B	f	Sem Proprietário
-2964	003	0	212	1	UH	t	B	f	Sem Proprietário
-2965	004	0	212	1	UH	t	B	f	Sem Proprietário
-2966	005	0	212	1	UH	t	B	f	Sem Proprietário
-2967	006	0	212	1	UH	t	B	f	Sem Proprietário
-2968	007	0	212	1	UH	t	B	f	Sem Proprietário
-2969	008	0	212	1	UH	t	B	f	Sem Proprietário
-2970	101	1	212	1	UH	t	B	f	Sem Proprietário
-2971	102	1	212	1	UH	t	B	f	Sem Proprietário
-2972	103	1	212	1	UH	t	B	f	Sem Proprietário
-2973	104	1	212	1	UH	t	B	f	Sem Proprietário
-2974	105	1	212	1	UH	t	B	f	Sem Proprietário
-2975	106	1	212	1	UH	t	B	f	Sem Proprietário
-2976	107	1	212	1	UH	t	B	f	Sem Proprietário
-2984	208	2	212	1	UH	t	B	f	Sem Proprietário
-2985	301	3	212	1	UH	t	B	f	Sem Proprietário
-2986	302	3	212	1	UH	t	B	f	Sem Proprietário
-2987	303	3	212	1	UH	t	B	f	Sem Proprietário
-2988	304	3	212	1	UH	t	B	f	Sem Proprietário
-2989	305	3	212	1	UH	t	B	f	Sem Proprietário
-2990	306	3	212	1	UH	t	B	f	Sem Proprietário
-2991	307	3	212	1	UH	t	B	f	Sem Proprietário
-2992	401	4	212	1	UH	t	B	f	Sem Proprietário
-2993	402	4	212	1	UH	t	B	f	Sem Proprietário
-2994	403	4	212	1	UH	t	B	f	Sem Proprietário
-2995	404	4	212	1	UH	t	B	f	Sem Proprietário
-2996	405	4	212	1	UH	t	B	f	Sem Proprietário
-2997	406	4	212	1	UH	t	B	f	Sem Proprietário
-2998	407	4	212	1	UH	t	B	f	Sem Proprietário
-2999	408	4	212	1	UH	t	B	f	Sem Proprietário
-3000	501	5	212	1	UH	t	B	f	Sem Proprietário
-3001	502	5	212	1	UH	t	B	f	Sem Proprietário
-3002	503	5	212	1	UH	t	B	f	Sem Proprietário
-3003	504	5	212	1	UH	t	B	f	Sem Proprietário
-3004	505	5	212	1	UH	t	B	f	Sem Proprietário
-3005	506	5	212	1	UH	t	B	f	Sem Proprietário
-3006	507	5	212	1	UH	t	B	f	Sem Proprietário
-3007	601	6	212	1	UH	t	B	f	Sem Proprietário
-3008	602	6	212	1	UH	t	B	f	Sem Proprietário
-3009	603	6	212	1	UH	t	B	f	Sem Proprietário
-3010	604	6	212	1	UH	t	B	f	Sem Proprietário
-3011	605	6	212	1	UH	t	B	f	Sem Proprietário
-3012	606	6	212	1	UH	t	B	f	Sem Proprietário
-3013	607	6	212	1	UH	t	B	f	Sem Proprietário
-3014	608	6	212	1	UH	t	B	f	Sem Proprietário
-3015	701	7	212	1	UH	t	B	f	Sem Proprietário
-3016	702	7	212	1	UH	t	B	f	Sem Proprietário
-3017	703	7	212	1	UH	t	B	f	Sem Proprietário
-3018	704	7	212	1	UH	t	B	f	Sem Proprietário
-3019	705	7	212	1	UH	t	B	f	Sem Proprietário
-3020	706	7	212	1	UH	t	B	f	Sem Proprietário
-3021	707	7	212	1	UH	t	B	f	Sem Proprietário
-3022	801	8	212	1	UH	t	B	f	Sem Proprietário
-3023	802	8	212	1	UH	t	B	f	Sem Proprietário
-3024	803	8	212	1	UH	t	B	f	Sem Proprietário
-3025	804	8	212	1	UH	t	B	f	Sem Proprietário
-3026	805	8	212	1	UH	t	B	f	Sem Proprietário
-3027	806	8	212	1	UH	t	B	f	Sem Proprietário
-3028	807	8	212	1	UH	t	B	f	Sem Proprietário
-3029	808	8	212	1	UH	t	B	f	Sem Proprietário
-3150	Sala 6	6	219	1	Sala	t		f	Sem Proprietário
-3163	Sala -2	-2	224	1	Sala	t		f	Sem Proprietário
-3164	Sala -1	-1	224	1	Sala	t		f	Sem Proprietário
-3165	Sala 0	0	224	1	Sala	t		f	Sem Proprietário
-3166	Sala 1	1	224	1	Sala	t		f	Sem Proprietário
-2977	201	2	212	23	UH	t	B	t	Unica
-2978	202	2	212	1	UH	t	B	f	Sem Proprietário
-2979	203	2	212	1	UH	t	B	f	Sem Proprietário
-2980	204	2	212	1	UH	t	B	f	Sem Proprietário
-2981	205	2	212	1	UH	t	B	f	Sem Proprietário
-2982	206	2	212	1	UH	t	B	f	Sem Proprietário
-2983	207	2	212	1	UH	t	B	f	Sem Proprietário
-3134	404	4	219	1	UH	t	B	f	Sem Proprietário
-3135	405	4	219	1	UH	t	B	f	Sem Proprietário
-3136	406	4	219	1	UH	t	B	f	Sem Proprietário
-3137	501	5	219	1	UH	t	B	f	Sem Proprietário
-3138	502	5	219	1	UH	t	B	f	Sem Proprietário
-3139	503	5	219	1	UH	t	B	f	Sem Proprietário
-3140	504	5	219	1	UH	t	B	f	Sem Proprietário
-3141	505	5	219	1	UH	t	B	f	Sem Proprietário
-3142	506	5	219	1	UH	t	B	f	Sem Proprietário
+3182	006	0	225	1	UH	t		f	Sem Proprietário
+3183	101	1	225	1	UH	t		f	Sem Proprietário
+3184	102	1	225	1	UH	t		f	Sem Proprietário
+3185	103	1	225	1	UH	t		f	Sem Proprietário
+3186	104	1	225	1	UH	t		f	Sem Proprietário
+3187	105	1	225	1	UH	t		f	Sem Proprietário
+3188	201	2	225	1	UH	t		f	Sem Proprietário
+3189	202	2	225	1	UH	t		f	Sem Proprietário
+3190	203	2	225	1	UH	t		f	Sem Proprietário
+3191	204	2	225	1	UH	t		f	Sem Proprietário
+3192	205	2	225	1	UH	t		f	Sem Proprietário
+3193	206	2	225	1	UH	t		f	Sem Proprietário
+3194	301	3	225	1	UH	t		f	Sem Proprietário
+3195	302	3	225	1	UH	t		f	Sem Proprietário
+3196	303	3	225	1	UH	t		f	Sem Proprietário
+3197	304	3	225	1	UH	t		f	Sem Proprietário
+3198	305	3	225	1	UH	t		f	Sem Proprietário
+3199	401	4	225	1	UH	t		f	Sem Proprietário
+3200	402	4	225	1	UH	t		f	Sem Proprietário
+3201	403	4	225	1	UH	t		f	Sem Proprietário
+3202	404	4	225	1	UH	t		f	Sem Proprietário
+3203	405	4	225	1	UH	t		f	Sem Proprietário
+3204	406	4	225	1	UH	t		f	Sem Proprietário
+3205	501	5	225	1	UH	t		f	Sem Proprietário
+3206	502	5	225	1	UH	t		f	Sem Proprietário
+3207	503	5	225	1	UH	t		f	Sem Proprietário
+3208	504	5	225	1	UH	t		f	Sem Proprietário
+3209	505	5	225	1	UH	t		f	Sem Proprietário
+3210	601	6	225	1	UH	t		f	Sem Proprietário
+3211	602	6	225	1	UH	t		f	Sem Proprietário
+3212	603	6	225	1	UH	t		f	Sem Proprietário
+3213	604	6	225	1	UH	t		f	Sem Proprietário
+3214	605	6	225	1	UH	t		f	Sem Proprietário
+3215	606	6	225	1	UH	t		f	Sem Proprietário
+3216	701	7	225	1	UH	t		f	Sem Proprietário
+3217	702	7	225	1	UH	t		f	Sem Proprietário
+3218	703	7	225	1	UH	t		f	Sem Proprietário
+3219	704	7	225	1	UH	t		f	Sem Proprietário
+3220	705	7	225	1	UH	t		f	Sem Proprietário
+3221	801	8	225	1	UH	t		f	Sem Proprietário
+3222	802	8	225	1	UH	t		f	Sem Proprietário
+3223	803	8	225	1	UH	t		f	Sem Proprietário
+3224	804	8	225	1	UH	t		f	Sem Proprietário
+3225	805	8	225	1	UH	t		f	Sem Proprietário
+3226	806	8	225	1	UH	t		f	Sem Proprietário
+3177	001	0	225	58	UH	t		t	Unica
+3178	002	0	225	1	UH	t		f	Sem Proprietário
+3179	003	0	225	1	UH	t		f	Sem Proprietário
+3180	004	0	225	1	UH	t		f	Sem Proprietário
+3181	005	0	225	1	UH	t		f	Sem Proprietário
+3227	001	0	226	1	UH	t		f	Sem Proprietário
+3228	002	0	226	1	UH	t		f	Sem Proprietário
+3229	003	0	226	1	UH	t		f	Sem Proprietário
+3230	004	0	226	1	UH	t		f	Sem Proprietário
+3231	005	0	226	1	UH	t		f	Sem Proprietário
+3232	006	0	226	1	UH	t		f	Sem Proprietário
+3233	007	0	226	1	UH	t		f	Sem Proprietário
+3234	008	0	226	1	UH	t		f	Sem Proprietário
+3235	101	1	226	1	UH	t		f	Sem Proprietário
+3236	102	1	226	1	UH	t		f	Sem Proprietário
+3237	103	1	226	1	UH	t		f	Sem Proprietário
+3238	104	1	226	1	UH	t		f	Sem Proprietário
+3239	105	1	226	1	UH	t		f	Sem Proprietário
+3240	106	1	226	1	UH	t		f	Sem Proprietário
+3241	107	1	226	1	UH	t		f	Sem Proprietário
+3242	108	1	226	1	UH	t		f	Sem Proprietário
+3243	201	2	226	1	UH	t		f	Sem Proprietário
+3244	202	2	226	1	UH	t		f	Sem Proprietário
+3245	203	2	226	1	UH	t		f	Sem Proprietário
+3246	204	2	226	1	UH	t		f	Sem Proprietário
+3247	205	2	226	1	UH	t		f	Sem Proprietário
+3248	206	2	226	1	UH	t		f	Sem Proprietário
+3249	207	2	226	1	UH	t		f	Sem Proprietário
+3250	208	2	226	1	UH	t		f	Sem Proprietário
+3251	301	3	226	1	UH	t		f	Sem Proprietário
+3252	302	3	226	1	UH	t		f	Sem Proprietário
+3253	303	3	226	1	UH	t		f	Sem Proprietário
+3254	304	3	226	1	UH	t		f	Sem Proprietário
+3255	305	3	226	1	UH	t		f	Sem Proprietário
+3256	306	3	226	1	UH	t		f	Sem Proprietário
+3257	307	3	226	1	UH	t		f	Sem Proprietário
+3258	308	3	226	1	UH	t		f	Sem Proprietário
+3259	401	4	226	1	UH	t		f	Sem Proprietário
+3260	402	4	226	1	UH	t		f	Sem Proprietário
+3261	403	4	226	1	UH	t		f	Sem Proprietário
+3262	404	4	226	1	UH	t		f	Sem Proprietário
+3263	405	4	226	1	UH	t		f	Sem Proprietário
+3264	406	4	226	1	UH	t		f	Sem Proprietário
+3265	407	4	226	1	UH	t		f	Sem Proprietário
+3266	408	4	226	1	UH	t		f	Sem Proprietário
+3267	501	5	226	1	UH	t		f	Sem Proprietário
+3268	502	5	226	1	UH	t		f	Sem Proprietário
+3269	503	5	226	1	UH	t		f	Sem Proprietário
+3270	504	5	226	1	UH	t		f	Sem Proprietário
+3271	505	5	226	1	UH	t		f	Sem Proprietário
+3272	506	5	226	1	UH	t		f	Sem Proprietário
+3273	507	5	226	1	UH	t		f	Sem Proprietário
+3274	508	5	226	1	UH	t		f	Sem Proprietário
+3275	601	6	226	1	UH	t		f	Sem Proprietário
+3276	602	6	226	1	UH	t		f	Sem Proprietário
+3277	603	6	226	1	UH	t		f	Sem Proprietário
+3278	604	6	226	1	UH	t		f	Sem Proprietário
+3279	605	6	226	1	UH	t		f	Sem Proprietário
+3280	606	6	226	1	UH	t		f	Sem Proprietário
+3281	607	6	226	1	UH	t		f	Sem Proprietário
+3282	608	6	226	1	UH	t		f	Sem Proprietário
+3283	001	0	227	1	UH	t	A	f	Sem Proprietário
+3284	002	0	227	1	UH	t	A	f	Sem Proprietário
+3285	003	0	227	1	UH	t	A	f	Sem Proprietário
+3286	004	0	227	1	UH	t	A	f	Sem Proprietário
+3287	005	0	227	1	UH	t	A	f	Sem Proprietário
+3288	101	1	227	1	UH	t	A	f	Sem Proprietário
+3289	102	1	227	1	UH	t	A	f	Sem Proprietário
+3290	103	1	227	1	UH	t	A	f	Sem Proprietário
+3291	104	1	227	1	UH	t	A	f	Sem Proprietário
+3292	105	1	227	1	UH	t	A	f	Sem Proprietário
+3293	201	2	227	1	UH	t	A	f	Sem Proprietário
+3294	202	2	227	1	UH	t	A	f	Sem Proprietário
+3295	203	2	227	1	UH	t	A	f	Sem Proprietário
+3296	204	2	227	1	UH	t	A	f	Sem Proprietário
+3297	205	2	227	1	UH	t	A	f	Sem Proprietário
+3298	301	3	227	1	UH	t	A	f	Sem Proprietário
+3299	302	3	227	1	UH	t	A	f	Sem Proprietário
+3300	303	3	227	1	UH	t	A	f	Sem Proprietário
+3301	304	3	227	1	UH	t	A	f	Sem Proprietário
+3302	305	3	227	1	UH	t	A	f	Sem Proprietário
+3303	401	4	227	1	UH	t	A	f	Sem Proprietário
+3304	402	4	227	1	UH	t	A	f	Sem Proprietário
+3305	403	4	227	1	UH	t	A	f	Sem Proprietário
+3306	404	4	227	1	UH	t	A	f	Sem Proprietário
+3307	405	4	227	1	UH	t	A	f	Sem Proprietário
+3308	501	5	227	1	UH	t	A	f	Sem Proprietário
+3309	502	5	227	1	UH	t	A	f	Sem Proprietário
+3310	503	5	227	1	UH	t	A	f	Sem Proprietário
+3311	504	5	227	1	UH	t	A	f	Sem Proprietário
+3312	505	5	227	1	UH	t	A	f	Sem Proprietário
+3313	001	0	228	1	UH	t	B	f	Sem Proprietário
+3314	002	0	228	1	UH	t	B	f	Sem Proprietário
+3315	003	0	228	1	UH	t	B	f	Sem Proprietário
+3316	004	0	228	1	UH	t	B	f	Sem Proprietário
+3317	005	0	228	1	UH	t	B	f	Sem Proprietário
+3318	006	0	228	1	UH	t	B	f	Sem Proprietário
+3319	007	0	228	1	UH	t	B	f	Sem Proprietário
+3320	008	0	228	1	UH	t	B	f	Sem Proprietário
+3328	108	1	228	1	UH	t	B	f	Sem Proprietário
+3329	201	2	228	1	UH	t	B	f	Sem Proprietário
+3330	202	2	228	1	UH	t	B	f	Sem Proprietário
+3331	203	2	228	1	UH	t	B	f	Sem Proprietário
+3332	204	2	228	1	UH	t	B	f	Sem Proprietário
+3333	205	2	228	1	UH	t	B	f	Sem Proprietário
+3334	206	2	228	1	UH	t	B	f	Sem Proprietário
+3335	207	2	228	1	UH	t	B	f	Sem Proprietário
+3336	208	2	228	1	UH	t	B	f	Sem Proprietário
+3337	301	3	228	1	UH	t	B	f	Sem Proprietário
+3338	302	3	228	1	UH	t	B	f	Sem Proprietário
+3339	303	3	228	1	UH	t	B	f	Sem Proprietário
+3340	304	3	228	1	UH	t	B	f	Sem Proprietário
+3341	305	3	228	1	UH	t	B	f	Sem Proprietário
+3342	306	3	228	1	UH	t	B	f	Sem Proprietário
+3343	307	3	228	1	UH	t	B	f	Sem Proprietário
+3344	308	3	228	1	UH	t	B	f	Sem Proprietário
+3345	401	4	228	1	UH	t	B	f	Sem Proprietário
+3346	402	4	228	1	UH	t	B	f	Sem Proprietário
+3347	403	4	228	1	UH	t	B	f	Sem Proprietário
+3348	404	4	228	1	UH	t	B	f	Sem Proprietário
+3349	405	4	228	1	UH	t	B	f	Sem Proprietário
+3350	406	4	228	1	UH	t	B	f	Sem Proprietário
+3351	407	4	228	1	UH	t	B	f	Sem Proprietário
+3352	408	4	228	1	UH	t	B	f	Sem Proprietário
+3353	501	5	228	1	UH	t	B	f	Sem Proprietário
+3354	502	5	228	1	UH	t	B	f	Sem Proprietário
+3355	503	5	228	1	UH	t	B	f	Sem Proprietário
+3356	504	5	228	1	UH	t	B	f	Sem Proprietário
+3357	505	5	228	1	UH	t	B	f	Sem Proprietário
+3358	506	5	228	1	UH	t	B	f	Sem Proprietário
+3359	507	5	228	1	UH	t	B	f	Sem Proprietário
+3360	508	5	228	1	UH	t	B	f	Sem Proprietário
+3361	601	6	228	1	UH	t	B	f	Sem Proprietário
+3362	602	6	228	1	UH	t	B	f	Sem Proprietário
+3363	603	6	228	1	UH	t	B	f	Sem Proprietário
+3364	604	6	228	1	UH	t	B	f	Sem Proprietário
+3365	605	6	228	1	UH	t	B	f	Sem Proprietário
+3366	606	6	228	1	UH	t	B	f	Sem Proprietário
+3367	607	6	228	1	UH	t	B	f	Sem Proprietário
+3368	608	6	228	1	UH	t	B	f	Sem Proprietário
+3369	001	0	229	1	UH	t	A	f	Sem Proprietário
+3370	002	0	229	1	UH	t	A	f	Sem Proprietário
+3371	003	0	229	1	UH	t	A	f	Sem Proprietário
+3372	004	0	229	1	UH	t	A	f	Sem Proprietário
+3373	101	1	229	1	UH	t	A	f	Sem Proprietário
+3374	102	1	229	1	UH	t	A	f	Sem Proprietário
+3375	103	1	229	1	UH	t	A	f	Sem Proprietário
+3376	104	1	229	1	UH	t	A	f	Sem Proprietário
+3377	201	2	229	1	UH	t	A	f	Sem Proprietário
+3378	202	2	229	1	UH	t	A	f	Sem Proprietário
+3379	203	2	229	1	UH	t	A	f	Sem Proprietário
+3380	204	2	229	1	UH	t	A	f	Sem Proprietário
+3381	301	3	229	1	UH	t	A	f	Sem Proprietário
+3382	302	3	229	1	UH	t	A	f	Sem Proprietário
+3383	303	3	229	1	UH	t	A	f	Sem Proprietário
+3384	304	3	229	1	UH	t	A	f	Sem Proprietário
+3322	102	1	228	1	UH	t	B	f	Sem Proprietário
+3323	103	1	228	1	UH	t	B	f	Sem Proprietário
+3324	104	1	228	1	UH	t	B	f	Sem Proprietário
+3325	105	1	228	1	UH	t	B	f	Sem Proprietário
+3326	106	1	228	1	UH	t	B	f	Sem Proprietário
+3327	107	1	228	1	UH	t	B	f	Sem Proprietário
+3385	401	4	229	1	UH	t	A	f	Sem Proprietário
+3386	402	4	229	1	UH	t	A	f	Sem Proprietário
+3387	403	4	229	1	UH	t	A	f	Sem Proprietário
+3388	404	4	229	1	UH	t	A	f	Sem Proprietário
+3389	001	0	230	1	UH	t	B	f	Sem Proprietário
+3390	002	0	230	1	UH	t	B	f	Sem Proprietário
+3391	003	0	230	1	UH	t	B	f	Sem Proprietário
+3392	004	0	230	1	UH	t	B	f	Sem Proprietário
+3393	005	0	230	1	UH	t	B	f	Sem Proprietário
+3394	101	1	230	1	UH	t	B	f	Sem Proprietário
+3395	102	1	230	1	UH	t	B	f	Sem Proprietário
+3396	103	1	230	1	UH	t	B	f	Sem Proprietário
+3397	104	1	230	1	UH	t	B	f	Sem Proprietário
+3398	105	1	230	1	UH	t	B	f	Sem Proprietário
+3403	205	2	230	1	UH	t	B	f	Sem Proprietário
+3404	301	3	230	1	UH	t	B	f	Sem Proprietário
+3405	302	3	230	1	UH	t	B	f	Sem Proprietário
+3406	303	3	230	1	UH	t	B	f	Sem Proprietário
+3407	304	3	230	1	UH	t	B	f	Sem Proprietário
+3408	305	3	230	1	UH	t	B	f	Sem Proprietário
+3409	401	4	230	1	UH	t	B	f	Sem Proprietário
+3410	402	4	230	1	UH	t	B	f	Sem Proprietário
+3411	403	4	230	1	UH	t	B	f	Sem Proprietário
+3412	404	4	230	1	UH	t	B	f	Sem Proprietário
+3413	405	4	230	1	UH	t	B	f	Sem Proprietário
+3321	101	1	228	58	UH	t	B	t	Unica
+3399	201	2	230	59	UH	t	B	t	Unica
+3400	202	2	230	1	UH	t	B	f	Sem Proprietário
+3401	203	2	230	1	UH	t	B	f	Sem Proprietário
+3402	204	2	230	1	UH	t	B	f	Sem Proprietário
 \.
 
 
 --
--- TOC entry 3035 (class 0 OID 0)
+-- TOC entry 3036 (class 0 OID 0)
 -- Dependencies: 234
 -- Name: agendamentos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1692,70 +1888,70 @@ SELECT pg_catalog.setval('public.agendamentos_id_seq', 34, true);
 
 
 --
--- TOC entry 3036 (class 0 OID 0)
+-- TOC entry 3037 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: bloco_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.bloco_id_seq', 224, true);
-
-
---
--- TOC entry 3037 (class 0 OID 0)
--- Dependencies: 205
--- Name: check_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.check_list_id_seq', 123, true);
+SELECT pg_catalog.setval('public.bloco_id_seq', 230, true);
 
 
 --
 -- TOC entry 3038 (class 0 OID 0)
--- Dependencies: 207
--- Name: dados_engenheiro_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Dependencies: 205
+-- Name: check_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.dados_engenheiro_id_seq', 45, true);
+SELECT pg_catalog.setval('public.check_list_id_seq', 161, true);
 
 
 --
 -- TOC entry 3039 (class 0 OID 0)
--- Dependencies: 209
--- Name: dados_entidade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Dependencies: 207
+-- Name: dados_engenheiro_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.dados_entidade_id_seq', 99, true);
+SELECT pg_catalog.setval('public.dados_engenheiro_id_seq', 49, true);
 
 
 --
 -- TOC entry 3040 (class 0 OID 0)
--- Dependencies: 224
--- Name: entidade_login_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Dependencies: 209
+-- Name: dados_entidade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.entidade_login_id_seq', 108, true);
+SELECT pg_catalog.setval('public.dados_entidade_id_seq', 102, true);
 
 
 --
 -- TOC entry 3041 (class 0 OID 0)
--- Dependencies: 211
--- Name: equipamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Dependencies: 224
+-- Name: entidade_login_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.equipamento_id_seq', 57, true);
+SELECT pg_catalog.setval('public.entidade_login_id_seq', 120, true);
 
 
 --
 -- TOC entry 3042 (class 0 OID 0)
--- Dependencies: 214
--- Name: item_check_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Dependencies: 211
+-- Name: equipamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.item_check_id_seq', 1165, true);
+SELECT pg_catalog.setval('public.equipamento_id_seq', 64, true);
 
 
 --
 -- TOC entry 3043 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: item_check_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.item_check_id_seq', 1601, true);
+
+
+--
+-- TOC entry 3044 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1764,7 +1960,7 @@ SELECT pg_catalog.setval('public.item_id_seq', 47, true);
 
 
 --
--- TOC entry 3044 (class 0 OID 0)
+-- TOC entry 3045 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: localizacao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1773,16 +1969,16 @@ SELECT pg_catalog.setval('public.localizacao_id_seq', 10, true);
 
 
 --
--- TOC entry 3045 (class 0 OID 0)
+-- TOC entry 3046 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: login_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.login_id_seq', 17, true);
+SELECT pg_catalog.setval('public.login_id_seq', 26, true);
 
 
 --
--- TOC entry 3046 (class 0 OID 0)
+-- TOC entry 3047 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: marca_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1791,7 +1987,7 @@ SELECT pg_catalog.setval('public.marca_id_seq', 4, true);
 
 
 --
--- TOC entry 3047 (class 0 OID 0)
+-- TOC entry 3048 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: modelo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1800,7 +1996,7 @@ SELECT pg_catalog.setval('public.modelo_id_seq', 4, true);
 
 
 --
--- TOC entry 3048 (class 0 OID 0)
+-- TOC entry 3049 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: potencia_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1809,16 +2005,16 @@ SELECT pg_catalog.setval('public.potencia_id_seq', 4, true);
 
 
 --
--- TOC entry 3049 (class 0 OID 0)
+-- TOC entry 3050 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: proprietarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.proprietarios_id_seq', 56, true);
+SELECT pg_catalog.setval('public.proprietarios_id_seq', 59, true);
 
 
 --
--- TOC entry 3050 (class 0 OID 0)
+-- TOC entry 3051 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: tipo_equipamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1827,16 +2023,16 @@ SELECT pg_catalog.setval('public.tipo_equipamento_id_seq', 1, true);
 
 
 --
--- TOC entry 3051 (class 0 OID 0)
+-- TOC entry 3052 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: uhs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.uhs_id_seq', 3176, true);
+SELECT pg_catalog.setval('public.uhs_id_seq', 3413, true);
 
 
 --
--- TOC entry 2835 (class 2606 OID 41212)
+-- TOC entry 2836 (class 2606 OID 41212)
 -- Name: agendamentos agendamentos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1845,7 +2041,7 @@ ALTER TABLE ONLY public.agendamentos
 
 
 --
--- TOC entry 2803 (class 2606 OID 17182)
+-- TOC entry 2804 (class 2606 OID 17182)
 -- Name: bloco bloco_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1854,7 +2050,7 @@ ALTER TABLE ONLY public.bloco
 
 
 --
--- TOC entry 2805 (class 2606 OID 17184)
+-- TOC entry 2806 (class 2606 OID 17184)
 -- Name: check_list check_list_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1863,7 +2059,7 @@ ALTER TABLE ONLY public.check_list
 
 
 --
--- TOC entry 2807 (class 2606 OID 17186)
+-- TOC entry 2808 (class 2606 OID 17186)
 -- Name: dados_engenheiro dados_engenheiro_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1872,7 +2068,7 @@ ALTER TABLE ONLY public.dados_engenheiro
 
 
 --
--- TOC entry 2809 (class 2606 OID 17188)
+-- TOC entry 2810 (class 2606 OID 17188)
 -- Name: dados_entidade dados_entidade_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1881,7 +2077,7 @@ ALTER TABLE ONLY public.dados_entidade
 
 
 --
--- TOC entry 2825 (class 2606 OID 17290)
+-- TOC entry 2826 (class 2606 OID 17290)
 -- Name: entidade_login entidade_login_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1890,7 +2086,7 @@ ALTER TABLE ONLY public.entidade_login
 
 
 --
--- TOC entry 2811 (class 2606 OID 17190)
+-- TOC entry 2812 (class 2606 OID 17190)
 -- Name: equipamento equipamento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1899,7 +2095,7 @@ ALTER TABLE ONLY public.equipamento
 
 
 --
--- TOC entry 2815 (class 2606 OID 17192)
+-- TOC entry 2816 (class 2606 OID 17192)
 -- Name: item_check item_check_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1908,7 +2104,7 @@ ALTER TABLE ONLY public.item_check
 
 
 --
--- TOC entry 2813 (class 2606 OID 17194)
+-- TOC entry 2814 (class 2606 OID 17194)
 -- Name: item item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1917,7 +2113,7 @@ ALTER TABLE ONLY public.item
 
 
 --
--- TOC entry 2827 (class 2606 OID 33016)
+-- TOC entry 2828 (class 2606 OID 33016)
 -- Name: localizacao localizacao_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1926,7 +2122,7 @@ ALTER TABLE ONLY public.localizacao
 
 
 --
--- TOC entry 2817 (class 2606 OID 17196)
+-- TOC entry 2818 (class 2606 OID 17196)
 -- Name: login login_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1935,7 +2131,7 @@ ALTER TABLE ONLY public.login
 
 
 --
--- TOC entry 2829 (class 2606 OID 33024)
+-- TOC entry 2830 (class 2606 OID 33024)
 -- Name: marca marca_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1944,7 +2140,7 @@ ALTER TABLE ONLY public.marca
 
 
 --
--- TOC entry 2831 (class 2606 OID 33032)
+-- TOC entry 2832 (class 2606 OID 33032)
 -- Name: modelo modelo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1953,7 +2149,7 @@ ALTER TABLE ONLY public.modelo
 
 
 --
--- TOC entry 2833 (class 2606 OID 33040)
+-- TOC entry 2834 (class 2606 OID 33040)
 -- Name: potencia potencia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1962,7 +2158,7 @@ ALTER TABLE ONLY public.potencia
 
 
 --
--- TOC entry 2819 (class 2606 OID 17198)
+-- TOC entry 2820 (class 2606 OID 17198)
 -- Name: proprietarios proprietarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1971,7 +2167,7 @@ ALTER TABLE ONLY public.proprietarios
 
 
 --
--- TOC entry 2821 (class 2606 OID 17200)
+-- TOC entry 2822 (class 2606 OID 17200)
 -- Name: tipo_equipamento tipo_equipamento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1980,7 +2176,7 @@ ALTER TABLE ONLY public.tipo_equipamento
 
 
 --
--- TOC entry 2823 (class 2606 OID 17202)
+-- TOC entry 2824 (class 2606 OID 17202)
 -- Name: uhs uhs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1989,7 +2185,7 @@ ALTER TABLE ONLY public.uhs
 
 
 --
--- TOC entry 2852 (class 2606 OID 41213)
+-- TOC entry 2853 (class 2606 OID 41213)
 -- Name: agendamentos ct_agendamentos; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1998,7 +2194,7 @@ ALTER TABLE ONLY public.agendamentos
 
 
 --
--- TOC entry 2837 (class 2606 OID 17203)
+-- TOC entry 2838 (class 2606 OID 17203)
 -- Name: check_list ct_bloco; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2007,7 +2203,7 @@ ALTER TABLE ONLY public.check_list
 
 
 --
--- TOC entry 2848 (class 2606 OID 17208)
+-- TOC entry 2849 (class 2606 OID 17208)
 -- Name: uhs ct_bloco; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2016,7 +2212,7 @@ ALTER TABLE ONLY public.uhs
 
 
 --
--- TOC entry 2845 (class 2606 OID 17213)
+-- TOC entry 2846 (class 2606 OID 17213)
 -- Name: item_check ct_check_list; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2025,7 +2221,7 @@ ALTER TABLE ONLY public.item_check
 
 
 --
--- TOC entry 2838 (class 2606 OID 17218)
+-- TOC entry 2839 (class 2606 OID 17218)
 -- Name: check_list ct_engenheiro; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2034,7 +2230,7 @@ ALTER TABLE ONLY public.check_list
 
 
 --
--- TOC entry 2847 (class 2606 OID 41221)
+-- TOC entry 2848 (class 2606 OID 41221)
 -- Name: login ct_engenheiro; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2043,7 +2239,7 @@ ALTER TABLE ONLY public.login
 
 
 --
--- TOC entry 2836 (class 2606 OID 17223)
+-- TOC entry 2837 (class 2606 OID 17223)
 -- Name: bloco ct_entidade; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2052,7 +2248,7 @@ ALTER TABLE ONLY public.bloco
 
 
 --
--- TOC entry 2850 (class 2606 OID 17291)
+-- TOC entry 2851 (class 2606 OID 17291)
 -- Name: entidade_login ct_entidade; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2061,7 +2257,7 @@ ALTER TABLE ONLY public.entidade_login
 
 
 --
--- TOC entry 2839 (class 2606 OID 17228)
+-- TOC entry 2840 (class 2606 OID 17228)
 -- Name: check_list ct_equipamento; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2070,7 +2266,7 @@ ALTER TABLE ONLY public.check_list
 
 
 --
--- TOC entry 2840 (class 2606 OID 17233)
+-- TOC entry 2841 (class 2606 OID 17233)
 -- Name: check_list ct_funcionario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2079,7 +2275,7 @@ ALTER TABLE ONLY public.check_list
 
 
 --
--- TOC entry 2846 (class 2606 OID 17238)
+-- TOC entry 2847 (class 2606 OID 17238)
 -- Name: item_check ct_item; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2088,7 +2284,7 @@ ALTER TABLE ONLY public.item_check
 
 
 --
--- TOC entry 2851 (class 2606 OID 17296)
+-- TOC entry 2852 (class 2606 OID 17296)
 -- Name: entidade_login ct_login; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2097,7 +2293,7 @@ ALTER TABLE ONLY public.entidade_login
 
 
 --
--- TOC entry 2849 (class 2606 OID 17243)
+-- TOC entry 2850 (class 2606 OID 17243)
 -- Name: uhs ct_proprietario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2106,7 +2302,7 @@ ALTER TABLE ONLY public.uhs
 
 
 --
--- TOC entry 2842 (class 2606 OID 17248)
+-- TOC entry 2843 (class 2606 OID 17248)
 -- Name: equipamento ct_tipo_equipamento; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2115,7 +2311,7 @@ ALTER TABLE ONLY public.equipamento
 
 
 --
--- TOC entry 2844 (class 2606 OID 41197)
+-- TOC entry 2845 (class 2606 OID 41197)
 -- Name: item ct_tipo_equipamento; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2124,7 +2320,7 @@ ALTER TABLE ONLY public.item
 
 
 --
--- TOC entry 2841 (class 2606 OID 17253)
+-- TOC entry 2842 (class 2606 OID 17253)
 -- Name: check_list ct_uh; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2133,7 +2329,7 @@ ALTER TABLE ONLY public.check_list
 
 
 --
--- TOC entry 2843 (class 2606 OID 17258)
+-- TOC entry 2844 (class 2606 OID 17258)
 -- Name: equipamento ct_uh; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2141,7 +2337,7 @@ ALTER TABLE ONLY public.equipamento
     ADD CONSTRAINT ct_uh FOREIGN KEY (uh) REFERENCES public.uhs(id) NOT VALID;
 
 
--- Completed on 2020-09-05 11:39:51
+-- Completed on 2020-09-09 10:51:31
 
 --
 -- PostgreSQL database dump complete

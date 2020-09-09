@@ -31,7 +31,7 @@ if (isset($_SESSION['numLogin'])) {
 </head>
 
 <body class="mybody" style="background-color: white;">
-<input type="hidden" id="idLogin" value="<?php echo $idLogin ?>">
+    <input type="hidden" id="idLogin" value="<?php echo $idLogin ?>">
     <?php include_once 'bib/comum/menu_bar.php'; ?>
     <div class="row">
         <div class="col-xs-3 infmenuslider inf_alt">
@@ -41,14 +41,14 @@ if (isset($_SESSION['numLogin'])) {
             <div class="limiter">
                 <div class="container-table100">
                     <div class="col-sm-12" style="display: inline-block; position: relative; height: 600px; background-repeat: no-repeat; background-size: 100%; color:rgb(0, 0, 128); text-align: center;">
-                    <img src="bib/img/rotsprings.jpg" style="width: 100%; height: 100%; filter: brightness(50%);" >
-                    <span style="position: absolute; top: 145px; right: 20px; color: white; font-size: 40px; text-shadow: 0px 0px 5px black; padding: 0% 20% 0% 20%;">
-                        <h2><b>SEJA MUITO BEM VINDO !!!</b></h2>
-                        <h3 style="margin-bottom: 0%;">Este sistema irá automatizar o seu PMOC</h3>
-                        <h3 style="margin: 0%;">com varias funcionalidades vamos facilitar a visualização e fiscalização dos equipamentos de seus clientes</h3>
-                        <h3><b>InfoSoft Tecnologia e segurança</b></h3>
-                        <h5><b>Contato: infosoftTecnologia@gmail.com</b></h5>
-                    </span>
+                        <img src="bib/img/rotsprings.jpg" style="width: 100%; height: 100%; filter: brightness(50%);">
+                        <span style="position: absolute; top: 145px; right: 20px; color: white; font-size: 40px; text-shadow: 0px 0px 5px black; padding: 0% 20% 0% 20%;">
+                            <h2><b>SEJA MUITO BEM VINDO !!!</b></h2>
+                            <h3 style="margin-bottom: 0%;">Este sistema irá automatizar o seu PMOC</h3>
+                            <h3 style="margin: 0%;">com varias funcionalidades vamos facilitar a visualização e fiscalização dos equipamentos de seus clientes</h3>
+                            <h3><b>InfoSoft Tecnologia e segurança</b></h3>
+                            <h5><b>Contato: genrenciador.infosoft@gmail.com</b></h5>
+                        </span>
                     </div>
                 </div>
             </div>
