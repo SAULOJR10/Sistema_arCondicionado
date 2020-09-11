@@ -40,7 +40,6 @@ if (isset($_SESSION['numLogin'])) {
 <html>
 
 <head>
-<?php include_once 'bib/comum/bibi.php'; ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="SHORTCUT ICON" href="../Sistema_arCondicionado/bib/img/i.png">
@@ -70,7 +69,7 @@ if (isset($_SESSION['numLogin'])) {
                 <h3 style="font-size: 3rem; margin: 0%;">Ar Condicionado</h3>
             </div>
 
-            <div onclick="Home()" style='z-index: 1050 !important; text-align:center; margin-left:80%; margin-top:415px; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
+            <div onclick="Home()" style='z-index: 1050 !important; text-align:center; margin-left:80%; margin-top: 500px; padding-top: 3%; position: fixed; height: 50px; width: 50px; background-color: rgb(50, 164, 250); border-radius: 30px;'>
                 <i class='fas fa-home' style='font-size: 2.5rem; color:white;'></i>
             </div>
 
